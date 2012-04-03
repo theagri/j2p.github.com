@@ -4,7 +4,7 @@
   <title><![CDATA[J2P Blog]]></title>
   <link href="http://J2P.github.com/atom.xml" rel="self"/>
   <link href="http://J2P.github.com/"/>
-  <updated>2012-04-03T13:19:01+09:00</updated>
+  <updated>2012-04-03T17:59:39+09:00</updated>
   <id>http://J2P.github.com/</id>
   <author>
     <name><![CDATA[J2P]]></name>
@@ -12,6 +12,209 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Event Capturing Bubbling]]></title>
+    <link href="http://J2P.github.com/blog/2012/04/03/event-capturing-bubbling/"/>
+    <updated>2012-04-03T13:50:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2012/04/03/event-capturing-bubbling</id>
+    <content type="html"><![CDATA[<p>스터디를 진행하면서 다시 한번 알게 된것이 있어서 정리를 해볼까 한다.</p>
+
+<p>보통 javascript 에서 click, over 등등&#8230; 이벤트가 발생하게 되면 target(예를들어 click한 element) 에서만 이벤트가 실행 된다고 생각하고 있을것이다.</p>
+
+<p>하지만 실질적으로 브라우저에서는 이벤트가 발생하게 되면 capturing 과 bubbling 이 모두 발생하게 된다.</p>
+
+<h3>Capturing</h3>
+
+<p>capturing은 이벤트가 발생한 target 이 있으면 최상위 부모에서 부터 이벤트가 실행되면서 target 까지 내려오는 것을 말한다. 예를 들어 부모에도 click 이벤트가 걸려 있었다면 부모에서 부터 click 이벤트가 모두 실행이 되면서 target 까지 내려오게 된다.</p>
+
+<h3>Bubbling</h3>
+
+<p>bubbling은 capturing이 발생해서 target 까지 내려온 후에 다시 target에서 부터 최상위 부모까지 올라가면서 이벤트가 실행이 된다. capturing 에서 이벤트가 실행이 되었다면 bubbing 이벤트는 실행 되지 않는다.</p>
+
+<p>아래 예제 소스를 통해서 눈으로 확인해 보자.</p>
+
+<figure class='code'><figcaption><span>event.html  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;style&gt;</span>
+</span><span class='line'>          <span class="nt">div</span><span class="o">,</span> <span class="nt">p</span><span class="p">{</span>
+</span><span class='line'>              <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+</span><span class='line'>              <span class="k">padding</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>          <span class="nf">#div_content</span><span class="p">{</span>
+</span><span class='line'>              <span class="k">width</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+</span><span class='line'>              <span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="nf">#p_content</span><span class="p">{</span>
+</span><span class='line'>              <span class="k">width</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span>
+</span><span class='line'>              <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="nt">&lt;/style&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;div_content&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;p_content&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://blog.j2p.kr&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span> <span class="na">id=</span><span class="s">&quot;a_link&quot;</span><span class="nt">&gt;</span>j2p<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;event.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>event.js  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;div_content&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;p_content&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;a_link&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">divEvent</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;DIV EVENT&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">pEvent</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;P EVENT&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">aEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//bubbling 을 막을때 사용</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//IE9 이하 버전</span>
+</span><span class='line'>            <span class="nx">event</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//기본 a Tag 링크 이동 막을때 사용</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//IE</span>
+</span><span class='line'>            <span class="nx">event</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;A EVENT&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//capturing 을 설정해준다. (true, false)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">divEvent</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">p</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">pEvent</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">a</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">aEvent</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">div</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">,</span> <span class="nx">divEvent</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">p</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">,</span> <span class="nx">pEvent</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">a</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">,</span> <span class="nx">aEvent</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">})();</span><span class="err">​</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>먼저 capturing 은 이벤트를 걸어줄때 설정할수 있다. addEventListener 에서 마지막 세번째 인자가 capturing 설정하는 값이다.
+true 값을 주게 되면 capturing 이 발생하고 false 값을 주게 되면 capturing 은 발생하지 않고 bubbling 만 발생하게 된다.</p>
+
+<ul>
+<li>IE9 이하 버전에서는 capturing을 지원하지 않는다.</li>
+</ul>
+
+
+<p>다음 bubbling은 capturing 이 발생해서 target 까지 도달한 후에 발생하게 된다. bubbling 을 발생하지 않게 하기 위해서는 이벤트에 걸려 있는 함수에서 event 객체를 받아서 event.stopPropagation() 을 해주면 bubbling 이 일어나지 않게 해줄수 있다.</p>
+
+<ul>
+<li>IE9 이하 버전에서는  event.cancelBubble = true 값을 주면 bubbling을 발생하지 않게 할수 있다.</li>
+</ul>
+
+
+<p>한가지 추가로 얘기 하면 a tag 같은경우 기본적 링크 이동 이벤트가 있다. 이것을 발생하지 않게 하기 위해서는 event 객체에서 event.preventDefault() 를 실행해주면 a tag의 기본 링크 이동을 막을수 있다.</p>
+
+<ul>
+<li>IE 경우는 event.returnValue = false 값을 주면 기본 이벤트 동작을 막을수 있다. 혹은 return false를 해줘도 된다.</li>
+</ul>
+
+
+<h3>참고</h3>
+
+<p><a href="http://samples.msdn.microsoft.com/workshop/samples/author/dhtml/refs/ie9_event_phases.htm" title="Event Propagation">MSDN Event Propagation</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[간단한 WYSIWYG Editor 만들기]]></title>
@@ -2107,44 +2310,6 @@ console에 나와 있는 화살표를 눌러서 자세하게 확인 할 수도 �
 <p>more devtools 는 <a href="http://code.google.com/intl/ko-KR/chrome/devtools/docs/console.html" title="Chrome Developer Tools: Console">Chrome Developer Tools: Console</a> 에서 console에 대한 자세한 내용을 볼 수 있다는 설명입니다.</p>
 
 <p>설명에 보면 Console은 Firebug 의 <a href="http://getfirebug.com/wiki/index.php/Command_Line_API" title="Command Line API">Command Line API</a> 를 지원한다고 써 있습니다. 이곳에 가면 console에서 사용 할 수있는 API 를 자세하게 확인 할 수 있습니다.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Javascript Global Object]]></title>
-    <link href="http://J2P.github.com/blog/2011/10/07/javascript-global-object/"/>
-    <updated>2011-10-07T06:44:00+09:00</updated>
-    <id>http://J2P.github.com/blog/2011/10/07/javascript-global-object</id>
-    <content type="html"><![CDATA[<h2>Global Object</h2>
-
-<p>Javascript에는 Global Object가 있다.<br />
-쉽게 말하면 Javascript에서 기본적으로 제공되는 전역객체 이다.<br />
-어떤것들이 있는지 알아보자.<br /></p>
-
-<ul>
-<li>Array</li>
-<li>Boolean</li>
-<li>Date</li>
-<li>Function</li>
-<li>Number</li>
-<li>Object</li>
-<li>RegExp</li>
-<li>String</li>
-</ul>
-
-
-<p>Javascript Core 부분을 공부할때 나오는 것들이지만 자세히 보지 않고 지나처 버려 잘 알지 못하는 것들이다.</p>
-
-<p>보통 Javascript를 공부한다고 하면 DOM 부터 공부를 많이 하게 된다.
-이유를 생각해보면 간단하다 당장 웹페이지 개발을 할때 써야 할 것 들은 DOM을 조작하는 일이 많기 때문에 DOM을 먼저 공부하게 되고 Core 부분은 그냥 넘어가 버리게 되고 만다.<br />
-이렇게 되면서 어느덧 DOM이 Javascript인것 처럼 여겨 지게 된거 같다. 실질적으로 DOM은 Javascript 가 아니다 단지 Javascript 로 DOM 을 접근할 수 있는 DOM API가 있을 뿐이다.
-<a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf" title="ECMAScript">ECMAScript</a>에서도 확인해보면 DOM 은 나와 있지 않다.</p>
-
-<p>내가 생각하는 Javascript 를 공부할때 우선 순위는 Global Object(Core)를 알고 그것들의 Property, Method를 아는게 Javascript의 기초라고 생각한다.
-Global Object 의 Method를 알고 나면 내가 숫자, 문자, 배열을 만들었을때 자신이 만들지도 않은 Method를 왜 쓸수 있는지 또 prototype은 무엇인지 궁금하게 되고 자연스럽게 공부 할 수 있다고 생각한다.</p>
-
-<p>나도 그동안 소홀했던 부분을 이제 부터 차근차근 Core 부분의 Global Object의 Method 를 정리 해볼까 한다.<br />
-항상 블로그를 만들고 마음을 먹고 정리하다 보면 Array Method만 하다가 끝났었는데 이번에는 꼭 끝까지 다 정리 하는 것을 목표로 하고 실천해 볼려고 한다.</p>
 ]]></content>
   </entry>
   

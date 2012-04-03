@@ -9,7 +9,7 @@
   <meta name="author" content="J2P">
 
   
-  <meta name="description" content="회사에서 작업하다가 bold, italic, underline 기능만 필요한 WYSIWYG가 필요해서 어떻게 해야 할지 앞이 캄캄해서 그냥 오픈 소스를 써야 하나 했는데 역시 구글신이 간단한 방법을 알려줬다. contenteditable 사용해서 엘리먼트에 바로 &hellip;">
+  <meta name="description" content="스터디를 진행하면서 다시 한번 알게 된것이 있어서 정리를 해볼까 한다. 보통 javascript 에서 click, over 등등&#8230; 이벤트가 발생하게 되면 target(예를들어 click한 element) 에서만 이벤트가 실행 된다고 생각하고 있을것이다. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,238 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/03/event-capturing-bubbling/">Event Capturing Bubbling</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-03T13:50:00+09:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
+        
+         | <a href="/blog/2012/04/03/event-capturing-bubbling/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>스터디를 진행하면서 다시 한번 알게 된것이 있어서 정리를 해볼까 한다.</p>
+
+<p>보통 javascript 에서 click, over 등등&#8230; 이벤트가 발생하게 되면 target(예를들어 click한 element) 에서만 이벤트가 실행 된다고 생각하고 있을것이다.</p>
+
+<p>하지만 실질적으로 브라우저에서는 이벤트가 발생하게 되면 capturing 과 bubbling 이 모두 발생하게 된다.</p>
+
+<h3>Capturing</h3>
+
+<p>capturing은 이벤트가 발생한 target 이 있으면 최상위 부모에서 부터 이벤트가 실행되면서 target 까지 내려오는 것을 말한다. 예를 들어 부모에도 click 이벤트가 걸려 있었다면 부모에서 부터 click 이벤트가 모두 실행이 되면서 target 까지 내려오게 된다.</p>
+
+<h3>Bubbling</h3>
+
+<p>bubbling은 capturing이 발생해서 target 까지 내려온 후에 다시 target에서 부터 최상위 부모까지 올라가면서 이벤트가 실행이 된다. capturing 에서 이벤트가 실행이 되었다면 bubbing 이벤트는 실행 되지 않는다.</p>
+
+<p>아래 예제 소스를 통해서 눈으로 확인해 보자.</p>
+
+<figure class='code'><figcaption><span>event.html  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;style&gt;</span>
+</span><span class='line'>          <span class="nt">div</span><span class="o">,</span> <span class="nt">p</span><span class="p">{</span>
+</span><span class='line'>              <span class="k">border</span><span class="o">:</span> <span class="m">2px</span> <span class="k">solid</span> <span class="m">#ccc</span><span class="p">;</span>
+</span><span class='line'>              <span class="k">padding</span><span class="o">:</span> <span class="m">20px</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>          <span class="nf">#div_content</span><span class="p">{</span>
+</span><span class='line'>              <span class="k">width</span><span class="o">:</span> <span class="m">400px</span><span class="p">;</span>
+</span><span class='line'>              <span class="k">height</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="nf">#p_content</span><span class="p">{</span>
+</span><span class='line'>              <span class="k">width</span><span class="o">:</span> <span class="m">200px</span><span class="p">;</span>
+</span><span class='line'>              <span class="k">height</span><span class="o">:</span> <span class="m">100px</span><span class="p">;</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="nt">&lt;/style&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;div_content&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;p</span> <span class="na">id=</span><span class="s">&quot;p_content&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>              <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://blog.j2p.kr&quot;</span> <span class="na">target=</span><span class="s">&quot;_blank&quot;</span> <span class="na">id=</span><span class="s">&quot;a_link&quot;</span><span class="nt">&gt;</span>j2p<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'>          <span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;/div&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;event.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>event.js  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;div_content&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;p_content&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;a_link&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">divEvent</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;DIV EVENT&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">pEvent</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;P EVENT&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">function</span> <span class="nx">aEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//bubbling 을 막을때 사용</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">event</span><span class="p">.</span><span class="nx">stopPropagation</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//IE9 이하 버전</span>
+</span><span class='line'>            <span class="nx">event</span><span class="p">.</span><span class="nx">cancelBubble</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//기본 a Tag 링크 이동 막을때 사용</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+</span><span class='line'>        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//IE</span>
+</span><span class='line'>            <span class="nx">event</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;A EVENT&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">//capturing 을 설정해준다. (true, false)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">div</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">divEvent</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">p</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">pEvent</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">a</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">aEvent</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">div</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">,</span> <span class="nx">divEvent</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">p</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">,</span> <span class="nx">pEvent</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">a</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onclick&#39;</span><span class="p">,</span> <span class="nx">aEvent</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'><span class="p">})();</span><span class="err">​</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>먼저 capturing 은 이벤트를 걸어줄때 설정할수 있다. addEventListener 에서 마지막 세번째 인자가 capturing 설정하는 값이다.
+true 값을 주게 되면 capturing 이 발생하고 false 값을 주게 되면 capturing 은 발생하지 않고 bubbling 만 발생하게 된다.</p>
+
+<ul>
+<li>IE9 이하 버전에서는 capturing을 지원하지 않는다.</li>
+</ul>
+
+
+<p>다음 bubbling은 capturing 이 발생해서 target 까지 도달한 후에 발생하게 된다. bubbling 을 발생하지 않게 하기 위해서는 이벤트에 걸려 있는 함수에서 event 객체를 받아서 event.stopPropagation() 을 해주면 bubbling 이 일어나지 않게 해줄수 있다.</p>
+
+<ul>
+<li>IE9 이하 버전에서는  event.cancelBubble = true 값을 주면 bubbling을 발생하지 않게 할수 있다.</li>
+</ul>
+
+
+<p>한가지 추가로 얘기 하면 a tag 같은경우 기본적 링크 이동 이벤트가 있다. 이것을 발생하지 않게 하기 위해서는 event 객체에서 event.preventDefault() 를 실행해주면 a tag의 기본 링크 이동을 막을수 있다.</p>
+
+<ul>
+<li>IE 경우는 event.returnValue = false 값을 주면 기본 이벤트 동작을 막을수 있다. 혹은 return false를 해줘도 된다.</li>
+</ul>
+
+
+<h3>참고</h3>
+
+<p><a href="http://samples.msdn.microsoft.com/workshop/samples/author/dhtml/refs/ie9_event_phases.htm" title="Event Propagation">MSDN Event Propagation</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1422,176 +1654,6 @@ windows  386     작업중</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/24/what-is-this/">Javascript에서 This란 무엇인가?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-24T10:30:00+09:00" pubdate data-updated="true">Oct 24<span>th</span>, 2011</time>
-        
-         | <a href="/blog/2011/10/24/what-is-this/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Javascript를 개발할때 사용하거나 공부를 할때 해깔리고 어려운 부분중에 하나인 <strong>this</strong>에 대해서 내가 아는 부분을 정리해 볼까 한다.</p>
-
-<p>나 또한 <strong>this</strong>에 대해서 많은 부분 해깔려 하던중 FRENDS의 AJ(<a href="https://twitter.com/#!/andrwj" title="andrwj">@andrwj</a>)의 강의를 듣고 확실한 개념을 잡을 수 있었다.</p>
-
-<p>AJ(<a href="https://twitter.com/#!/andrwj" title="andrwj">@andrwj</a>)가 말하는 <strong>this</strong>는 아주 간단했다.
-한마디로 정의 하면 다음과 같다.</p>
-
-<ul>
-<li>Method를 호출한 녀석</li>
-<li>쩜(.) 앞에 녀석</li>
-</ul>
-
-
-<p>그래도 몬지 잘 모를 수도 있고 오!! 라고 하며 감탄사를 내 뱉을 수도 있다. 지금 부터 예제를 통해서 <strong>this</strong> 에 대해서 알아보자.</p>
-
-<p>먼저 함수 몸체에서 사용되는 <strong>this</strong> 를 알아보자.
-내가 처음 <strong>this</strong> 에 대해서 알게 되었을때 제대로 알지 못하고 함수 안에서 사용하게 되면 그 함수의 property가 되는줄 알고 사용 했던 적이 있다. 하지만 확인을 해보면 함수 몸체에서 사용한 <strong>this</strong>는 window 를 갈이 키는 것이다.</p>
-
-<p>다음 소스코드를 확인해보자.</p>
-
-<figure class='code'><figcaption><span>Function in this  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">J2PFn</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">J2PName</span> <span class="o">=</span> <span class="s2">&quot;J2P&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">J2PFn</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span> <span class="c1">//콘솔창에서 확인</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><img class="center" src="/images/this.png"></p>
-
-<p>window method 에 window.J2PFn 이 있는것을 확인 할 수 있다. 어라? 근데 window.J2PName 도 같이 있다. 보통 생각했던 결과는 J2PFn 함수 안에서 this가 갈이키는 것은 당연히 함수자신(J2PFn)라고 생각을 한다.</p>
-
-<p>함수를 실행 할때 J2PFn(); 이렇게 실행을 한다. 하지만 결국 이것은 window.J2PFn() 하는것과 마찬가지 인 것이다.
-그렇다면 처음에 정의했던데로 생각해보자.</p>
-
-<p>&#8220;Method를 호출한 녀석&#8221; 즉 J2PFn() 을 호출한 window 가 되는것이고 또 &#8220;쩜 앞에 녀석&#8221; .J2PFn() 앞에 있는 window가 되는것이다.</p>
-
-<p>이제 두번째 예제를 보자. 함수의 몸체에 사용하는것은 위에 예제와 똑같다. 하지만 new 연산자로 객체를 생성하였다.
-객체를 생성하게 되면 함수 몸체에 있던 <strong>this</strong> 는 인스턴스된 객체에 property 가 된다.
-그래서 처음에 우리가 생각했던 J2PObj.J2PName 으로 접근이 가능하게 된다.</p>
-
-<p>다음 소스코드를 확인해보자.</p>
-
-<figure class='code'><figcaption><span>Function in this  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">J2PFn</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">J2PName</span> <span class="o">=</span> <span class="s2">&quot;J2P&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">J2PObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">J2PFn</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">J2PObj</span><span class="p">);</span> <span class="c1">//콘솔창에서 확인</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><img class="center" src="/images/this2.png"></p>
-
-<p>처음 우리가 생각했던 <strong>this</strong>가 바로 요런것이 였을것이다.</p>
-
-<p>위 2개의 예제에서 볼 수 있듯이 함수 안에서 사용되는 <strong>this</strong>는 인스턴스가 되지 않으면 우리가 생각했던 this가 되지 않는 것이다.</p>
-
-<p>이제 세번째 예제를 보자. 세번째 예제는 Element 에서 이벤트를 발생할때 사용되는 <strong>this</strong> 이다.
-어쩌면 이것이 가장 많이 사용되는지도 모르겠다.</p>
-
-<p>다음 소스코드를 확인해보자.</p>
-
-<figure class='code'><figcaption><span>Element in this  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;img.gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;photo&quot;</span> <span class="na">onclick=</span><span class="s">&quot;J2PFn(this);&quot;</span> <span class="na">onmouseover=</span><span class="s">&quot;J2PFn2(this.src)&quot;</span> <span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>click 이벤트가 발생한 경우 함수를 호출 할때 <strong>this</strong>를 인자 값으로 넘겨주는 경우가 있을것이다.
-또 mouseover 이벤트가 발생할 경우에도 image의 src를 변경해서 이미지를 변경시키는 경우에도 this.src라는 값일 인자로 넘겨주기도 할 것이다.</p>
-
-<p>그렇다면 여기서 <strong>this</strong>는 무엇인가? 요부분을 해깔려 하는 경우가 있을 것이다.
-자세히 보면 정말 간단하다. click 이벤트나 mouseover 이벤트는 img가 호출을 시킨것이다. 그리고 이벤트를 element에 써주지 않고 따로 스크립트에서 처리는 한다면 더 명확하게 알 수 있다. 다음 소스를 보자.</p>
-
-<figure class='code'><figcaption><span>Element in this  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">&quot;blog-link&quot;</span> <span class="na">href=</span><span class="s">&quot;http://j2p.kr&quot;</span><span class="nt">&gt;</span>J2P<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;blog-link&quot;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;blog-link&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseover&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>이제 처음에 말했다 <strong>this</strong>의 정의 대로 해석해 보자.</p>
-
-<p>&#8220;Method를 호출한 녀석&#8221; onclick를 호출한 녀석이 누구인가? 바로 blog-link 아이디 값을 가지고 있는 Element a 태그이다.</p>
-
-<p>쩜(.) 앞에 녀석 .onclick 앞에 있는 녀석은 누구인가? document.getElementById(&#8220;blog-link&#8221;) 이다.</p>
-
-<p>소스코드에서 두번쨰 addEventListener 땜에 해깔릴수도 있을거 같은데 결국 저것도 mouseover 이벤트를 걸어주는것이기 때문에 mouseover 이벤트가 실행될때를 생각해보면 <strong>this</strong> 정의한 것으로 생각해보면 똑같은 결과가 나온다.</p>
-
-<p>이렇게 <strong>this</strong>에 대한 설명이 끝났다 사실 경우가 더 있지만 위에 3가지 정도만 알고 있다면 다른 <strong>this</strong>를 의해는데는 그렇게 크게 어렵지 않을꺼라 생각한다. 무엇보다 가장 쉬운 방법은 console.log 찍어보는 눈으로 확인하는것이라고 생각한다.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1607,6 +1669,10 @@ windows  386     작업중</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/04/03/event-capturing-bubbling/">Event Capturing Bubbling</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2011/12/02/wysiwyg-editor/">간단한 WYSIWYG Editor 만들기</a>
       </li>
     
@@ -1620,10 +1686,6 @@ windows  386     작업중</p>
     
       <li class="post">
         <a href="/blog/2011/11/21/seminar-postscript/">OctoverSky.js & JScamp 후기</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/11/14/node-chat/">Node.js 이용해서 chat을 만들어보자[1]</a>
       </li>
     
   </ul>

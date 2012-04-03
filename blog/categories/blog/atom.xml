@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: blog | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/blog/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress Posting 하기]]></title>
+    <link href="http://J2P.github.com/blog/2011/11/14/octopress-write-post/"/>
+    <updated>2011-11-14T09:19:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/11/14/octopress-write-post</id>
+    <content type="html"><![CDATA[<p>국내에 이외로 많은 분들이 Octopress를 써보고자 하는거 같다.</p>
+
+<p>그래서 이전에 설치하는 방법만 올렸었는데 간단하게 Octopress로 Posting하는 방법을 써볼까 한다.</p>
+
+<p>먼저 간단한 Posting하는 방법에 대해서 알아보자.</p>
+
+<p>Posting하는 과정을 간단하게 쭉 말해보면 rake new_post[제목] 명령어로 markdown 파일을 만들어서 내용을 작성하고 rake generate 명령어로 html 파일을 만들어서 rake preview 명령어로 작성된 post를 로컬에서 확인하고 rake deploy 명령어로 github에 올린다.</p>
+
+<p>이게 전부이다.</p>
+
+<p>자 그러면 하나씩 알아보자.</p>
+
+<h3>1. rake new_post[제목]</h3>
+
+<p>작성하고자 하는 post가 있다면 먼저 작성하고자 하는 페이지를 만들어야 한다. 나도 markdown 을 써본적이 없었지만 octopress를 사용하게 되면서 알게 되었다. 근데 워낙 사용방법 자체가 쉽기 때문에 따로 배울 필요없이 쓰다보면 자연스럽게 알게 되는거 같다.</p>
+
+<p>터미널에서 다음과 같이 명령어를 입력하면 markdown 파일이 생성된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Markdown 파일 생성  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake new_post<span class="o">[</span><span class="s2">&quot;쓰려고 하는 post 제목&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위와 같이 터미널에서 입력하고 나면 octorpess/source/<em>posts/ 경로에 오늘 날짜와 입력한 제목이 조합된 이름으로 생성된 markdown 파일을 확인 할 수 있다. 날짜는 나중에 generate 해주면 octopress/</em>deploy/blog 안에 파일을 생성할때 날짜 부분을 가지고 디렉토리를 생성하기 위해서 필요한듯 하다.</p>
+
+<p>이렇게 파일이 생성되면 이제 octorpess/source/_posts/ 경로로 가서 markdown 파일을 열어서 post를 작성하면 되는데 파일을 열어보게 되면 다음과 같은 내용이 미리 들어가 있다.</p>
+
+<h2><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Markdown 파일 내용  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>&lt;/h2&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;layout: post
+</span><span class='line'>title: <span class="s2">&quot;쓰려고 하는 post 제목&quot;</span>
+</span><span class='line'>date: 2011-11-14 09:19
+</span><span class='line'>comments: <span class="nb">true</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h2&gt;categories: &lt;/h2&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>레이아웃, 제목, 날짜, 댓글, 카테고리 설정부분 이다. 처음 파일 생성할때 썼던 제목이 들어가 있는데 이부분은 변경하면 post제목은 변경 할 수 있다. 또 날짜도 변경할수 있고 댓글 유무도 변경할수 있고 카테고리는 태그 같은 것인데 입력하는 방법이 몇가지가 있는데 방법은 다음과 같다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Categories 작성 방법  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>// 하나의 category 작성방법
+</span><span class='line'>categories: cate1&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;// 두번째 여러개 category 작성방법1
+</span><span class='line'>categories: <span class="o">[</span>cate1, cate2, cate3<span class="o">]</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;// 세번째 여러개 category 작성방법2
+</span><span class='line'>categories:
+</span><span class='line'>- cate1
+</span><span class='line'>- cate2
+</span><span class='line'>- cate3
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위와 같이 세가지 category 작성방법이 있다. category는 post 하단부분에 다음과 같이 표시된다.</p>
+
+<p><img class="center" src="/images/category.png" title="&#34;category&#34;" alt="&#34;category&#34;">
+그냥 마음대로 사용하기 편한걸 선택해서 사용하면 될꺼 같다. 이제 작성하고자 하는 post를 작성하면 된다.</p>
+
+<h3>2. rake generate</h3>
+
+<p>작성한 post를 html로 만들어주는 과정이다. 터미널에서 다음과 같이 입력해주면 된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Post generate  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake generate
+</span><span class='line'>Generating Site with Jekyll
+</span><span class='line'>unchanged sass/screen.scss
+</span><span class='line'>Configuration from /Users/jjp5023/octopress/_config.yml
+</span><span class='line'>Building site: <span class="nb">source</span> -&gt; public
+</span><span class='line'>Successfully generated site: <span class="nb">source</span> -&gt; public
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위와 같이 입력하면 <em>config.yml 있는 설정을 적용하고, source 안에 있는 markdown 파일을 html로 변경하고, sass 를 css파일로 변경되는 작업이 일어난다. generate 된 것들은 octopress/</em>deploy 안에 들어가게 된다.</p>
+
+<h3>3. rake preview</h3>
+
+<p>octopress는 로컬에서 작성을 해서 github에 올리는 방식이다. 서버에 올리기전에 내가 작성한 post가 어떻게 보이는지 당연히 궁금하다. 그래서 로컬에서 미리보기가 가능하다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Post 미리보기  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake preview
+</span><span class='line'>Starting to watch <span class="nb">source </span>with Jekyll and Compass. Starting Rack on port 4000
+</span><span class='line'>Configuration from /Users/jjp5023/octopress/_config.yml
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  WEBrick 1.3.1
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  ruby 1.9.2 <span class="o">(</span>2011-07-09<span class="o">)</span> <span class="o">[</span>x86_64-darwin11.0.1<span class="o">]</span>
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span>10385 <span class="nv">port</span><span class="o">=</span>4000
+</span><span class='line'>Auto-regenerating enabled: <span class="nb">source</span> -&gt; public
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> regeneration: 505 files changed&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;blockquote&gt;&lt;blockquote&gt;&lt;blockquote&gt;&lt;p&gt;Compass is watching <span class="k">for </span>changes. Press Ctrl-C to Stop.
+</span></code></pre></td></tr></table></div></figure></notextile></div></p></blockquote></blockquote></blockquote>
+
+<p>터미널에서 위와 같은 입력하면 여러 메시지와 함께 서버가 시작되고 http://localhost:4000 에서 확인 할 수 있게 된다. 서버를 멈추기 위해선 Ctrl + C 명령을 사용하면 된다.</p>
+
+<h3>4. rake deploy</h3>
+
+<p>이제 모든 posting 과정이 끝났다 이제 github 서버에 올리기만 하면 진짜로 posting이 끝나게 된다.
+다음과 같이 입력 한다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Post 올리기  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake deploy
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위와 같이 입력을 하면 github에 octopress/_deploy 안에 있는 파일들이 push가 되어서 github에 올라가게 된다. 여기서 push 란 git 명령어 인데 그냥 말그대로 서버에 밀어넣는 것을 말한다. 이렇게 하면 하나의 post를 작성해서 서버에 올리는 과정이 끝나게 된다.</p>
+
+<p>내 생각이지만 git을 잘 알지 못하여도 git push 개념만 알고 있다면 구지 git을 몰라도 octopress로 블로깅을 하는데 전혀 지장이 없다고 생각한다. 기억할껀 위 과정 하고 github에 올라가는 파일들은 octopress/_deploy 안에 있는 파일들이 라는 것인거 같다...</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress Blog Start]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/01/octopress-blog-start/"/>
+    <updated>2011-10-01T00:41:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/01/octopress-blog-start</id>
+    <content type="html"><![CDATA[<p><img class="left" src="/images/octopress_logo.png" width="227" height="227" title="Octopress log" alt="Octopress log"></p>
+
+<p>그동안 Wordpress를 웹호스팅에 설치해서 사용을 하다가 만료가 되어서
+Tumblr에서 블로그를 사용하고 있었는데 Twitter에서 우연찮게 Octopress를 알게되었다.</p>
+
+<p><a href="http://twitter.com/#!/reiot" title="@reiot">@reiot</a>님의 블로그를 Octopress 로 이전하시면서 <a href="http://reiot.com/2011/09/21/wordpress-to-octopress/" title="WOrdpress to Octopress">Wordpress to Octopress</a> 라는 Title로 Posting을 하셨다.</p>
+
+<p>Octopress 에 대한 설명을 써주셨는데 Octopress는 정적 사이트 생성기인 Jekyll을 이용해서 블로그를 손쉽게 구성하도록 해주는 루비 프레임워크다. 로컬에서 작성을 하고 HTML을 생성해서 Github, Amason S3, 구글 앱엔진에서 블로그 서비스를 가능하게 해준다 라고 써주셨다. 설명처럼 Octopress는 DB를 따로 사용하지 않고 다른 서비스에 만들어진 HTML을 올려서 HTML페이지를 보여주게 된다.
+또 여러가지 Plugins를 지원하고 있는데 그중에서 Code blocks, Gist Tag, Include Code는 개발자들이 블로깅을 할때 code 를 이쁘게 보여주므로 예제 소스작성 할때 아주 멋진 블로깅을 할 수 있을꺼 같다.내가 Octopress를 사용할려고 마음 먹은 가장 큰 이유 중에 하나 이다.</p>
+
+<p>사용하면서 느끼는 점이지만 웹에서 어드민을 따로 두고 사용하지 않고 로컬에 자신이 사용하는 에디터로 Markdown 문법으로 작성해서 변경된 부분도 로컬에서 확인이 가능하다는 점이 개인적으로 마음에 든다. 웹 에디터는 왠지 불편한점이 있었다. Octopress는 블로깅을 한다기 보단 웹페이지를 만든다는 느낌이 있어서 마음에 든다.</p>
+
+<h2>Setup</h2>
+
+<p><a href="http://octopress.org/docs/setup" title="Octopress Setup">http:// octopress.org/docs/setup</a> 페이지에 가면 <strong>Octopress Setup</strong> 이 있다.</p>
+
+<p>첫째 줄에 나오는 설명에 보면 <strong>Octopress is a blogging framework for hackers.</strong> 라는 문구가 있다.
+<strong>개발자를 위한 블로깅 플레임웍</strong> 얼마나 멋지 구리 한가 약간 geek 스럽긴 하지만 내 맘에 들면 그만이다~ ㅋㅋ</p>
+
+<p>이제 설치 방법을 알아보자.
+가장 먼저 할것은 Ruby 1.9.2 버전을 설치 해야 한다. 여기선 설치방법을 두가지를 설명해주고 있다.
+RVM 과 rbenv 요렇게 두가지다. 루비를 잘 모르므로 그나마 많이 들어 봤던 RVM으로 설치를 진행했다.
+RVM이 설치 되어 있다면 Ruby 설치 부터 진행하면 되지만 RVM이 설치가 되있지 않다면 RVM설치부터 진행 하면 된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>RVM설치 </span><a href='http://octopress.org/docs/setup/rvm/'>Installing RVM </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>bash &amp;lt; &amp;lt;<span class="o">(</span>curl -s https://rvm.beginrescueend.com/install/rvm<span class="o">)</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;curl로 rvm 을 받는다.&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span><span class="nb">echo</span> <span class="s1">&#39;[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;amp;&amp;amp; . &quot;$HOME/.rvm/scripts/rvm&quot; #Load RVM function&#39;</span> &gt;&gt; ~/.bash_profile&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;.bash_profile rvm PATH 을 설정한다.&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span><span class="nb">source</span> ~/.bash_profile&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;.bash_profil 파일 갱신&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>이제 RVM으로 Ruby를 설치하고 1.9.2버전을 사용한다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Ruby Install </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rvm install 1.9.2 &amp;&amp; rvm use 1.9.2</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>다음은 github에 있는 octopress 를 clone 받는다.
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Clone Octopress </span><a href='https://github.com/imathis/octopress'>github </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/imathis/octopress.git octopress
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>octopress
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+octopress 디렉토리에 처음 접근 할 RVM으로 설치를 했을경우 .rvmrc 파일을 신뢰하는냐? 라고 물어본다.
+yes 라고 하면 된다.때</p>
+
+<p>다음은 의존성 설치이다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Install dependencies  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>gem install bundler
+</span><span class='line'><span class="nv">$ </span>bundle install
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+gem install bundler 할경우에 혹시 <strong>“ERROR: LOADING COMMAND:INSTALL (LOADDEROR) ZLIB”</strong> 라고 에러 메시지가 나온다면 zlib 가 없어서 그런듯하다.
+RVM으로 Ruby 를 삭제하고 Ruby 설치 할때 옵션을 주면 된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Ruby reinstall with option  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rvm remove 1.9.2&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;Ruby 삭제&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>rvm install 1.9.2 --with-zlib-dir<span class="o">=</span><span class="nv">$rvm_path</span>/us&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;다시 설치&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>gem install bundler&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;의존성 다시 설치&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>다음은 default Octopress theme 을 인스톨 한다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Octopress Default Theme Install  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake install
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>다음은 github 에 올리기 위한 설정이다.</p>
+
+<p>github의 계정에 가서 새로운 Repository를 생성한다. Repository 이름은 다음과 같이 username.github.com (여기서 username은 자신의 github계정을 말하는 것입니다.)으로 해준다. github 계정으로 블로그 서비스를 하기 위한 Repository 생성 방법이다. 이렇게 생성을 하게 되면 <a href="http://j2p.github.com" title="j2p github">http://j2p.github.com</a> 처럼 페이지 접근이 가능하게 된다. 이것은 github에서 지원해주는 것이다.</p>
+
+<p>계정이 생성 되었으면 Octopress 디렉토리에서 다음과 같은 명령어를 입력한다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Setup github  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake setup_github_pages&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;github url을 물어보면 이전에 생성한 Repository 주소를 입력한다.&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위와 같이 하면 github와 연동이 된다.</p>
+
+<p>다음은 블로깅을 하기 위한 명령어 들이다.
+간단하게 3가지 명령어 만으로 적용하고 미리보고 올리기 된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>명령어  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake generate&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;변경된 내용을 적용하고 html을 생성&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>rake preview&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;변경된 내용을 로컬에서 미리 보기한다. <span class="o">(</span>http://localhost:4000<span class="o">)</span>&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;<span class="nv">$ </span>rake deploy&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;변경된 내용을 github 에 push 해준다.&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>여기 까지 진행하면 http://username.github.com 에서 자신의 블로그가 생성된걸 확인 할 수 있다.</p>
+
+<p>이렇게 해서 Octopress 설치가 끝났다. 이렇게 결과를 보는데만 4일이 걸렸다.
+처음에 이해를 잘못했던 부분들이 있어서 시간이 더 오래 걸렸던거 같다.
+그래도 <a href="http://twitter.com/#!/reiot," title="@reiot">@reiot</a>님의 도움을 받아서 정확하게 이해를 하고 설치를 끝낼수 있었다. 초면인데 질문에 대한 답변을 해주신 <a href="http://twitter.com/#!/reiot" title="@reiot">@reiot</a>님께 다시 한번 감사드립니다.</p>
+]]></content>
+  </entry>
+  
+</feed>

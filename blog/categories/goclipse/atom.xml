@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: goclipse | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/goclipse/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Goclipse 설치]]></title>
+    <link href="http://J2P.github.com/blog/2011/11/07/goclipse-install/"/>
+    <updated>2011-11-07T12:46:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/11/07/goclipse-install</id>
+    <content type="html"><![CDATA[<p>그동안 컴파일 언어를 제대로 사용해보지 않아서 인지 Go 언어를 공부하는데 컴파일 하는 부분이 나한테는 불편한 일이다. 그래서 IDE를 찾아보니 Goclipse라는 Eclipse에 plugin을 설치해서 사용하는 것이 있었다.</p>
+
+<p>그래서 간단하게 설치하고 사용하는 방법에 대해서 작성해 볼까 한다.</p>
+
+<h3>Eclipse 설치</h3>
+
+<p>Eclipse 에 Plugin 을 설치해서 사용하는 것이기 때문에 먼저 Eclipse가 설치 되어 있어야 한다.</p>
+
+<p>Eclipse <a href="http://www.eclipse.org/downloads/%20Eclipse">이곳</a> 에서 3.6 혹은 이상의 버전을 받아서 설치를 한다.</p>
+
+<h3>Goclipse plugin 설치</h3>
+
+<p>Eclipse 실행하고 Help > Install New Sofeware 를 선택한다.
+Work with 박스에 다음 URL을 입력하고 Add 버튼을 눌러서 Go Repository를 추가해다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Goclipse plugin  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>http://goclipse.googlecode.com/svn/trunk/goclipse-update-site/
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>쭉 설치를 진행하시고 Eclipse를 다시 시작한다.</p>
+
+<p>환경설정 창을 열어서 Go 메뉴에서 PATH를 설정해준다. PATHA는 설치할때 설정한 .bash_profile 내용을 참고해서 설정한다.</p>
+
+<p><img class="center" src="/images/goclipse.png" title="&#34;goclipse 환경설정&#34;" alt="&#34;goclipse 환경설정&#34;"></p>
+
+<h3>Hello World 실행</h3>
+
+<p>Hello World 코드를 작성하고 터미널에서 컴파일 작업을 따로 할 필요없이 Eclipse에서 Run 해서 Eclipse Console 창에서 결과를 볼수 있다.</p>
+
+<p><img class="center" src="/images/goclipse_run.png" title="&#34;goclipse 환경설정&#34;" alt="&#34;goclipse 환경설정&#34;"></p>
+
+<h3>참고 URL</h3>
+
+<ul>
+<li><a href="http://code.google.com/p/goclipse/%20http://code.google.com/p/goclipse/">http://code.google.com/p/goclipse/</a></li>
+<li><a href="http://juhoi.tistory.com/46%20http://juhoi.tistory.com/46">http://juhoi.tistory.com/46</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

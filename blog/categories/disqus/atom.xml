@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: disqus | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/disqus/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Disqus Comment Count Error]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/20/disqus-count-error/"/>
+    <updated>2011-10-20T18:18:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/20/disqus-count-error</id>
+    <content type="html"><![CDATA[<p>Octopress 에 _config.yml 파일에 disqus_show_comment_count 옵션을
+true로 해줬음에도 해당 포스트의 comment count가 제대로 나오지 않고 있었다.</p>
+
+<p>일시적인 오류라 생각하고 그대로 두었는데 누군가 comment를 쓰더라도 계속 0으로 표시되니까 누가 comment 를 썼는지 안 썼는지 알수 없었다.</p>
+
+<p>그래서 수정을 해볼려고 소스를 살펴 보았다.</p>
+
+<p><img src="/images/disqus_error.png" title="&#34;disqus error&#34;" alt="&#34;disqus error&#34;"></p>
+
+<p>위와 같이 첫번째 부분에는 정상적으로 disqus_short_name 이 url에 들어가 있다.
+두번째 두분에는 undefind 값이 들어가 있어서 정상적으로 불러오지 못하는것이였다</p>
+
+<p>그래서 해당 소스가 들어가 있는 부분을 찾아보니 source/_includes/disqus.html 에 javascript 소스가 있었다.
+소스는 다음과 같은 script를 소스를 추가 해주는 내용이였다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">async=</span><span class="s">&quot;&quot;</span> <span class="na">src=</span><span class="s">&quot;http://j2poctopressblog.disqus.com/count.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>http://j2poctopressblog.disqus.com/count.js 소스를 확인해 보면 또 새로운 script 소스를 생성해서 추가해주는것을 알 수 있다.
+그렇다면 두번째 script 의 undefined 에 들어가야할 disqus_shortname에 제대로 접근을 하지 못하고 undefined 값이 들어간다는 것이다.</p>
+
+<p>disqus 사이트에 가서 comment count 에 대한것을 찾아보면 다음과 같은 예제 소스를 확인 할 수 있다.
+여기서 보면 disqus_shortname 이 익명 함수 밖에 전역으로 선언되어 있는것을 확인 할 수있다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Comment count </span><a href='http://docs.disqus.com/developers/universal/'>disqus </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="cm">/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">disqus_shortname</span> <span class="o">=</span> <span class="s1">&#39;example&#39;</span><span class="p">;</span> <span class="c1">// required: replace example with your forum shortname</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/* * * DON&#39;T EDIT BELOW THIS LINE * * */</span>
+</span><span class='line'>    <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;script&#39;</span><span class="p">);</span> <span class="nx">s</span><span class="p">.</span><span class="nx">async</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">s</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;text/javascript&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="nx">s</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;http://&#39;</span> <span class="o">+</span> <span class="nx">disqus_shortname</span> <span class="o">+</span> <span class="s1">&#39;.disqus.com/count.js&#39;</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;HEAD&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;BODY&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}());</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>하지만 source/_includes/disqus.html 소스를 확인해보면 익명 함수 안에 disqus_shortname 변수가 선언 되어 있는 것을 확인 할 수 있다. 그래서 저 변수에 접근을 못해서 url 에 undefinde 값이 들어가는 것이였다.</p>
+
+<p>source/_includes/disqus.html 에서 disqus_shortname 변수를 전역으로 빼주면 간단하게 수정이 된다.</p>
+
+<p><img src="/images/disqus_error_fix.png" title="&#34;disqus error fix&#34;" alt="&#34;disqus error fix&#34;">
+<img src="/images/disqus_count.png" title="&#34;disqus count&#34;" alt="&#34;disqus count&#34;"></p>
+
+<p>위와 같이 소스에도 disqus_shortname 이 들어가서 정상적인 url을 표시해주고 post에도 count가 나오는것을 볼수 있다. 수정하고 안것이지만 reactions count도 같이 나온다.</p>
+]]></content>
+  </entry>
+  
+</feed>

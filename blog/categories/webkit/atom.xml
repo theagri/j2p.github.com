@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: webkit | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/webkit/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CSS Webkit Hack]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/17/css-webkit-hack/"/>
+    <updated>2011-10-17T23:38:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/17/css-webkit-hack</id>
+    <content type="html"><![CDATA[<p>마크업 작업을 하다 보면 드물지만 webkit(chrome, safari)만 다르게 보일때가 있다.</p>
+
+<p>이런 경우 css 에서 처리 해줄수 있는 방법이 이 없을까 하다가</p>
+
+<p>검색해서 나온것이 media query를 이용한 것이였다.</p>
+
+<p>사용 방법은 다음과 같다.</p>
+
+<h4>직접 CSS 파일에 입력할 경우</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>webkit hack  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="k">@media</span> <span class="nt">screen</span> <span class="nt">and</span><span class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="nd">:0</span><span class="o">)</span><span class="p">{</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;/&lt;</span><span class="nt">em</span><span class="o">&gt;</span> <span class="err">이곳에</span> <span class="nt">webkit</span><span class="err">용</span> <span class="nt">CSS</span> <span class="err">를</span> <span class="err">작성하면</span> <span class="err">됩니다</span><span class="o">.</span> <span class="o">&lt;/</span><span class="nt">em</span><span class="o">&gt;/&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h4>Webkit용 CSS 파일을 따로 만들어서 include 시킬 경우</h4>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>include css  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">stylesheet</span> <span class="na">media=</span><span class="s">&quot;screen and min-device-pixel-ratio:0&quot;</span> <span class="na">href=</span><span class="s">&quot;webkit.css&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

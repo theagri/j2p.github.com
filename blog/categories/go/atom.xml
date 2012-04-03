@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Go | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/go/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Goclipse 설치]]></title>
+    <link href="http://J2P.github.com/blog/2011/11/07/goclipse-install/"/>
+    <updated>2011-11-07T12:46:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/11/07/goclipse-install</id>
+    <content type="html"><![CDATA[<p>그동안 컴파일 언어를 제대로 사용해보지 않아서 인지 Go 언어를 공부하는데 컴파일 하는 부분이 나한테는 불편한 일이다. 그래서 IDE를 찾아보니 Goclipse라는 Eclipse에 plugin을 설치해서 사용하는 것이 있었다.</p>
+
+<p>그래서 간단하게 설치하고 사용하는 방법에 대해서 작성해 볼까 한다.</p>
+
+<h3>Eclipse 설치</h3>
+
+<p>Eclipse 에 Plugin 을 설치해서 사용하는 것이기 때문에 먼저 Eclipse가 설치 되어 있어야 한다.</p>
+
+<p>Eclipse <a href="http://www.eclipse.org/downloads/%20Eclipse">이곳</a> 에서 3.6 혹은 이상의 버전을 받아서 설치를 한다.</p>
+
+<h3>Goclipse plugin 설치</h3>
+
+<p>Eclipse 실행하고 Help > Install New Sofeware 를 선택한다.
+Work with 박스에 다음 URL을 입력하고 Add 버튼을 눌러서 Go Repository를 추가해다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Goclipse plugin  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>http://goclipse.googlecode.com/svn/trunk/goclipse-update-site/
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>쭉 설치를 진행하시고 Eclipse를 다시 시작한다.</p>
+
+<p>환경설정 창을 열어서 Go 메뉴에서 PATH를 설정해준다. PATHA는 설치할때 설정한 .bash_profile 내용을 참고해서 설정한다.</p>
+
+<p><img class="center" src="/images/goclipse.png" title="&#34;goclipse 환경설정&#34;" alt="&#34;goclipse 환경설정&#34;"></p>
+
+<h3>Hello World 실행</h3>
+
+<p>Hello World 코드를 작성하고 터미널에서 컴파일 작업을 따로 할 필요없이 Eclipse에서 Run 해서 Eclipse Console 창에서 결과를 볼수 있다.</p>
+
+<p><img class="center" src="/images/goclipse_run.png" title="&#34;goclipse 환경설정&#34;" alt="&#34;goclipse 환경설정&#34;"></p>
+
+<h3>참고 URL</h3>
+
+<ul>
+<li><a href="http://code.google.com/p/goclipse/%20http://code.google.com/p/goclipse/">http://code.google.com/p/goclipse/</a></li>
+<li><a href="http://juhoi.tistory.com/46%20http://juhoi.tistory.com/46">http://juhoi.tistory.com/46</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Start Go Language]]></title>
+    <link href="http://J2P.github.com/blog/2011/11/04/start-go-language/"/>
+    <updated>2011-11-04T10:36:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/11/04/start-go-language</id>
+    <content type="html"><![CDATA[<p>Go[for]it 세미나에 다녀온 후로 Go 언어에 관심이 가기 시작했다.</p>
+
+<p>그동안 컴파일 언어를 제대로 공부해본적이 없어서 인지 재미도 있는거 같고 스크립트 언어와 또다른 재미가 있는거 같다.</p>
+
+<p>Go[for]it 세미나에 가기전에 MBA에서 제대로 PATH설정 문제로 인해서 컴파일이 제대로 되지 않았는데 세미나에 다녀온 후로는 신기하게도 PATH설정 문제도 해결되고 Goclipse 를 알게 되어서 좀더 편하게 공부 할 수 있게 되었다. 그래서 일단 기본인 설치부터 Goclipse 설정까지 정리해보고 Hello World까지 정리해 볼까 한다.</p>
+
+<h3>Go 설치</h3>
+
+<p>현재 MAC을 쓰고 있기 때문에 MAC 기준으로 설명을 하겠다.
+우선 저장소에서 Go를 받아 와야 한다. 그러기 위해서는 <a href="http://mercurial.selenic.com/wiki/Download" title="Mercurial">Mercurial</a> 이 필요하다.</p>
+
+<p>hg 명령이 동작하는지 확인하고 만약 동작하지 않는다면 다음과 같은 명령으로 설치 하면 된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Mercurial Install  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo easy_install mercurial
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>혹 위 과정이 진행이 되지 않는다면 <a href="http://www.python.org/download/" title="python">python</a>, <a href="http://pypi.python.org/pypi/setuptools" title="setuptools">setuptools</a>이 설치가 안되어 있을수도 있다. python, setuptools 설치 과정을 먼저 진행하시면 됩니다.</p>
+
+<p>위에서 <a href="http://peak.telecommunity.com/DevCenter/EasyInstall" title="easy_install">easy_install</a> 은 python에서 사용되는 패키지 관리해주는 파이썬 모듈이라고 한다.</p>
+
+<h3>저장소에서 가져오기</h3>
+
+<p>이제 mercurial을 통해서 다음과 같이 실행하면 저장소에서 있는 소스를 go 디렉토리에 가져오게 된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Go clone  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>hg clone -u release https://go.googlecode.com/hg/ go
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>PATH설정</h3>
+
+<p>빌드를 진행하기전에 PATH설정을 먼저 하는것이 좋은거 같다. 처음 아무것도 모르고 설치를 진행 했을때 제대로 go 컴파일이 안되었던것이 PATH문제 였는데 검색을 해서 보고, all.bash 파일을 열어보면  빌드과정 소스에 PATH를 통해서 진행되는걸 확인 할 수 있다. 그래서 빌드 하기전에 다음과 같이 PATH를 먼저 설정한다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="nv">$HOME</span>/go
+</span><span class='line'><span class="nb">export </span><span class="nv">GOOS</span><span class="o">=</span>darwin
+</span><span class='line'><span class="nb">export </span><span class="nv">GOARCH</span><span class="o">=</span>386
+</span><span class='line'><span class="nb">export </span><span class="nv">GOBIN</span><span class="o">=</span><span class="nv">$HOME</span>/go/bin
+</span><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HOME</span>/go/bin
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>각 PATH에 관한 설명은 다음과 같다.</p>
+
+<ul>
+<li>GOROOT</li>
+</ul>
+
+
+<p>Go 트리에서 루트는 $HOME/go. 해당 디렉토리의 부모 디렉토리를 기본으로 하며 all.bash가 실행되는 디렉토리다. $GOROOT를 설정하지 않으면 makefile을 이용해서 Go 프로그램을 개발할 때 반드시 make나 gmake 대신에 gomake를 실행해야 한다.</p>
+
+<ul>
+<li>$GOOS 와 $GOARCH</li>
+</ul>
+
+
+<p>타겟 운영체제의 이름과 컴파일 구조. $GOHOSTOS와 $GOHOSTARCH 값들을 기본으로 한다.
+$GOOS는 리눅스, freebsd, darwin(맥 OS X 10.5 혹은 10.6), 윈도우(작업중). $GOARCH는 amd64(64-bit x86, 현재 가장 완성도 높음), 386(32-bit x86) 그리고 arm(32-bit ARM, 작업중). $GOOS와 $GOARCH의 사용가능한 조합은 다음과 같다.
+$GOOS    $GOARCH     비고
+darwin   386  <br/>
+darwin   amd64<br/>
+freebsd  386  <br/>
+freebsd  amd64<br/>
+linux    386  <br/>
+linux    amd64<br/>
+linux    arm     작업중
+windows  386     작업중</p>
+
+<ul>
+<li>$GOBIN</li>
+</ul>
+
+
+<p>바이너리가 설치된 위치. 기본값은 $GOROOT/bin이다. 설치 후, 해당 디렉토리를 $PATH에 추가하여 Go가 제공하는 여러 도구들을 사용할 수 있다.</p>
+
+<h3>Go 설치</h3>
+
+<p>다음과 같이 진행 하면 된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Go Install  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>go/src
+</span><span class='line'><span class="nv">$ </span>./all.bash
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>모든 것이 잘 진행되면 다음과 같은 출력이 나온다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Go Install  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>ALL TESTS PASSED&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;hr /&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;Installed Go <span class="k">for </span>darwin/386 in /Users/jjp5023/go.
+</span><span class='line'>Installed commands in /Users/jjp5023/go/bin.
+</span><span class='line'>&lt;strong&gt;&lt;em&gt; You need to add /Users/jjp5023/go/bin to your <span class="nv">$PATH</span>. &lt;/em&gt;&lt;/strong&gt;
+</span><span class='line'>The compiler is 8g.&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;On OS X the debuggers must be installed setgrp procmod.
+</span><span class='line'>Read and run ./sudo.bash to install the debuggers.
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h3>Hello World</h3>
+
+<p>이제 설치가 끝났다. 모든 언어의 기초 Hello World를 찍어보자. 다음과 같은 코드를 작성해서 hello.go 를 만들어 보자.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Go Hello World  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">import</span> <span class="s">&quot;fmt&quot;</span><span class="p">&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;</span><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{&lt;/</span><span class="n">p</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">pre</span><span class="p">&gt;&lt;</span><span class="n">code</span><span class="p">&gt;</span><span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Helllo, World\n&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">&lt;/</span><span class="n">code</span><span class="p">&gt;&lt;/</span><span class="n">pre</span><span class="p">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&lt;</span><span class="n">p</span><span class="p">&gt;}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위와 같이 작성한 후 컴파일을 다음과 같이 진행합니다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Go Hello World  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>8g hello.go
+</span><span class='line'><span class="nv">$ </span>8l hello.8
+</span><span class='line'><span class="nv">$ </span>./8.out
+</span><span class='line'>Hello, World
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위와 같이 Hello, World 가 찍힌것을 보았다면 이제 부터 본격적인 Go언어 공부를 할 준비는 끝났다.</p>
+
+<h3>Go 릴리즈 버전 관리</h3>
+
+<p>Go 는 아직도 개발중인 언어이기 때문에 자주 release 된다. <a href="http://code.google.com/p/golang-korea/wiki/GoInstall" title="Go install">Go install</a> 페이지 보면 다음과 같은 내용이 있다.</p>
+
+<blockquote><p>Mercurial 저장소에 release와 weekly라는 2개의 고정테그를 관리하고 있다. weekly 테그는 매주 한 번씩 갱신되고 프로젝트 개발을 경과를 추적하기를 원하는 경우 사용한다. release 테그는 빈번하지는 않고 weekly 테그 중에 안정성이 검증된 것에 사용한다.</p>
+
+<p>대부분 Go 사용자들은 최신 release 테그를 가진 Go를 설치하고 싶어할 것이다. 새로운 릴리즈는 golang-announce 메일링 리스트를 통해 공지한다.</p></blockquote>
+
+<p>그래서 현재 Go 를 최신 릴리즈로 갱신 하려면 다음과 같이 진행하면 된다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Go Update  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>go/src
+</span><span class='line'><span class="nv">$ </span>hg pull
+</span><span class='line'><span class="nv">$ </span>hg update release
+</span><span class='line'><span class="nv">$ </span>./all.bash
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>이렇게 해서 Go 설치와 실행, 업데이트 하는 방법까지 알아봤다.</p>
+]]></content>
+  </entry>
+  
+</feed>

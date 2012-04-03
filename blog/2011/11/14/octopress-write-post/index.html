@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Octopress Posting 하기 - J2P Blog</title>
+  <meta name="author" content="J2P">
+
+  
+  <meta name="description" content="국내에 이외로 많은 분들이 Octopress를 써보고자 하는거 같다. 그래서 이전에 설치하는 방법만 올렸었는데 간단하게 Octopress로 Posting하는 방법을 써볼까 한다. 먼저 간단한 Posting하는 방법에 대해서 알아보자. Posting하는 과정을 간단하게 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://J2P.github.com/blog/2011/11/14/octopress-write-post">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="J2P Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26077425-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">J2P Blog</a></h1>
+  
+    <h2>Front End Developer Blog.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:J2P.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Octopress Posting 하기</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-14T09:19:00+09:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>국내에 이외로 많은 분들이 Octopress를 써보고자 하는거 같다.</p>
+
+<p>그래서 이전에 설치하는 방법만 올렸었는데 간단하게 Octopress로 Posting하는 방법을 써볼까 한다.</p>
+
+<p>먼저 간단한 Posting하는 방법에 대해서 알아보자.</p>
+
+<p>Posting하는 과정을 간단하게 쭉 말해보면 rake new_post[제목] 명령어로 markdown 파일을 만들어서 내용을 작성하고 rake generate 명령어로 html 파일을 만들어서 rake preview 명령어로 작성된 post를 로컬에서 확인하고 rake deploy 명령어로 github에 올린다.</p>
+
+<p>이게 전부이다.</p>
+
+<p>자 그러면 하나씩 알아보자.</p>
+
+<h3>1. rake new_post[제목]</h3>
+
+<p>작성하고자 하는 post가 있다면 먼저 작성하고자 하는 페이지를 만들어야 한다. 나도 markdown 을 써본적이 없었지만 octopress를 사용하게 되면서 알게 되었다. 근데 워낙 사용방법 자체가 쉽기 때문에 따로 배울 필요없이 쓰다보면 자연스럽게 알게 되는거 같다.</p>
+
+<p>터미널에서 다음과 같이 명령어를 입력하면 markdown 파일이 생성된다.</p>
+
+<figure class='code'><figcaption><span>Markdown 파일 생성  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake new_post<span class="o">[</span><span class="s2">&quot;쓰려고 하는 post 제목&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 터미널에서 입력하고 나면 octorpess/source/<em>posts/ 경로에 오늘 날짜와 입력한 제목이 조합된 이름으로 생성된 markdown 파일을 확인 할 수 있다. 날짜는 나중에 generate 해주면 octopress/</em>deploy/blog 안에 파일을 생성할때 날짜 부분을 가지고 디렉토리를 생성하기 위해서 필요한듯 하다.</p>
+
+<p>이렇게 파일이 생성되면 이제 octorpess/source/_posts/ 경로로 가서 markdown 파일을 열어서 post를 작성하면 되는데 파일을 열어보게 되면 다음과 같은 내용이 미리 들어가 있다.</p>
+
+<figure class='code'><figcaption><span>Markdown 파일 내용  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>---
+</span><span class='line'>layout: post
+</span><span class='line'>title: <span class="s2">&quot;쓰려고 하는 post 제목&quot;</span>
+</span><span class='line'>date: 2011-11-14 09:19
+</span><span class='line'>comments: <span class="nb">true</span>
+</span><span class='line'>categories:
+</span><span class='line'>---
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>레이아웃, 제목, 날짜, 댓글, 카테고리 설정부분 이다. 처음 파일 생성할때 썼던 제목이 들어가 있는데 이부분은 변경하면 post제목은 변경 할 수 있다. 또 날짜도 변경할수 있고 댓글 유무도 변경할수 있고 카테고리는 태그 같은 것인데 입력하는 방법이 몇가지가 있는데 방법은 다음과 같다.</p>
+
+<figure class='code'><figcaption><span>Categories 작성 방법  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>// 하나의 category 작성방법
+</span><span class='line'>categories: cate1
+</span><span class='line'>
+</span><span class='line'>// 두번째 여러개 category 작성방법1
+</span><span class='line'>categories: <span class="o">[</span>cate1, cate2, cate3<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>// 세번째 여러개 category 작성방법2
+</span><span class='line'>categories:
+</span><span class='line'>- cate1
+</span><span class='line'>- cate2
+</span><span class='line'>- cate3
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 세가지 category 작성방법이 있다. category는 post 하단부분에 다음과 같이 표시된다.</p>
+
+<p><img class="center" src="/images/category.png" title="&#34;category&#34;" alt="&#34;category&#34;">
+그냥 마음대로 사용하기 편한걸 선택해서 사용하면 될꺼 같다. 이제 작성하고자 하는 post를 작성하면 된다.</p>
+
+<h3>2. rake generate</h3>
+
+<p>작성한 post를 html로 만들어주는 과정이다. 터미널에서 다음과 같이 입력해주면 된다.</p>
+
+<figure class='code'><figcaption><span>Post generate  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake generate
+</span><span class='line'>Generating Site with Jekyll
+</span><span class='line'>unchanged sass/screen.scss
+</span><span class='line'>Configuration from /Users/jjp5023/octopress/_config.yml
+</span><span class='line'>Building site: <span class="nb">source</span> -&gt; public
+</span><span class='line'>Successfully generated site: <span class="nb">source</span> -&gt; public
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 입력하면 <em>config.yml 있는 설정을 적용하고, source 안에 있는 markdown 파일을 html로 변경하고, sass 를 css파일로 변경되는 작업이 일어난다. generate 된 것들은 octopress/</em>deploy 안에 들어가게 된다.</p>
+
+<h3>3. rake preview</h3>
+
+<p>octopress는 로컬에서 작성을 해서 github에 올리는 방식이다. 서버에 올리기전에 내가 작성한 post가 어떻게 보이는지 당연히 궁금하다. 그래서 로컬에서 미리보기가 가능하다.</p>
+
+<figure class='code'><figcaption><span>Post 미리보기  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake preview
+</span><span class='line'>Starting to watch <span class="nb">source </span>with Jekyll and Compass. Starting Rack on port 4000
+</span><span class='line'>Configuration from /Users/jjp5023/octopress/_config.yml
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  WEBrick 1.3.1
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  ruby 1.9.2 <span class="o">(</span>2011-07-09<span class="o">)</span> <span class="o">[</span>x86_64-darwin11.0.1<span class="o">]</span>
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span>10385 <span class="nv">port</span><span class="o">=</span>4000
+</span><span class='line'>Auto-regenerating enabled: <span class="nb">source</span> -&gt; public
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> regeneration: 505 files changed
+</span><span class='line'>&gt;&gt;&gt; Compass is watching <span class="k">for </span>changes. Press Ctrl-C to Stop.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>터미널에서 위와 같은 입력하면 여러 메시지와 함께 서버가 시작되고 http://localhost:4000 에서 확인 할 수 있게 된다. 서버를 멈추기 위해선 Ctrl + C 명령을 사용하면 된다.</p>
+
+<h3>4. rake deploy</h3>
+
+<p>이제 모든 posting 과정이 끝났다 이제 github 서버에 올리기만 하면 진짜로 posting이 끝나게 된다.
+다음과 같이 입력 한다.</p>
+
+<figure class='code'><figcaption><span>Post 올리기  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 입력을 하면 github에 octopress/_deploy 안에 있는 파일들이 push가 되어서 github에 올라가게 된다. 여기서 push 란 git 명령어 인데 그냥 말그대로 서버에 밀어넣는 것을 말한다. 이렇게 하면 하나의 post를 작성해서 서버에 올리는 과정이 끝나게 된다.</p>
+
+<p>내 생각이지만 git을 잘 알지 못하여도 git push 개념만 알고 있다면 구지 git을 몰라도 octopress로 블로깅을 하는데 전혀 지장이 없다고 생각한다. 기억할껀 위 과정 하고 github에 올라가는 파일들은 octopress/_deploy 안에 있는 파일들이 라는 것인거 같다&#8230;</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">J2P</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-14T09:19:00+09:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/blog/'>blog</a>, <a class='category' href='/blog/categories/octopress/'>octopress</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://J2P.github.com/blog/2011/11/14/octopress-write-post/" data-via="J2P_" data-counturl="http://J2P.github.com/blog/2011/11/14/octopress-write-post/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/11/07/goclipse-install/" title="Previous Post: Goclipse 설치">&laquo; Goclipse 설치</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/11/14/node-chat/" title="Next Post: Node.js 이용해서 chat을 만들어보자[1]">Node.js 이용해서 chat을 만들어보자[1] &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/04/03/event-capturing-bubbling/">Event Capturing Bubbling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/02/wysiwyg-editor/">간단한 WYSIWYG Editor 만들기</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/29/node-chat3/">Node.js 이용해서 chat을 만들어보자[3]</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/21/node-chat2/">Node.js 이용해서 chat을 만들어보자[2]</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/21/seminar-postscript/">OctoverSky.js & JScamp 후기</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/J2P">@J2P</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'J2P',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("J2P_", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/J2P_" class="twitter-follow-button" data-show-count="false">Follow @J2P_</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - J2P -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'j2poctopressblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://J2P.github.com/blog/2011/11/14/octopress-write-post/';
+        var disqus_url = 'http://J2P.github.com/blog/2011/11/14/octopress-write-post/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

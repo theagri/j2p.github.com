@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: javascript | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Javascript에서 this란 무엇인가?]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/24/what-is-this/"/>
+    <updated>2011-10-24T10:30:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/24/what-is-this</id>
+    <content type="html"><![CDATA[<p>Javascript를 개발할때 사용하거나 공부를 할때 해깔리고 어려운 부분중에 하나인 <strong>this</strong>에 대해서 내가 아는 부분을 정리해 볼까 한다.</p>
+
+<p>나 또한 <strong>this</strong>에 대해서 많은 부분 해깔려 하던중 FRENDS의 AJ(<a href="https://twitter.com/#!/andrwj" title="andrwj">@andrwj</a>)의 강의를 듣고 확실한 개념을 잡을 수 있었다.</p>
+
+<p>AJ(<a href="https://twitter.com/#!/andrwj" title="andrwj">@andrwj</a>)가 말하는 <strong>this</strong>는 아주 간단했다.
+한마디로 정의 하면 다음과 같다.</p>
+
+<ul>
+<li>Method를 호출한 녀석</li>
+<li>쩜(.) 앞에 녀석</li>
+</ul>
+
+
+<p>그래도 몬지 잘 모를 수도 있고 오!! 라고 하며 감탄사를 내 뱉을 수도 있다. 지금 부터 예제를 통해서 <strong>this</strong> 에 대해서 알아보자.</p>
+
+<p>먼저 함수 몸체에서 사용되는 <strong>this</strong> 를 알아보자.
+내가 처음 <strong>this</strong> 에 대해서 알게 되었을때 제대로 알지 못하고 함수 안에서 사용하게 되면 그 함수의 property가 되는줄 알고 사용 했던 적이 있다. 하지만 확인을 해보면 함수 몸체에서 사용한 <strong>this</strong>는 window 를 갈이 키는 것이다.</p>
+
+<p>다음 소스코드를 확인해보자.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Function in this  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">J2PFn</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">J2PName</span> <span class="o">=</span> <span class="s2">&quot;J2P&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">J2PFn</span><span class="p">();</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span> <span class="c1">//콘솔창에서 확인</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><img class="center" src="/images/this.png"></p>
+
+<p>window method 에 window.J2PFn 이 있는것을 확인 할 수 있다. 어라? 근데 window.J2PName 도 같이 있다. 보통 생각했던 결과는 J2PFn 함수 안에서 this가 갈이키는 것은 당연히 함수자신(J2PFn)라고 생각을 한다.</p>
+
+<p>함수를 실행 할때 J2PFn(); 이렇게 실행을 한다. 하지만 결국 이것은 window.J2PFn() 하는것과 마찬가지 인 것이다.
+그렇다면 처음에 정의했던데로 생각해보자.</p>
+
+<p>"Method를 호출한 녀석" 즉 J2PFn() 을 호출한 window 가 되는것이고 또 "쩜 앞에 녀석" .J2PFn() 앞에 있는 window가 되는것이다.</p>
+
+<p>이제 두번째 예제를 보자. 함수의 몸체에 사용하는것은 위에 예제와 똑같다. 하지만 new 연산자로 객체를 생성하였다.
+객체를 생성하게 되면 함수 몸체에 있던 <strong>this</strong> 는 인스턴스된 객체에 property 가 된다.
+그래서 처음에 우리가 생각했던 J2PObj.J2PName 으로 접근이 가능하게 된다.</p>
+
+<p>다음 소스코드를 확인해보자.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Function in this  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">J2PFn</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="k">this</span><span class="p">.</span><span class="nx">J2PName</span> <span class="o">=</span> <span class="s2">&quot;J2P&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">J2PObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">J2PFn</span><span class="p">();</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">J2PObj</span><span class="p">);</span> <span class="c1">//콘솔창에서 확인</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><img class="center" src="/images/this2.png"></p>
+
+<p>처음 우리가 생각했던 <strong>this</strong>가 바로 요런것이 였을것이다.</p>
+
+<p>위 2개의 예제에서 볼 수 있듯이 함수 안에서 사용되는 <strong>this</strong>는 인스턴스가 되지 않으면 우리가 생각했던 this가 되지 않는 것이다.</p>
+
+<p>이제 세번째 예제를 보자. 세번째 예제는 Element 에서 이벤트를 발생할때 사용되는 <strong>this</strong> 이다.
+어쩌면 이것이 가장 많이 사용되는지도 모르겠다.</p>
+
+<p>다음 소스코드를 확인해보자.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Element in this  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;img.gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;photo&quot;</span> <span class="na">onclick=</span><span class="s">&quot;J2PFn(this);&quot;</span> <span class="na">onmouseover=</span><span class="s">&quot;J2PFn2(this.src)&quot;</span> <span class="nt">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>click 이벤트가 발생한 경우 함수를 호출 할때 <strong>this</strong>를 인자 값으로 넘겨주는 경우가 있을것이다.
+또 mouseover 이벤트가 발생할 경우에도 image의 src를 변경해서 이미지를 변경시키는 경우에도 this.src라는 값일 인자로 넘겨주기도 할 것이다.</p>
+
+<p>그렇다면 여기서 <strong>this</strong>는 무엇인가? 요부분을 해깔려 하는 경우가 있을 것이다.
+자세히 보면 정말 간단하다. click 이벤트나 mouseover 이벤트는 img가 호출을 시킨것이다. 그리고 이벤트를 element에 써주지 않고 따로 스크립트에서 처리는 한다면 더 명확하게 알 수 있다. 다음 소스를 보자.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Element in this  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">&quot;blog-link&quot;</span> <span class="na">href=</span><span class="s">&quot;http://j2p.kr&quot;</span><span class="nt">&gt;</span>J2P<span class="nt">&lt;/a&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;blog-link&quot;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;blog-link&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseover&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'><span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>이제 처음에 말했다 <strong>this</strong>의 정의 대로 해석해 보자.</p>
+
+<p>"Method를 호출한 녀석" onclick를 호출한 녀석이 누구인가? 바로 blog-link 아이디 값을 가지고 있는 Element a 태그이다.</p>
+
+<p>쩜(.) 앞에 녀석 .onclick 앞에 있는 녀석은 누구인가? document.getElementById("blog-link") 이다.</p>
+
+<p>소스코드에서 두번쨰 addEventListener 땜에 해깔릴수도 있을거 같은데 결국 저것도 mouseover 이벤트를 걸어주는것이기 때문에 mouseover 이벤트가 실행될때를 생각해보면 <strong>this</strong> 정의한 것으로 생각해보면 똑같은 결과가 나온다.</p>
+
+<p>이렇게 <strong>this</strong>에 대한 설명이 끝났다 사실 경우가 더 있지만 위에 3가지 정도만 알고 있다면 다른 <strong>this</strong>를 의해는데는 그렇게 크게 어렵지 않을꺼라 생각한다. 무엇보다 가장 쉬운 방법은 console.log 찍어보는 눈으로 확인하는것이라고 생각한다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Become a Javascript Console Power User]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/07/become-a-javascript-console-power-user/"/>
+    <updated>2011-10-07T06:45:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/07/become-a-javascript-console-power-user</id>
+    <content type="html"><![CDATA[<iframe width="960" height="720" src="http://www.youtube.com/embed/4mf_yNLlgic?hd=1" frameborder="0" allowfullscreen></iframe>
+
+
+<p>Chrome, Firefox 에서 Javascript 개발을 하더라도 console 창에서 log(), dir() 만 사용했었다.<br />
+위 동영상을 보고 console에서 또 다른 기능 들에 대해서 알게되어 활용 할 수 있다면 javascript 개발을 좀더 손쉽게 할 수 있지 않을까 하는 생각이 들었다.<br />
+그래서 정리를 하고 확실히 알아 두기 위해서 Posting을 해볼까 한다.</p>
+
+<p>위 동영상에서 소개 되고 있는 기능들은 목록은 다음과 같다.</p>
+
+<ul>
+<li>XHR</li>
+<li>console.time / timeEnd</li>
+<li>console.dir() / dir()</li>
+<li>$o / inspect()</li>
+<li>$$</li>
+<li>monitorEvents()</li>
+<li>keys() / values()</li>
+<li>copy()</li>
+<li>super-cool Opera and Firebug</li>
+<li>more devtools</li>
+</ul>
+
+
+<p>위 동영상에서 사용되고 있는 소스는 다음과 같다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>HTML </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&#39;http://fonts.googleapis.com/css?family=Merriweather|Droid+Sans+Mono&amp;v1&#39;</span> <span class="na">rel=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type=</span><span class="s">&#39;text/css&#39;</span><span class="nt">&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span>be a console power-user<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;ul&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>XHR
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>console.time() / timeEnd()
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>console.dir() / dir()
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>$0 / inspect()
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>$$
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>monitorEvents()
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>keys()/values()
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>copy()
+</span><span class='line'>    <span class="nt">&lt;li&gt;</span>super-cool Opera and Firebug features
+</span><span class='line'>    <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://J2P.github.com//code.google.com/chrome/devtools&quot;</span> <span class="na">rel=</span><span class="s">&quot;prerender&quot;</span><span class="nt">&gt;</span>more devtools<span class="nt">&lt;/a&gt;</span>
+</span><span class='line'><span class="nt">&lt;/ul&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>CSS </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">body</span> <span class="p">{</span><span class="o">&lt;/</span><span class="err">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">font-family</span><span class="o">:</span> <span class="n">Merriweather</span><span class="p">;</span>
+</span><span class='line'><span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="err">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;/</span><span class="nt">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nt">p</span><span class="o">&gt;</span><span class="nt">textarea</span> <span class="p">{</span><span class="o">&lt;/</span><span class="err">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
+</span><span class='line'><span class="k">height</span><span class="o">:</span> <span class="m">80px</span><span class="p">;</span>
+</span><span class='line'><span class="k">font-family</span><span class="o">:</span> <span class="n">Droid</span> <span class="n">Sans</span> <span class="n">Mono</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="err">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Javascript </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">ajax</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;/?&quot;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">(),</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">txt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">txt</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">ajax</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>XHR</h2>
+
+<p><img class="center" src="/images/console_xhr.png" title="&#34;XHR&#34;" alt="&#34;XHR&#34;"></p>
+
+<p>console 창에서 위와 같이 메뉴창을 열어서 Log XMLHttpRequests 를 선택해 두면 XMLHttpRequests가 발생할때 마다 콘솔에 XHLHttpRequest 로그를 표시해준다.</p>
+
+<p>Ajax를 이용해서 개발을 할때 기존에는 Network탭에서 확인하였지만 이렇게 직접 Console에서 바로바로 Ajax 호출을 확인할 수 있어서 개발할때 좋을꺼 같다.</p>
+
+<p>또 다른 사이트 분석을 할때도 어느 시점에 Ajax를 사용하는지 쉽게 볼 수 있다.</p>
+
+<h2>console.time() / console.timeEnd()</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Javascript </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">ajax</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s1">&#39;ajax&#39;</span><span class="p">);</span> <span class="c1">//시작 지점</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;/?&quot;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">(),</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">txt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">txt</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s1">&#39;ajax&#39;</span><span class="p">);</span> <span class="c1">// 끝나는 지</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">ajax</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Javascript 소스만 위와 같이 변경을 한다.</p>
+
+<p>실행을 해보면 다음과 같은 결과를 console에서 확인 할 수 있다.</p>
+
+<p><img class="center" src="/images/console_time.png" title="&#34;time, timeEnd&#34;" alt="&#34;time, timeEnd&#34;"></p>
+
+<p>console.time console.timeEnd 는 결과와 같이 시작된 지점을 time() Method 와 끝나는 지점에 timeEnd() method를 써주고 인자 값으로 검사하고자 하는 함수 이름을 넘겨주면 소스코드가 실행된 시간을 화면에 출력해 준다.</p>
+
+<p>최근에 프로젝트를 진행하면서 for 문으로 하는것이 빠를지 jQuery 의 $.each 문으로 하는것이 빠른지 궁금했던적이 있다. 이런 경우 직접 눈으로 확인 할 수 있는 좋은 방법이라고 생각 한다.</p>
+
+<h2>console.dir() / dir()</h2>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>Javascript </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">ajax</span><span class="p">(){</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;/?&quot;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">(),</span> <span class="kc">true</span><span class="p">);</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
+</span><span class='line'>    <span class="nx">txt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">txt</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span> <span class="c1">//log</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span> <span class="c1">//dir</span>
+</span><span class='line'><span class="p">};</span>
+</span><span class='line'><span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">ajax</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Javascript 소스만 위와 같이 변경을 한다.</p>
+
+<p>실행을 해보면 다음과 같은 결과를 console에서 확인 할 수 있다.</p>
+
+<p><img class="center" src="/images/console_dir.png" title="&#34;dir&#34;" alt="&#34;dir&#34;"></p>
+
+<p>위와 같이 log 는 단순하게 인자값으로 넘겨준것을 console 에 반환해서 찍어주고 dir은 인자값으로 넘겨준 값을 자세하게 그 안에 어떤것들이 들어있는지 method, property등 을 보여준다.</p>
+
+<p>HTMLTextAreaElement 앞에 화살표를 눌러보면 아래로 펼쳐 지면서 목록을 쭉 볼수 있다.
+나같은 경우는 dir을 지정한 객체가 method를 가지고 있는지 혹은 prototype을 공부할때 prototype 을 만들어서 상속했을때 어떻게 상속이 되는지 이런것을 확인 할때 주로 사용 했었다.</p>
+
+<p>동영상 예제에서 보면 dir()을 사용하는데 이건 소스에 그대로 사용해서 쓰면 오류가 발생한다.
+다음과 같은 오류가 발생한다.</p>
+
+<p><span style="color:red">Uncaught ReferenceError: txt is not defined</span></p>
+
+<h2>$0 / inspect()</h2>
+
+<p>먼저 inspect() method는 console 창에서 inspect() Method를 호출하면 인자값으로 넘겨주 Element를 Elements탭에서 선택된 상태로 표시해준다.
+페이지 에서 마우스 오른쪽 버튼을 누르고 "요소 검사" 검사를 통해서 선택하는거와 같은 기능이다.</p>
+
+<p>$0는 inspect() 를 통해서 선택된 기준으로 $0 는 현재 선택된 Element를 나타내고 숫자가 증가하면 이전에 선택했던 Element를 기억하고 있다가 차례대로 반환한다.</p>
+
+<h2>$$</h2>
+
+<p>동영상에 보면 bling bling function 이라고 부른다. 달러 표시를 그쪽에서는 그렇게 부르는듯 하다.
+console 창에서 $$ 를 입력해보면 다음과 같은 function 몸체를 볼수 있다.
+대략 봤을때 인자 값을 받아서 querySelectorAll Method를 통해서 Element 를 반환해주는 함수 인거 같다.
+<img class="center" src="/images/console_$$.png" title="&#34;$$&#34;" alt="&#34;$$&#34;"></p>
+
+<p>예제로 확인해 보자. $$ 함수에 textarea 를 찾아보면 다음과 같이 textarea를 반환해 주는것을 확인 할 수 있다.</p>
+
+<p><img class="center" src="/images/console_$$1.png" title="&#34;$$&#34;" alt="&#34;$$&#34;"></p>
+
+<p>document 상에 있는 textarea를 배열로 반환해 준다. 현재 페이지에 textarea가 하나밖에 없어서 하나만 나온것이고 li element를 확인해보면 배열로 여러개의 li element를 반환해 주는것을 볼 수 있다.</p>
+
+<h2>monitorEvents()</h2>
+
+<p>monitorEvents 함수는 인자값으로 받은 Element 에서 발행하는 Event를 모니터링 해주는 함수이다.</p>
+
+<p>예제를 확인해 보자.</p>
+
+<p><img class="center" src="/images/console_monitor.png" title="&#34;monitorEvents&#34;" alt="&#34;monitorEvents&#34;"></p>
+
+<p>위와  같이 monitorEvents() 함수에 인자값으로 $$ 함수를 사용해서 textarea를 넘겨주면 textarea 위에서 발생하는 마우스 이벤트, 키보드 이벤트를 확인 할 수있다.
+console에 나와 있는 화살표를 눌러서 자세하게 확인 할 수도 있다.</p>
+
+<h2>keys() / values()</h2>
+
+<p>keys() , values() 함수는 다음 예제와 같이 인자값으로 넘겨준 값이 가지고 있는 모든 key 값과, value값을 console창에 반환해서 보여주는 함수이다.</p>
+
+<p><img class="center" src="/images/console_keys.png" title="&#34;keys&#34;" alt="&#34;keys&#34;"></p>
+
+<p><img class="center" src="/images/console_values.png" title="&#34;values&#34;" alt="&#34;values&#34;"></p>
+
+<h2>copy()</h2>
+
+<p>동영상에서 보면 알겠지만 copy() 함수는 console에 보여질 내용을 보기 힘들때 반환값을 copy 해서 다른 에디터라던지 등등 옴겨서 볼때 사용하는 함수이다.</p>
+
+<p>예제를 확인해 보면 copy함수를 통해서 keys 값을 복사 하는 것을 확인 할 수있다.</p>
+
+<p><img class="center" src="/images/console_copy.png" title="&#34;copy&#34;" alt="&#34;copy&#34;"></p>
+
+<h2>super-cool Opera and Firebug</h2>
+
+<p>Opera의 <a href="http://www.opera.com/dragonfly" title="Dragonfly">Dragonfly</a></p>
+
+<p>FireFox의 <a href="http://getfirebug.com/" title="Firebug">Firebug</a></p>
+
+<p>이 두가지는 따로 얘기 하지 않고 링크만 걸어두겠다.</p>
+
+<h2>more devtools</h2>
+
+<p>more devtools 는 <a href="http://code.google.com/intl/ko-KR/chrome/devtools/docs/console.html" title="Chrome Developer Tools: Console">Chrome Developer Tools: Console</a> 에서 console에 대한 자세한 내용을 볼 수 있다는 설명입니다.</p>
+
+<p>설명에 보면 Console은 Firebug 의 <a href="http://getfirebug.com/wiki/index.php/Command_Line_API" title="Command Line API">Command Line API</a> 를 지원한다고 써 있습니다. 이곳에 가면 console에서 사용 할 수있는 API 를 자세하게 확인 할 수 있습니다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Javascript Global Object]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/07/javascript-global-object/"/>
+    <updated>2011-10-07T06:44:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/07/javascript-global-object</id>
+    <content type="html"><![CDATA[<h2>Global Object</h2>
+
+<p>Javascript에는 Global Object가 있다.<br />
+쉽게 말하면 Javascript에서 기본적으로 제공되는 전역객체 이다.<br />
+어떤것들이 있는지 알아보자.<br /></p>
+
+<ul>
+<li>Array</li>
+<li>Boolean</li>
+<li>Date</li>
+<li>Function</li>
+<li>Number</li>
+<li>Object</li>
+<li>RegExp</li>
+<li>String</li>
+</ul>
+
+
+<p>Javascript Core 부분을 공부할때 나오는 것들이지만 자세히 보지 않고 지나처 버려 잘 알지 못하는 것들이다.</p>
+
+<p>보통 Javascript를 공부한다고 하면 DOM 부터 공부를 많이 하게 된다.
+이유를 생각해보면 간단하다 당장 웹페이지 개발을 할때 써야 할 것 들은 DOM을 조작하는 일이 많기 때문에 DOM을 먼저 공부하게 되고 Core 부분은 그냥 넘어가 버리게 되고 만다.<br />
+이렇게 되면서 어느덧 DOM이 Javascript인것 처럼 여겨 지게 된거 같다. 실질적으로 DOM은 Javascript 가 아니다 단지 Javascript 로 DOM 을 접근할 수 있는 DOM API가 있을 뿐이다.
+<a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf" title="ECMAScript">ECMAScript</a>에서도 확인해보면 DOM 은 나와 있지 않다.</p>
+
+<p>내가 생각하는 Javascript 를 공부할때 우선 순위는 Global Object(Core)를 알고 그것들의 Property, Method를 아는게 Javascript의 기초라고 생각한다.
+Global Object 의 Method를 알고 나면 내가 숫자, 문자, 배열을 만들었을때 자신이 만들지도 않은 Method를 왜 쓸수 있는지 또 prototype은 무엇인지 궁금하게 되고 자연스럽게 공부 할 수 있다고 생각한다.</p>
+
+<p>나도 그동안 소홀했던 부분을 이제 부터 차근차근 Core 부분의 Global Object의 Method 를 정리 해볼까 한다.<br />
+항상 블로그를 만들고 마음을 먹고 정리하다 보면 Array Method만 하다가 끝났었는데 이번에는 꼭 끝까지 다 정리 하는 것을 목표로 하고 실천해 볼려고 한다.</p>
+]]></content>
+  </entry>
+  
+</feed>

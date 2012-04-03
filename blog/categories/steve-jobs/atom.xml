@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: steve_jobs | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/steve-jobs/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Remembering Steve Jobs]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/05/remembering-steve-jobs/"/>
+    <updated>2011-10-05T06:24:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/05/remembering-steve-jobs</id>
+    <content type="html"><![CDATA[<p><img src="/images/hero.png" width="960" height="480" title="&#34;Steve Jobs 1955 - 2011&#34;" alt="&#34;Steve Jobs 1955 - 2011&#34;"></p>
+
+<p><img src="/images/apple_log.png" width="960" height="500" title="&#34;apple_log&#34;" alt="&#34;apple_log&#34;"></p>
+
+<p>좋은 곳에서 편히 쉬길 바라며...</p>
+]]></content>
+  </entry>
+  
+</feed>

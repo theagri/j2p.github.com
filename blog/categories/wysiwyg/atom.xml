@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: WYSIWYG | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/wysiwyg/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[간단한 WYSIWYG Editor 만들기]]></title>
+    <link href="http://J2P.github.com/blog/2011/12/02/wysiwyg-editor/"/>
+    <updated>2011-12-02T09:42:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/12/02/wysiwyg-editor</id>
+    <content type="html"><![CDATA[<p>회사에서 작업하다가 bold, italic, underline 기능만 필요한 WYSIWYG가 필요해서 어떻게 해야 할지 앞이 캄캄해서 그냥 오픈 소스를 써야 하나 했는데 역시 구글신이 간단한 방법을 알려줬다.</p>
+
+<p>contenteditable 사용해서 엘리먼트에 바로 편집이 가능하게 된다. 요것은 HTML5 에 표준이 된거라고 하는데 브라우저 지원 여부를 확인해보니 거의 모든 브라우져에서 지원을 하고 있다.
+이전에는 WYSIWYG Editor 을 만들기 위해서 iframe 과 designMode="on" 으로 사용했다고 한다.</p>
+
+<p>브라우저 지원 여부에 대해서 알아보면 다음과 같다.</p>
+
+<p><img src="/images/contenteditable.png" title="&#34;contenteditable&#34;" alt="&#34;contenteditable&#34;"></p>
+
+<p>사용방법은 아주아주 간단하다. 소스로 보면 다음과 같다.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>WYSIWYG Editor  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">contenteditable=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">onclick=</span><span class="s">&quot;document.execCommand(&#39;bold&#39;, null, false);&quot;</span> <span class="na">value=</span><span class="s">&quot;B&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">onclick=</span><span class="s">&quot;document.execCommand(&#39;italic&#39;, null, false);&quot;</span> <span class="na">value=</span><span class="s">&quot;I&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">onclick=</span><span class="s">&quot;document.execCommand(&#39;underline&#39;, null, false);&quot;</span> <span class="na">value=</span><span class="s">&quot;U&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위 소스와 같이 div 엘리먼트에 contenteditable attribute 값만 주면 편집이 가능하게 되고 버튼 3개로 입력한 Text 에 바로 blod, italic, underline 효과를 줄수 있다.</p>
+
+<p>그 외에 다른 execCommand 에 대한 정보는 아래 링크에서 확인 할 수 있다.</p>
+
+<ul>
+<li><p><a href="http://www.quirksmode.org/dom/execCommand.html" title="execCommand compatibility">execCommand compatibility</a></p></li>
+<li><p><a href="http://msdn.microsoft.com/en-us/library/ms533049.aspx" title="Command Identifiers">Command Identifiers</a></p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

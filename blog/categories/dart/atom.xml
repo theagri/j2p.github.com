@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: dart | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/dart/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[New Language Dart]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/12/new-language-dart/"/>
+    <updated>2011-10-12T06:15:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/12/new-language-dart</id>
+    <content type="html"><![CDATA[<p><img src="/images/dart.jpg" width="960" height="300" title="&#34;dart&#34;" alt="&#34;dart&#34;"></p>
+
+<p>Google 에서 새로운 언어 Dart를 10일 발표했나보다.
+써있는거 보면 구조화된 웹 애플리케이션 구축에 적합한 개발언어라고 한다.
+여기 저기 한국에 올라온 기사를 보면 대충 모 이런 내용이다.</p>
+
+<blockquote><p>작고 비구조적인 프로젝트나 크고 구조적인 프로젝트 모두 활용할 수 있는 개발언어로 모바일 단말기나 서버에서도 고성능을 발휘하는 웹 애플리케이션을 만들기에 적합하다.</p>
+
+<p>클래스 기반으로 돼 있으며, 좀 더 단순하고 효과적이다.</p>
+
+<p>브라우저에 내장된 가상머신(VM)에서 실행되거나 컴파일러에서 자바스크립트로 변환해 실행된다.
+구글은 자사의 크롬 브라우저에 다트 VM을 내장할 계획이다.</p></blockquote>
+
+<h2>Dart Link</h2>
+
+<h3>Site</h3>
+
+<ul>
+<li><a href="http://dartinside.com" title="http://dartinside.com">Dart inside</a></li>
+<li><a href="http://dartlang.org" title="http://dartlang.org">Dart home page</a></li>
+<li><a href="http://dart.googlecode.com" title="http://dart.googlecode.com">Dart on google code</a></li>
+<li><a href="https://groups.google.com/a/dartlang.org/group/misc/topics" title="https://groups.google.com/a/dartlang.org/group/misc/topics">Dart groups</a></li>
+</ul>
+
+
+<h3>Twitter</h3>
+
+<ul>
+<li><a href="https://twitter.com/#!/dart_lang" title="@dart_lang">@dart_lang</a></li>
+<li><a href="https://twitter.com/#!/DartInside" title="@DartInside">@DartInside</a></li>
+</ul>
+
+
+<h3>Post</h3>
+
+<ul>
+<li><a href="http://blogs.perl.org/users/rafael_garcia-suarez/2011/10/why-dart-is-not-the-language-of-the-future.html" title="Why Dart is not the language of the future">Why Dart is not the language of the future</a></li>
+<li><a href="http://gototoday.dk/2011/10/10/lars-bak-on-dart/" title="Lars Bak on Dart">Lars Bak on Dart</a></li>
+</ul>
+
+
+<h3>News</h3>
+
+<ul>
+<li><a href="http://www.zdnet.co.kr/news/news_view.asp?artice_id=20111011094220&amp;type=xml" title="구글 웹앱 언어 '다트'…자바스크립트 대체?">구글 웹앱 언어 '다트'…자바스크립트 대체?</a></li>
+<li><a href="http://news.inews24.com/php/news_view.php?g_serial=609412&amp;g_menu=020600&amp;rrf=nv" title="구글, 新프로그래밍언어 '다트' 발표">구글, 新프로그래밍언어 '다트' 발표</a></li>
+<li><a href="http://www.ddaily.co.kr/news/news_view.php?uid=83234" title="구글, 새로운 개발 언어 ‘다트’…웹 개발 전용">구글, 새로운 개발 언어 ‘다트’…웹 개발 전용</a></li>
+</ul>
+
+
+<h3>Video</h3>
+
+<iframe width="600" height="480" src="http://www.youtube.com/embed/M0lfNw8Tyhc" frameborder="0" allowfullscreen></iframe>
+
+
+<iframe width="600" height="480" src="http://www.youtube.com/embed/24LIzl7cM2c" frameborder="0" allowfullscreen></iframe>
+
+
+<iframe width="600" height="480" src="http://www.youtube.com/embed/nqb-k9upqZ4" frameborder="0" allowfullscreen></iframe>
+
+
+<h2>나의 생각</h2>
+
+<p>Dart가 나오기전 Javascript 를 대체 할 것이라는 얘기가 돌아서 나는 새로 나올 언어가 궁금했었다.
+근데 막상 Dart 를 보고 나서 들었던 생각은 모랄까... 이게 모지? 다른 언어들 몇개 합쳐 논건가?? 이런 생각이 들었다.</p>
+
+<p>내가 다른 언어를 직접 써보질 않아서 인지 거리감도 생기고 현재로서는 브라우저에서 모두 지원하기 까지는 오랜 시간이 걸리지 않을까 싶다.</p>
+
+<p>vm을 브라우저에 내장해서 돌린다고 해도... 무겁지 않을까 하는 생각이 든다.</p>
+
+<p>지금까지 본것 만으로 생각해보면 Javascript보다 좀 빠르다는거?(이것도 직접 보지는 않았음) 빼고는 좋은 점을 모르겠다.</p>
+]]></content>
+  </entry>
+  
+</feed>

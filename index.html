@@ -1,0 +1,1607 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>J2P Blog</title>
+  <meta name="author" content="J2P">
+
+  
+  <meta name="description" content="
+">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://J2P.github.com">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="J2P Blog" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-26077425-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">J2P Blog</a></h1>
+  
+    <h2>Front End Developer Blog.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:J2P.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/03/event-capturing-bubbling/">Event Capturing Bubbling</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-03T11:39:00+09:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2012</time>
+        
+         | <a href="/blog/2012/04/03/event-capturing-bubbling/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content">
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/12/02/wysiwyg-editor/">간단한 WYSIWYG Editor 만들기</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-02T09:42:00+09:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2011</time>
+        
+         | <a href="/blog/2011/12/02/wysiwyg-editor/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>회사에서 작업하다가 bold, italic, underline 기능만 필요한 WYSIWYG가 필요해서 어떻게 해야 할지 앞이 캄캄해서 그냥 오픈 소스를 써야 하나 했는데 역시 구글신이 간단한 방법을 알려줬다.</p>
+
+<p>contenteditable 사용해서 엘리먼트에 바로 편집이 가능하게 된다. 요것은 HTML5 에 표준이 된거라고 하는데 브라우저 지원 여부를 확인해보니 거의 모든 브라우져에서 지원을 하고 있다.
+이전에는 WYSIWYG Editor 을 만들기 위해서 iframe 과 designMode=&#8221;on&#8221; 으로 사용했다고 한다.</p>
+
+<p>브라우저 지원 여부에 대해서 알아보면 다음과 같다.</p>
+
+<p><img src="/images/contenteditable.png" title="&#34;contenteditable&#34;" alt="&#34;contenteditable&#34;"></p>
+
+<p>사용방법은 아주아주 간단하다. 소스로 보면 다음과 같다.</p>
+
+<figure class='code'><figcaption><span>WYSIWYG Editor  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;div</span> <span class="na">contenteditable=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">onclick=</span><span class="s">&quot;document.execCommand(&#39;bold&#39;, null, false);&quot;</span> <span class="na">value=</span><span class="s">&quot;B&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">onclick=</span><span class="s">&quot;document.execCommand(&#39;italic&#39;, null, false);&quot;</span> <span class="na">value=</span><span class="s">&quot;I&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span> <span class="na">onclick=</span><span class="s">&quot;document.execCommand(&#39;underline&#39;, null, false);&quot;</span> <span class="na">value=</span><span class="s">&quot;U&quot;</span><span class="nt">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위 소스와 같이 div 엘리먼트에 contenteditable attribute 값만 주면 편집이 가능하게 되고 버튼 3개로 입력한 Text 에 바로 blod, italic, underline 효과를 줄수 있다.</p>
+
+<p>그 외에 다른 execCommand 에 대한 정보는 아래 링크에서 확인 할 수 있다.</p>
+
+<ul>
+<li><p><a href="http://www.quirksmode.org/dom/execCommand.html" title="execCommand compatibility">execCommand compatibility</a></p></li>
+<li><p><a href="http://msdn.microsoft.com/en-us/library/ms533049.aspx" title="Command Identifiers">Command Identifiers</a></p></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/29/node-chat3/">Node.js 이용해서 Chat을 만들어보자[3]</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-29T04:42:00+09:00" pubdate data-updated="true">Nov 29<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/29/node-chat3/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>오늘은 닉네임 입력을 하고 로그인을 하고 페이지를 빠져나오게 되면 로그아웃이 되는걸 구현해 볼까 한다.</p>
+
+<p>소스는 다음과 같이 수정을 하면 된다.</p>
+
+<figure class='code'><figcaption><span>server.js  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">).</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">handler</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">5023</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;socket.io&#39;</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="nx">app</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">nicklist</span> <span class="o">=</span> <span class="p">{};</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/index.html&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Error loading index.html&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/html&#39;</span><span class="p">});</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">io</span><span class="p">.</span><span class="nx">sockets</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;join&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nick</span><span class="p">){</span>
+</span><span class='line'>      <span class="nx">nicklist</span><span class="p">[</span><span class="nx">nick</span><span class="p">]</span> <span class="o">=</span> <span class="nx">socket</span><span class="p">.</span><span class="nx">nickname</span> <span class="o">=</span> <span class="nx">nick</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">socket</span><span class="p">.</span><span class="nx">broadcast</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;joinok&#39;</span><span class="p">,</span> <span class="nx">nick</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">io</span><span class="p">.</span><span class="nx">sockets</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;nicknames&#39;</span><span class="p">,</span> <span class="nx">nicklist</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;disconnect&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>      <span class="k">delete</span> <span class="nx">nicklist</span><span class="p">[</span><span class="nx">socket</span><span class="p">.</span><span class="nx">nickname</span><span class="p">];</span>
+</span><span class='line'>      <span class="nx">socket</span><span class="p">.</span><span class="nx">broadcast</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;nicknames&#39;</span><span class="p">,</span><span class="nx">nicklist</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>index.html  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;title&gt;</span>JP Chat<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://code.jquery.com/jquery-1.7.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/socket.io/socket.io.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>  //기존 소스에서
+</span><span class='line'>  <span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">&quot;set-nickname&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;label&gt;</span>NickName : <span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">id=</span><span class="s">&quot;nick&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;join&quot;</span><span class="nt">&gt;</span>Join<span class="nt">&lt;/button&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/form&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;nicknames&quot;</span><span class="nt">&gt;&lt;ul&gt;&lt;/ul&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>      <span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$</span><span class="p">){</span>
+</span><span class='line'>          <span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">&#39;localhost:5023&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;joinok&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nick</span><span class="p">){</span>
+</span><span class='line'>              <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">,</span> <span class="s2">&quot;#nicknames&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;li&gt;&quot;</span><span class="o">+</span><span class="nx">nick</span><span class="o">+</span><span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">);</span>
+</span><span class='line'>          <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;nicknames&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>              <span class="kd">var</span> <span class="nx">nicklist</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">,</span> <span class="s2">&quot;#nicknames&quot;</span><span class="p">).</span><span class="nx">empty</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>              <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;ul&quot;</span><span class="p">,</span> <span class="s2">&quot;#nicknames&quot;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;&lt;li&gt;&quot;</span><span class="o">+</span><span class="nx">data</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;&lt;/li&gt;&quot;</span><span class="p">);</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>          <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#join&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">({</span>
+</span><span class='line'>              <span class="nx">click</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="kd">var</span> <span class="nx">nick</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#nick&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="k">if</span> <span class="p">(</span><span class="nx">nick</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                      <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;NickName 을 입력해주세요.&#39;</span><span class="p">);</span>
+</span><span class='line'>                      <span class="nx">nick</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+</span><span class='line'>                      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>                  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                      <span class="nx">socket</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;join&#39;</span><span class="p">,</span> <span class="nx">nick</span><span class="p">.</span><span class="nx">val</span><span class="p">());</span>
+</span><span class='line'>                      <span class="nx">nick</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>                  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+</span><span class='line'>              <span class="p">}</span>
+</span><span class='line'>          <span class="p">});</span>
+</span><span class='line'>      <span class="p">})(</span><span class="nx">jQuery</span><span class="p">);</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>server.js 소스에 보면 on Method 와  emit Method가 있는데 간단하게 생각하면 된다 on Method는 받는거고 emit Method는 보내는 거다 라고 생각하면 된다.</p>
+
+<p>index.html 에서 join 이라는 이벤트를 server로 요청(emit)을 하게 되면 서버에서는 join 이벤트가 실행이(on) 된다.</p>
+
+<p>인자값으로 넘어온 nick 을 미리 선언된 nicklist 객체에 넣는다. 배열로 하지 않고 객체로 하는 이유는 중복을 막기 위함이다. 배열로 해도 막을 수는 있지만 막으려면 또 과정을 거쳐야 하기 때문에 간단하게 key : value 로 넣어서 같은 닉네임이 있으면 덮어 씌워지는 것이다.</p>
+
+<p>또 socket.nickname 에 추가로 nick 을 넣어줘서 로그아웃 처리를 할때 사용 할 수 있게 미리 담아둔다.</p>
+
+<p>이제 각 client 에게 로그인을 했다는 정보를 보내주는 과정이다. 위에 소스를 보면 두가지 이벤트를 실행하게 된다. joinok 와 nicknames 이렇게 두개를 처리하는 이유는 여러 사람에게 나 로그인 했다~ 라고 보내주는것과 또 하나는 내 화면에 나 로그인 했다~ 라고 뿌려주는 역할을 따로 따로 하기 때문이다.</p>
+
+<p>여기서 broadcast 에 대한 설명은 <a href="https://twitter.com/#!/firejune" title="@firejune">@firejune</a>님의 블로그에서 자세한 설명을 볼 수 있다.</p>
+
+<p><a href="http://firejune.com/1700" title="Socket.IO 학습 - 퍼블릭/브로드캐스트/프라이빗 구분">Socket.IO 학습 - 퍼블릭/브로드캐스트/프라이빗 구분</a></p>
+
+<p>이제 index.html 에서 joinok 이벤트와 nicknames 이벤트를 보면 joinok 는 기본 닉네임 리스트에 내가 쓴 닉네임을 추가 시켜주고 전체 nicknames 를 가져와서 nicklist를 다시 그려주게 된다. 전체 닉네임을 갱신한다고 생각하면 될꺼 같다.</p>
+
+<p>로그아웃은 따로 로그아웃 버튼이 있는건 아니고 단지 페이지를 빠져 나가게 되면 로그아웃이라고 생각하면 될꺼 같다. 그래서 server.js 를 보게되면 disconnect 이 일어 났을때 로그인을 했을때 socket.nickname 에 넣었던 닉네임을 nicklist 객체에서 delete 해준다.</p>
+
+<p>그리고 다시 socket.broadcast.emit() 로 전체 client에게 nicknames 이벤트를 호출해서 로그인 리스트를 갱신하게 된다. 그러면 로그아웃한 회원을 제외한 나머지 사람들 리스트만 보이게 된다. 여기서 왜 자신꺼는 이벤트를 호출을 안하는지 혹시 의문이 들수도 있는데 이건 생각해보면 당연한거다 내껀 페이지를 빠져 나오거나 페이지 자체를 갱신했기때문이다. 이렇게 해서 로그인, 로그아웃 구현을 끝냈다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/21/node-chat2/">Node.js 이용해서 Chat을 만들어보자[2]</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-21T10:08:00+09:00" pubdate data-updated="true">Nov 21<span>st</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/21/node-chat2/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>오늘은 socket.io를 사용해서 서버와 통신(connection, disconnection)이 어떻게 가능한지 확인해볼까 한다.</p>
+
+<p>먼저 서버와의 통신을 확인하기 위해서 다음과 같이 server.js 와 index.html 소스를 수정한다.</p>
+
+<figure class='code'><figcaption><span>server.js  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">).</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">handler</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">5023</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;socket.io&#39;</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="nx">app</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/index.html&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Error loading index.html&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/html&#39;</span><span class="p">});</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 기존 소스에 이부분 추가</span>
+</span><span class='line'><span class="nx">io</span><span class="p">.</span><span class="nx">sockets</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connection&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">socket</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;log : in&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;disconnect&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;log : out&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>index.html  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;title&gt;</span>JP Chat<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://code.jquery.com/jquery-1.7.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/socket.io/socket.io.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">&quot;set-nickname&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;label&gt;</span>닉네임을 입력해주세요: <span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">id=</span><span class="s">&quot;nick&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/form&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;nicknames&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>    <span class="c1">//socket connect script 추가</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">&#39;http://localhost:5023&#39;</span><span class="p">);</span>
+</span><span class='line'>  <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Server, Client 소스에 socket 통신을 하기 위해서 추가된 부분이 있다 어떤 동작을 하는지 눈으로 확인해 보도록 하겠다.</p>
+
+<p>socket.io 사이트에 <a href="http://socket.io/#how-to-use" title="how to use">how to use</a> 에서 확인을 해보면 다음과 같은 부분이 있다.</p>
+
+<blockquote><p>Besides <code>connect</code>, <code>message</code> and <code>disconnect</code>, you can emit custom events</p></blockquote>
+
+<p>해석해 보면 connect, message, disconnect 외에도 다른 이벤트를 만들어서  사용할 수 있다는 내용이다. 기본적으로 제공되는 event 인 connect, disconnect 를 통해서 Server와 Client 사이에 통신이 가능한지 확인해보자.</p>
+
+<p>socket.io 사이트에서 예제 소스를 보면 Server 와 Client가 connection이 이루어져야 socket 통신이 가능하다는걸 알 수 있다.</p>
+
+<p>index.html 파일을 보게 되면 io.connect() method 에 socket 통신을 하고자 하는 Server url을 넘겨 connect event 를 호출하게 된다.</p>
+
+<p>Server에서는 connection 이벤트를 호출하게 되어 함수를 호출하게 되고 터미널에는 <strong>log : in</strong> 이 찍히게 된다. disconnect 이벤트는 connect 이벤트 안에 있는걸 볼 수 있는데 이것은 단순하게 생각하면 접속을 해야 접속을 끊는 것도 가능하기 때문이라고 생각한다. 그래서 disconnect event가 발생하게 되면 터미널에 <strong>log : out</strong> 을 찍게 된다.</p>
+
+<p>그럼 connection, disconnect가 이루어질때 터미널에 로그가 남는지 확인해보자.</p>
+
+<p><img class="center" src="/images/socket_io_test.png" title="&#34;connect, disconnect 확인&#34;" alt="&#34;connect, disconnect 확인&#34;"></p>
+
+<p>위 화면과 같이 index.html 에 접속했을때 <strong>log : in</strong> 을 터미널에서 확인 할 수 있고, 페이지를 나오게 되면 <strong>log : out</strong> 을 터미널에서 확인 할 수 있다.</p>
+
+<p>이렇게 해서 socket.io를 통해서 Server와 Client 사이에 connection, disconnection이 이루어 지는걸 확인 할 수 있었다.</p>
+
+<p>이제 Server 와 Client 사이에 socket통신이 가능 하게 되었다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/21/seminar-postscript/">OctoverSky.js & JScamp 후기</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-21T09:47:00+09:00" pubdate data-updated="true">Nov 21<span>st</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/21/seminar-postscript/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>2011년 11월 19일 토요일 하루만에 두개의 세미나를 다녀왔다.</p>
+
+<p>이렇게 주말에 세미나에 다니면 집사람과 아들에게 눈치도 보이기도 하고, 몸도 힘들지만 세미나에 다녀오면 몬가 얻은 기분도 들고 여러 사람들을 만나 보면서 다른 사람들은 어떻게 자신을 발전시키고 어떤것들을 하고 있는지 볼 수 있어서 좋다고 생각한다. 그리고 동기부여(?) 같은것도 얻을 수 있어서 세미나에 자주 다니는 편이다.</p>
+
+<p>이번에도 역시 몬가 해야 겠다는 생각과 함께 얻은 것들이 있었다. 그래서 나름 유익한 시간이 였다고 생각한다.</p>
+
+<h2>OctoberSky.js</h2>
+
+<p>먼저 오전에 다녀온 OctoberSky.js 라는 node.js 온라인 스터디의 첫번째 오프라인 모임이였다.</p>
+
+<p>onoffmix에서 처음 알게되고 신청했을때는 대기자에 있었는데 다행이도 <a href="https://twitter.com/#!/doortts" title="@doortts">@doortts</a>님께서 불편하지만 않다면 참석해도 된다고 하셔서 간신히 참석하게 되었다. 근데 당일날 확인해 보니 많은 분들이 취소를 하셔서 신청자 명단으로 올라가 있었다.</p>
+
+<p>장소는 압구정 컨시어지 아카데미에서 진행되었는데 다 좋았지만 찾아가기가 좀 힘들었다. 내가 길치라서 그런건지 일찍 나오지 않았다면 한참 늦게 도착했을 것 같다.</p>
+
+<p>진행 내용은 다음과 같다.</p>
+
+<ul>
+<li>간략한 발표 듣기</li>
+<li>Cloud9 IDE에서의 개발 - 형주 님</li>
+<li>자바스크립트 코어 - Prototype Chain &amp; Closure - 병주 님</li>
+<li>node.js 적용 경험담 듣기 - 준호 님</li>
+<li>ECMAScript 변천사 - 응준 님</li>
+<li>진행한 스터디 진도 만큼 함께 살펴보기</li>
+</ul>
+
+
+<p>대략 25명정도의 인원이 모였는데 이런저런 스터디에 대한 얘기를 시작으로 자기소개를 했다ㅡㅡ;;</p>
+
+<p>요즘 들어 세미나에서 자기소개를 두번째 했는데&#8230; 다른분들은 재미있게, 조리있게 말씀들을 참 잘하시는거 같다. 난 왜이렇게 떨리는지 말도 어버버 하고 말잘하는 연습좀 해야겠다 ㅋ;</p>
+
+<p>이렇게 자기 소개를 맞치고 Cloud9 IDE에 대한 소개를 형주님이 해주셨다. 간단한 소개와 함께 사용방법에 대해서 설명해주시고 현재 스터디를 어떻게 작업하는 방법에 대해서 얘기해주셨다.</p>
+
+<p>두번째 자바스크립트 코어에 대한 설명을 병주님이 해주셨다. 공부를 위해서 직접 발표를 신청하셨다고 한다. 정말 멋진거 같다. 난 왜 저런 자신감이 없는건지&#8230; 저런 자세는 배워야 한다!!</p>
+
+<p>발표 내용은 Prorotype Chain &amp; Closure 에 대한 정리를 해서 설명을 해주셨는데 개념을 잡기에 아주 좋은 내용을 잘 조리 있게 잘설명해주신거 같다. 알고 있는걸 다시한번 짚어 볼수 있는 시간이였다.</p>
+
+<p>다음으로 이번 세미나의 최대 하이라이트 였던 준호님의 발표 시간이 였다.
+내용은 node.js 사용후기? 경험담? 만들었던것들? 을 보여주시면서 재미있게 설명을 해주셨다. 정말 준호님은 대단하다는 생각이 들정도로 많은 것들을 만들어 보시고 적용해서 블로그에서 사용중이시고 멋지다는 생각이 들었다.</p>
+
+<p>역시 무엇이든 만들어 봐야 배울수 있다는 생각이 든다. 이론도 이론이지만 만들어 보는거 만큼 좋은게 없다고 생각이 든 발표 였다. 다음에 꼭 FRENDS모임에 오셔서 한번더 발표해주시면 정말 좋은 시간이 될꺼 같다.</p>
+
+<p>다음은 ECMAScript의 발표 였는데&#8230; 발표자분과 자리를 마련해주신분께 죄송한 마음이 들었지만&#8230; 다음 세미나 장소로 이동하였다. 나중에 들은 생각이지만 다음부턴 절대로 이런 행동은 하지 말아야 겠다는 생각이들 었다.</p>
+
+<h2>jscamp</h2>
+
+<p>이 세미나는 NHN, Daum 프론트앤드 개발자 분들이 모여서 처음 시작하게된 모임이였다. 국내 양대 포털회사 개발자 분들이 개발자로서 교류하는 모습이 좋아 보였다.</p>
+
+<p>진행 내용은 다음과 같다.</p>
+
+<ul>
+<li>컨퍼런스 개회 및 소개 박재성(NHN)</li>
+<li>우리 회사 이야기, 우리 회사 개발 이야기 송승렬(NHN), 유경민(Daum)</li>
+<li>Titanium - javascript 이용한 크로스플랫폼 App개발 이종은(Daum)</li>
+<li>node.js 가 뭐야? 먹는거야? 손병대(NHN)</li>
+<li>웹 기반 하이퍼포먼스 그래픽 처리 문경두(Daum)</li>
+<li>Hudson 과 Selenium을 이용한 QUnit 테스트 자동화 김민종(NHN)</li>
+<li>즉석 질의 응답, 무엇이든 물어보세요!</li>
+</ul>
+
+
+<p>조금 늦게 도착해서 컨퍼런스 개회 및 소개는 잘 듣지 못했다.</p>
+
+<p>우리 회사 이야기, 우리 회사 개발 이야기 회사 개발방식에 대한 내용이 였다. 다른 회사들은 저런 방식으로 개발을 하는구나 라는걸 볼수 있어서 나름 괜찮았다. 한편으로는 불필요한 내용인거 같기도 했다.</p>
+
+<p>Titanium 발표는 생각지도 않은 부분이 였지만 발표자분께서 살짝 라이브 코딩을 보여주시면서 Titanium에 대한 장점들을 보여주시고 앞으로 어떻게 발전해 나갈것인지 어떤점들이 좋은지 단점은 어떤것들이 있는지 잘 설명해주신거 같다. 개인적인 생각으로 전체 발표중에서 제일 좋았다고 생각한다.</p>
+
+<p>역시 발표하는 사람은 유머러스한 면이 있어야 많은 사람들이 좋아하는거 같다.</p>
+
+<p>node.js 에대한 얘기를 그냥 node.js를 아는 사람에게는 그닥 불필요한 내용이 였다 하지만 node.js 무엇인지 처음 들어본 분들에게는 아~ 이런 기술이 있구나 하고 알게 되고 사용해볼 생각을 같게될수 있는 발표 였다고 생각한다.</p>
+
+<p>웹 기반 하이퍼포먼스 그래픽 처리 canvas, webGL, css에 대한 그래픽 처리에 대한 발표 였다. 발표자 분이 응근 재미있게 발표해 주셔서 나름 재미있는 발표 였다고 생각한다. 예제를 보여 주셨던것이 좋았던거 같다. 개인적으로 canvas, webGL보단 css 부분이 내가 사용해 보기엔 좋은것들이 였다고 생각한다.</p>
+
+<p>Hudson, SElenium 을 이용한 Qunit테스트 자동화 사실 이 발표가 제일 기대 되고 꼭 듣고 싶었었다.
+항상 테스트에 대한 내용을 접하게 되면 느끼는 거지만 저것들은 왜 구지 저렇게 하는 것일까? 라는 생각을 했었다. 하지만 자동화를 통해서 사용을 한다면 테스트는 좋은 부분들이 많을거 같다. 일단 어떤 방법이 있는지 알았으니 찾아보고 적용해 보는건 내 몫이라고 생각한다. 좀더 검색해보고 테스트 해봐야 할 부분인거 같다.</p>
+
+<p>이렇게 해서 두번째 세미나도 끝이 났다.</p>
+
+<p>힘들 하루 였지만 얻는것도 많은 하루 였다. 우리 FRENDS 에서도 이런 세미나가 빠른 시일에 이루어 지면 재미있을꺼 같다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/14/node-chat/">Node.js 이용해서 Chat을 만들어보자[1]</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-14T19:13:00+09:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/14/node-chat/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>그동안 node.js 에 대해서 맨날 보기만 하다가 H3 채팅을 보고 직접 만들어 보고 싶다는 생각이 들었다.
+그래서 간단한 채팅을 만들어 볼려고 한다.</p>
+
+<p>오늘은 기본적인 web server 구동을 시작해보겠다. 아래 소스는 github Repositorie에 올리면서 진행하려고 한다. nodester에서 호스팅을 받아서 nodester쪽에서도 확인해볼수 있다.</p>
+
+<ul>
+<li><a href="https://github.com/J2P/j2p_chat" title="github">https://github.com/J2P/j2p_chat</a></li>
+<li><a href="http://j2p_chat.nodester.com/" title="nodester">http://j2p_chat.nodester.com/</a></li>
+</ul>
+
+
+<p>먼저 채팅을 만들기 위해서 기본적으로 socket 통신을 해야 하므로 npm을 이용해서 socket.io를 설치했다.</p>
+
+<figure class='code'><figcaption><span>npm install  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>npm install socket.io
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>socket.io를 설치하면 examples 디렉토리 안에 chat이 있는데 express 이외에도 많은 모듈을 사용해서 만들어져있다. 나는 단순한 socket 통신을 하는거만 보기 위한거라서 다른 모듈 없이 socket.io 만 사용해서 만들어 볼려고 한다. 소스는 socket.io/examples/chat 소스를 바탕으로 작업을 했다.</p>
+
+<p>우선 가장 기본적인 부분인 Web Server 구현해 볼려고한다.</p>
+
+<p>필요한 파일은 서버쪽 server.js 파일과 클라이언트 페이지 index.html 이 필요하다.</p>
+
+<h3>Server.js</h3>
+
+<p>서버쪽에서 Web Server가 구동되야 하므로 server.js 에 다음을 추가한다.</p>
+
+<figure class='code'><figcaption><span>server.js  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">).</span><span class="nx">createServer</span><span class="p">(</span><span class="nx">handler</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="mi">5023</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">io</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;socket.io&#39;</span><span class="p">).</span><span class="nx">listen</span><span class="p">(</span><span class="nx">app</span><span class="p">)</span>
+</span><span class='line'>  <span class="p">,</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="kd">function</span> <span class="nx">handler</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">){</span>
+</span><span class='line'>  <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/index.html&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">500</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="s1">&#39;Error loading index.html&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">writeHead</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="p">{</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;text/html&#39;</span><span class="p">});</span>
+</span><span class='line'>    <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>대략 소스를 보면 http, socket.io, fs 모듈을 사용하고 있다.</p>
+
+<p>여기서 http 모듈은 서버를 생성할때 handler 함수를 인자값으로 넘겨줘서 서버를 Web Server 를 생성하고 port 5023(port 번호는 마음대로 설정해도 된다) 으로 접근할수 있게 설정했다.</p>
+
+<p>handler 함수는 예전부터 가장 궁금했던 부분중에 하나인 html 파일을 어떻게 보여주는지 궁금했었는데 그부분을 구현한 함수 부분이다. fs 모듈을 이용해서 index.html 파일을 읽어서 보여주게 된다.</p>
+
+<p>파일을 읽는중 문제가 생기게 되면 다음과 같이 500 에러가 발생하고 메시지를 보여주게 된다.</p>
+
+<p><img class="center" src="/images/500_err.png" title="&#34;500 err&#34;" alt="&#34;500 err&#34;"></p>
+
+<p>handler 함수에서 fs.readFiel() method 에 index.html 파일을 인자값으로 넘겨줄때 <a href="http://nodejs.org/docs/v0.6.1/api/globals.html#__dirname" title="__dirname">__dirname</a> 이 있는데 nodejs doc에서 확인을 해보면 __dirname 은 node.js의 global Object로 현재 스크립트파일의 위치를 담고 있는 객체인걸 알 수 있다.</p>
+
+<p>socket.io 모듈은 listen Method는 인자값으로 http 모듈을 담고 있는 app 변수를 넘겨준다.
+나름 해석해보면 socket.io 가 Web Server를 항상 듣고 있는 모 그런거 같다 ㅋ;;.</p>
+
+<h3>index.html</h3>
+
+<p>server.js 에서 index.html을 읽어들여서 보여주기 위해서 index.html 에 간단한 닉네임 입력창을 넣어준다.</p>
+
+<figure class='code'><figcaption><span>index.html  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;title&gt;</span>JP Chat<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://code.jquery.com/jquery-1.7.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;/socket.io/socket.io.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">&quot;set-nickname&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;label&gt;</span>닉네임을 입력해주세요: <span class="nt">&lt;/label&gt;&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">id=</span><span class="s">&quot;nick&quot;</span> <span class="nt">/&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/form&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;nicknames&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>클라이언트에서도 jQuery &amp; socket.io를 쓰기위해서 jquery-1.7.min.js 와 socket.io.js 를 추가해 주었다.</p>
+
+<p>그러면 Web Server가 잘 동작하는지 확인해 보자. 터미널에서 다음과 같이 서버를 시작하고 브라우져에서 확인해보자.</p>
+
+<p><img class="center" src="/images/server.png" title="&#34;server&#34;" alt="&#34;server&#34;"></p>
+
+<p>브라우져에서 확인해보면 다음과 같이 input 박스를 확인할수 있다.</p>
+
+<p><img class="center" src="/images/web.png" title="&#34;client&#34;" alt="&#34;client&#34;"></p>
+
+<p>다음엔 닉네임 입력을 하고 채팅방에 join 하는 것을 구현해 보겠다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/14/octopress-write-post/">Octopress Posting 하기</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-14T09:19:00+09:00" pubdate data-updated="true">Nov 14<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/14/octopress-write-post/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>국내에 이외로 많은 분들이 Octopress를 써보고자 하는거 같다.</p>
+
+<p>그래서 이전에 설치하는 방법만 올렸었는데 간단하게 Octopress로 Posting하는 방법을 써볼까 한다.</p>
+
+<p>먼저 간단한 Posting하는 방법에 대해서 알아보자.</p>
+
+<p>Posting하는 과정을 간단하게 쭉 말해보면 rake new_post[제목] 명령어로 markdown 파일을 만들어서 내용을 작성하고 rake generate 명령어로 html 파일을 만들어서 rake preview 명령어로 작성된 post를 로컬에서 확인하고 rake deploy 명령어로 github에 올린다.</p>
+
+<p>이게 전부이다.</p>
+
+<p>자 그러면 하나씩 알아보자.</p>
+
+<h3>1. rake new_post[제목]</h3>
+
+<p>작성하고자 하는 post가 있다면 먼저 작성하고자 하는 페이지를 만들어야 한다. 나도 markdown 을 써본적이 없었지만 octopress를 사용하게 되면서 알게 되었다. 근데 워낙 사용방법 자체가 쉽기 때문에 따로 배울 필요없이 쓰다보면 자연스럽게 알게 되는거 같다.</p>
+
+<p>터미널에서 다음과 같이 명령어를 입력하면 markdown 파일이 생성된다.</p>
+
+<figure class='code'><figcaption><span>Markdown 파일 생성  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake new_post<span class="o">[</span><span class="s2">&quot;쓰려고 하는 post 제목&quot;</span><span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 터미널에서 입력하고 나면 octorpess/source/<em>posts/ 경로에 오늘 날짜와 입력한 제목이 조합된 이름으로 생성된 markdown 파일을 확인 할 수 있다. 날짜는 나중에 generate 해주면 octopress/</em>deploy/blog 안에 파일을 생성할때 날짜 부분을 가지고 디렉토리를 생성하기 위해서 필요한듯 하다.</p>
+
+<p>이렇게 파일이 생성되면 이제 octorpess/source/_posts/ 경로로 가서 markdown 파일을 열어서 post를 작성하면 되는데 파일을 열어보게 되면 다음과 같은 내용이 미리 들어가 있다.</p>
+
+<figure class='code'><figcaption><span>Markdown 파일 내용  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>---
+</span><span class='line'>layout: post
+</span><span class='line'>title: <span class="s2">&quot;쓰려고 하는 post 제목&quot;</span>
+</span><span class='line'>date: 2011-11-14 09:19
+</span><span class='line'>comments: <span class="nb">true</span>
+</span><span class='line'>categories:
+</span><span class='line'>---
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>레이아웃, 제목, 날짜, 댓글, 카테고리 설정부분 이다. 처음 파일 생성할때 썼던 제목이 들어가 있는데 이부분은 변경하면 post제목은 변경 할 수 있다. 또 날짜도 변경할수 있고 댓글 유무도 변경할수 있고 카테고리는 태그 같은 것인데 입력하는 방법이 몇가지가 있는데 방법은 다음과 같다.</p>
+
+<figure class='code'><figcaption><span>Categories 작성 방법  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>// 하나의 category 작성방법
+</span><span class='line'>categories: cate1
+</span><span class='line'>
+</span><span class='line'>// 두번째 여러개 category 작성방법1
+</span><span class='line'>categories: <span class="o">[</span>cate1, cate2, cate3<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>// 세번째 여러개 category 작성방법2
+</span><span class='line'>categories:
+</span><span class='line'>- cate1
+</span><span class='line'>- cate2
+</span><span class='line'>- cate3
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 세가지 category 작성방법이 있다. category는 post 하단부분에 다음과 같이 표시된다.</p>
+
+<p><img class="center" src="/images/category.png" title="&#34;category&#34;" alt="&#34;category&#34;">
+그냥 마음대로 사용하기 편한걸 선택해서 사용하면 될꺼 같다. 이제 작성하고자 하는 post를 작성하면 된다.</p>
+
+<h3>2. rake generate</h3>
+
+<p>작성한 post를 html로 만들어주는 과정이다. 터미널에서 다음과 같이 입력해주면 된다.</p>
+
+<figure class='code'><figcaption><span>Post generate  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake generate
+</span><span class='line'>Generating Site with Jekyll
+</span><span class='line'>unchanged sass/screen.scss
+</span><span class='line'>Configuration from /Users/jjp5023/octopress/_config.yml
+</span><span class='line'>Building site: <span class="nb">source</span> -&gt; public
+</span><span class='line'>Successfully generated site: <span class="nb">source</span> -&gt; public
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 입력하면 <em>config.yml 있는 설정을 적용하고, source 안에 있는 markdown 파일을 html로 변경하고, sass 를 css파일로 변경되는 작업이 일어난다. generate 된 것들은 octopress/</em>deploy 안에 들어가게 된다.</p>
+
+<h3>3. rake preview</h3>
+
+<p>octopress는 로컬에서 작성을 해서 github에 올리는 방식이다. 서버에 올리기전에 내가 작성한 post가 어떻게 보이는지 당연히 궁금하다. 그래서 로컬에서 미리보기가 가능하다.</p>
+
+<figure class='code'><figcaption><span>Post 미리보기  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake preview
+</span><span class='line'>Starting to watch <span class="nb">source </span>with Jekyll and Compass. Starting Rack on port 4000
+</span><span class='line'>Configuration from /Users/jjp5023/octopress/_config.yml
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  WEBrick 1.3.1
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  ruby 1.9.2 <span class="o">(</span>2011-07-09<span class="o">)</span> <span class="o">[</span>x86_64-darwin11.0.1<span class="o">]</span>
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> INFO  WEBrick::HTTPServer#start: <span class="nv">pid</span><span class="o">=</span>10385 <span class="nv">port</span><span class="o">=</span>4000
+</span><span class='line'>Auto-regenerating enabled: <span class="nb">source</span> -&gt; public
+</span><span class='line'><span class="o">[</span>2011-11-14 10:21:11<span class="o">]</span> regeneration: 505 files changed
+</span><span class='line'>&gt;&gt;&gt; Compass is watching <span class="k">for </span>changes. Press Ctrl-C to Stop.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>터미널에서 위와 같은 입력하면 여러 메시지와 함께 서버가 시작되고 http://localhost:4000 에서 확인 할 수 있게 된다. 서버를 멈추기 위해선 Ctrl + C 명령을 사용하면 된다.</p>
+
+<h3>4. rake deploy</h3>
+
+<p>이제 모든 posting 과정이 끝났다 이제 github 서버에 올리기만 하면 진짜로 posting이 끝나게 된다.
+다음과 같이 입력 한다.</p>
+
+<figure class='code'><figcaption><span>Post 올리기  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>rake deploy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 입력을 하면 github에 octopress/_deploy 안에 있는 파일들이 push가 되어서 github에 올라가게 된다. 여기서 push 란 git 명령어 인데 그냥 말그대로 서버에 밀어넣는 것을 말한다. 이렇게 하면 하나의 post를 작성해서 서버에 올리는 과정이 끝나게 된다.</p>
+
+<p>내 생각이지만 git을 잘 알지 못하여도 git push 개념만 알고 있다면 구지 git을 몰라도 octopress로 블로깅을 하는데 전혀 지장이 없다고 생각한다. 기억할껀 위 과정 하고 github에 올라가는 파일들은 octopress/_deploy 안에 있는 파일들이 라는 것인거 같다&#8230;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/07/goclipse-install/">Goclipse 설치</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-07T12:46:00+09:00" pubdate data-updated="true">Nov 7<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/07/goclipse-install/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>그동안 컴파일 언어를 제대로 사용해보지 않아서 인지 Go 언어를 공부하는데 컴파일 하는 부분이 나한테는 불편한 일이다. 그래서 IDE를 찾아보니 Goclipse라는 Eclipse에 plugin을 설치해서 사용하는 것이 있었다.</p>
+
+<p>그래서 간단하게 설치하고 사용하는 방법에 대해서 작성해 볼까 한다.</p>
+
+<h3>Eclipse 설치</h3>
+
+<p>Eclipse 에 Plugin 을 설치해서 사용하는 것이기 때문에 먼저 Eclipse가 설치 되어 있어야 한다.</p>
+
+<p>Eclipse <a href="http://www.eclipse.org/downloads/%20Eclipse">이곳</a> 에서 3.6 혹은 이상의 버전을 받아서 설치를 한다.</p>
+
+<h3>Goclipse plugin 설치</h3>
+
+<p>Eclipse 실행하고 Help > Install New Sofeware 를 선택한다.
+Work with 박스에 다음 URL을 입력하고 Add 버튼을 눌러서 Go Repository를 추가해다.</p>
+
+<figure class='code'><figcaption><span>Goclipse plugin  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>http://goclipse.googlecode.com/svn/trunk/goclipse-update-site/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>쭉 설치를 진행하시고 Eclipse를 다시 시작한다.</p>
+
+<p>환경설정 창을 열어서 Go 메뉴에서 PATH를 설정해준다. PATHA는 설치할때 설정한 .bash_profile 내용을 참고해서 설정한다.</p>
+
+<p><img class="center" src="/images/goclipse.png" title="&#34;goclipse 환경설정&#34;" alt="&#34;goclipse 환경설정&#34;"></p>
+
+<h3>Hello World 실행</h3>
+
+<p>Hello World 코드를 작성하고 터미널에서 컴파일 작업을 따로 할 필요없이 Eclipse에서 Run 해서 Eclipse Console 창에서 결과를 볼수 있다.</p>
+
+<p><img class="center" src="/images/goclipse_run.png" title="&#34;goclipse 환경설정&#34;" alt="&#34;goclipse 환경설정&#34;"></p>
+
+<h3>참고 URL</h3>
+
+<ul>
+<li><a href="http://code.google.com/p/goclipse/%20http://code.google.com/p/goclipse/">http://code.google.com/p/goclipse/</a></li>
+<li><a href="http://juhoi.tistory.com/46%20http://juhoi.tistory.com/46">http://juhoi.tistory.com/46</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/04/start-go-language/">Start Go Language</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-04T10:36:00+09:00" pubdate data-updated="true">Nov 4<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/11/04/start-go-language/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Go[for]it 세미나에 다녀온 후로 Go 언어에 관심이 가기 시작했다.</p>
+
+<p>그동안 컴파일 언어를 제대로 공부해본적이 없어서 인지 재미도 있는거 같고 스크립트 언어와 또다른 재미가 있는거 같다.</p>
+
+<p>Go[for]it 세미나에 가기전에 MBA에서 제대로 PATH설정 문제로 인해서 컴파일이 제대로 되지 않았는데 세미나에 다녀온 후로는 신기하게도 PATH설정 문제도 해결되고 Goclipse 를 알게 되어서 좀더 편하게 공부 할 수 있게 되었다. 그래서 일단 기본인 설치부터 Goclipse 설정까지 정리해보고 Hello World까지 정리해 볼까 한다.</p>
+
+<h3>Go 설치</h3>
+
+<p>현재 MAC을 쓰고 있기 때문에 MAC 기준으로 설명을 하겠다.
+우선 저장소에서 Go를 받아 와야 한다. 그러기 위해서는 <a href="http://mercurial.selenic.com/wiki/Download" title="Mercurial">Mercurial</a> 이 필요하다.</p>
+
+<p>hg 명령이 동작하는지 확인하고 만약 동작하지 않는다면 다음과 같은 명령으로 설치 하면 된다.</p>
+
+<figure class='code'><figcaption><span>Mercurial Install  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo easy_install mercurial
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>혹 위 과정이 진행이 되지 않는다면 <a href="http://www.python.org/download/" title="python">python</a>, <a href="http://pypi.python.org/pypi/setuptools" title="setuptools">setuptools</a>이 설치가 안되어 있을수도 있다. python, setuptools 설치 과정을 먼저 진행하시면 됩니다.</p>
+
+<p>위에서 <a href="http://peak.telecommunity.com/DevCenter/EasyInstall" title="easy_install">easy_install</a> 은 python에서 사용되는 패키지 관리해주는 파이썬 모듈이라고 한다.</p>
+
+<h3>저장소에서 가져오기</h3>
+
+<p>이제 mercurial을 통해서 다음과 같이 실행하면 저장소에서 있는 소스를 go 디렉토리에 가져오게 된다.</p>
+
+<figure class='code'><figcaption><span>Go clone  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>hg clone -u release https://go.googlecode.com/hg/ go
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>PATH설정</h3>
+
+<p>빌드를 진행하기전에 PATH설정을 먼저 하는것이 좋은거 같다. 처음 아무것도 모르고 설치를 진행 했을때 제대로 go 컴파일이 안되었던것이 PATH문제 였는데 검색을 해서 보고, all.bash 파일을 열어보면  빌드과정 소스에 PATH를 통해서 진행되는걸 확인 할 수 있다. 그래서 빌드 하기전에 다음과 같이 PATH를 먼저 설정한다.</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nb">export </span><span class="nv">GOROOT</span><span class="o">=</span><span class="nv">$HOME</span>/go
+</span><span class='line'><span class="nb">export </span><span class="nv">GOOS</span><span class="o">=</span>darwin
+</span><span class='line'><span class="nb">export </span><span class="nv">GOARCH</span><span class="o">=</span>386
+</span><span class='line'><span class="nb">export </span><span class="nv">GOBIN</span><span class="o">=</span><span class="nv">$HOME</span>/go/bin
+</span><span class='line'><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HOME</span>/go/bin
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>각 PATH에 관한 설명은 다음과 같다.</p>
+
+<ul>
+<li>GOROOT</li>
+</ul>
+
+
+<p>Go 트리에서 루트는 $HOME/go. 해당 디렉토리의 부모 디렉토리를 기본으로 하며 all.bash가 실행되는 디렉토리다. $GOROOT를 설정하지 않으면 makefile을 이용해서 Go 프로그램을 개발할 때 반드시 make나 gmake 대신에 gomake를 실행해야 한다.</p>
+
+<ul>
+<li>$GOOS 와 $GOARCH</li>
+</ul>
+
+
+<p>타겟 운영체제의 이름과 컴파일 구조. $GOHOSTOS와 $GOHOSTARCH 값들을 기본으로 한다.
+$GOOS는 리눅스, freebsd, darwin(맥 OS X 10.5 혹은 10.6), 윈도우(작업중). $GOARCH는 amd64(64-bit x86, 현재 가장 완성도 높음), 386(32-bit x86) 그리고 arm(32-bit ARM, 작업중). $GOOS와 $GOARCH의 사용가능한 조합은 다음과 같다.
+$GOOS    $GOARCH     비고
+darwin   386  <br/>
+darwin   amd64<br/>
+freebsd  386  <br/>
+freebsd  amd64<br/>
+linux    386  <br/>
+linux    amd64<br/>
+linux    arm     작업중
+windows  386     작업중</p>
+
+<ul>
+<li>$GOBIN</li>
+</ul>
+
+
+<p>바이너리가 설치된 위치. 기본값은 $GOROOT/bin이다. 설치 후, 해당 디렉토리를 $PATH에 추가하여 Go가 제공하는 여러 도구들을 사용할 수 있다.</p>
+
+<h3>Go 설치</h3>
+
+<p>다음과 같이 진행 하면 된다.</p>
+
+<figure class='code'><figcaption><span>Go Install  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>go/src
+</span><span class='line'><span class="nv">$ </span>./all.bash
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>모든 것이 잘 진행되면 다음과 같은 출력이 나온다.</p>
+
+<figure class='code'><figcaption><span>Go Install  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>ALL TESTS PASSED
+</span><span class='line'>
+</span><span class='line'>---
+</span><span class='line'>Installed Go <span class="k">for </span>darwin/386 in /Users/jjp5023/go.
+</span><span class='line'>Installed commands in /Users/jjp5023/go/bin.
+</span><span class='line'>*** You need to add /Users/jjp5023/go/bin to your <span class="nv">$PATH</span>. ***
+</span><span class='line'>The compiler is 8g.
+</span><span class='line'>
+</span><span class='line'>On OS X the debuggers must be installed setgrp procmod.
+</span><span class='line'>Read and run ./sudo.bash to install the debuggers.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Hello World</h3>
+
+<p>이제 설치가 끝났다. 모든 언어의 기초 Hello World를 찍어보자. 다음과 같은 코드를 작성해서 hello.go 를 만들어 보자.</p>
+
+<figure class='code'><figcaption><span>Go Hello World  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='go'><span class='line'><span class="k">package</span> <span class="n">main</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">import</span> <span class="s">&quot;fmt&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="n">fmt</span><span class="p">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">&quot;Helllo, World\n&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 작성한 후 컴파일을 다음과 같이 진행합니다.</p>
+
+<figure class='code'><figcaption><span>Go Hello World  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>8g hello.go
+</span><span class='line'><span class="nv">$ </span>8l hello.8
+</span><span class='line'><span class="nv">$ </span>./8.out
+</span><span class='line'>Hello, World
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 Hello, World 가 찍힌것을 보았다면 이제 부터 본격적인 Go언어 공부를 할 준비는 끝났다.</p>
+
+<h3>Go 릴리즈 버전 관리</h3>
+
+<p>Go 는 아직도 개발중인 언어이기 때문에 자주 release 된다. <a href="http://code.google.com/p/golang-korea/wiki/GoInstall" title="Go install">Go install</a> 페이지 보면 다음과 같은 내용이 있다.</p>
+
+<blockquote><p>Mercurial 저장소에 release와 weekly라는 2개의 고정테그를 관리하고 있다. weekly 테그는 매주 한 번씩 갱신되고 프로젝트 개발을 경과를 추적하기를 원하는 경우 사용한다. release 테그는 빈번하지는 않고 weekly 테그 중에 안정성이 검증된 것에 사용한다.</p>
+
+<p>대부분 Go 사용자들은 최신 release 테그를 가진 Go를 설치하고 싶어할 것이다. 새로운 릴리즈는 golang-announce 메일링 리스트를 통해 공지한다.</p></blockquote>
+
+<p>그래서 현재 Go 를 최신 릴리즈로 갱신 하려면 다음과 같이 진행하면 된다.</p>
+
+<figure class='code'><figcaption><span>Go Update  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>go/src
+</span><span class='line'><span class="nv">$ </span>hg pull
+</span><span class='line'><span class="nv">$ </span>hg update release
+</span><span class='line'><span class="nv">$ </span>./all.bash
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이렇게 해서 Go 설치와 실행, 업데이트 하는 방법까지 알아봤다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/28/go-lang/">Go[for]it 세미나 후기</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-28T19:11:00+09:00" pubdate data-updated="true">Oct 28<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/28/go-lang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><img class="center" src="/images/golang.png" title="&#34;golang&#34;" alt="&#34;golang&#34;"></p>
+
+<p>먼저 신제용, 김종민 두 분께 발표하느라 고생하셨다는 말과 좋은 자리 마련해주신 권순선님께 감사의 말씀을 전해 드리고 싶다.</p>
+
+<p>업무나 관심에 있어서 주언어는 Javascript이지만 나는 왠지 다른 언어에도 관심이 간다. 다른 언어들의 문법은 어떤지 또 Javascript랑은 어떤 부분에서 어떤 차이가 있는지 등 요런 부분에 관심을 가지고 있어서 Go Lang 세미나에 참석하게 되었다.</p>
+
+<p>Hellow Wolrd라도 돌려보고 참석하려고 했으나 PATH설정 문제로 컴파일이 잘 되지 않아서 예제 하나 돌려보지 못하고 참석하게 되었다.</p>
+
+<p>세미나는 구글 코리아에서 이루어 졌다. 처음 가봤는데 음료수를 마음껏 먹을 수 있다는 점에서 아주 만족스러웠다 ㅋ;</p>
+
+<p>첫 강사님의 발표는 Go언어에 대한 역사와 어디에 사용되는지등 Go언어에 대한 소개 시간이 였다. Go언어는 마치 예전에 NBA팀 시카고 불스의 전성기 때 처럼 Go언어는 최고의 드림팀이 만들었다고 한다. 소개를 보니 5명의 어마어마한 사람들이 모여서 만든듯 하다. 그 외에도 쓸수 있는곳 정식서버스, 역사 등 Go언어에 대해서 소개를 해주셨다. (자세한 내용은 밑에 대충;;)</p>
+
+<p>두번째 강사님은 실질적인 문법과 예제를 통해서 Go언어에 대해서 알려주셨다. 처음에는 이해 할 수 있었지만 Java, C, C++를 제대로 해보지 않은 터라 후반 부로 갈 수록 이해 못하는 용어들, 개념들이 나와서 좀 어려웠지만 얼추 어떤 내용인지는 감은 잡을 수 있었다.<br />
+무엇 보다 예제로 보여주신 url단축 서비스는 간단한 소스로 그런 서비스를 만들 수 있다는 것 만으로도 관심을 가지게 만들었다. 또 써보지는 않았지만 Google App Engine 에서 Go언어를 사용 할 수 있다는 점에서 웹 개발을 할 때도 유용하게 쓸수 있지 않을까 하는 생각이 들었다. 그리고 Go언어는 소스가 직관적이고 문법들이 쉬운거 같아서 배우기 쉬운 언어 인 같다.</p>
+
+<p>새로운 사람들 여러가지 언어를 접하고 관심있는 사람들 정말 재밌었던 분위기와 모임이였다. 앞으로 계속 적으로 이 모임에 참석하고 싶어 졌다.</p>
+
+<p>아래는 참고 사이트와 Go 언어 소개에서 나왔던 부분들이다.<br />설명듣느라 전부를 받아 적지는 못했지만
+한국어로 번역된 곳에 가면 거의 모든게 번역 되어 있는거 같다. 공부할때는 이곳을 참고 하면 좋을꺼 같다.</p>
+
+<h3>Go Lang 관련 한국 사이트</h3>
+
+<ul>
+<li><a href="http://goloang.org" title="golang공식사이트">golang 공식사이트</a></li>
+<li><a href="http://groups.google.com/group/golang-korea" title="golang-korea">golang-korea 구룹스</a></li>
+<li><a href="http://code.google.com/p/golang-korea/" title="go언어 관련 자료를 한국어로 번역">go언어 관련 자료를 한국어로 번역</a></li>
+</ul>
+
+
+<h3>이런 곳에 써바</h3>
+
+<ul>
+<li>Web Server</li>
+<li>Web browsers</li>
+<li>Web crawlers</li>
+<li>Search indexers</li>
+<li>Compilers</li>
+<li>Programeing tools</li>
+<li>IDEs</li>
+<li>OS</li>
+</ul>
+
+
+<h3>정식서비스</h3>
+
+<ul>
+<li>Google App Engine</li>
+<li>Gcc 4.6.0 포함</li>
+<li>내년 초 Go version 1</li>
+<li>Android (?)</li>
+<li>Chrome (?)</li>
+</ul>
+
+
+<h3>Go 시작</h3>
+
+<ul>
+<li>2007년 9월</li>
+<li>Robert Griesemer, Ken Thompson and Rob Pike</li>
+</ul>
+
+
+<h3>형태 구성</h3>
+
+<ul>
+<li>2008년 중반</li>
+<li>설계가 대략 되었고 이제 구현(컴파일러, 런타임)</li>
+</ul>
+
+
+<h3>인력보강</h3>
+
+<ul>
+<li>Ian Lance Taylor and Russ Cox</li>
+</ul>
+
+
+<h3>도구</h3>
+
+<ul>
+<li>gomake</li>
+<li>goinstall - 패키지 시스템</li>
+<li>godoc - 로컬에서 go 문서를 볼 수 있는 도구</li>
+<li>gofix - 버전 바뀌었을 때를 위해 프로그래머를 보조하는 도구.</li>
+<li>gofmt - 코딩 컨벤션을 맞춰주는 시스템</li>
+<li>gotest - 단위 테스트.</li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/04/03/event-capturing-bubbling/">Event Capturing Bubbling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/12/02/wysiwyg-editor/">간단한 WYSIWYG Editor 만들기</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/29/node-chat3/">Node.js 이용해서 chat을 만들어보자[3]</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/21/node-chat2/">Node.js 이용해서 chat을 만들어보자[2]</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/21/seminar-postscript/">OctoverSky.js & JScamp 후기</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/J2P">@J2P</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'J2P',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("J2P_", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/J2P_" class="twitter-follow-button" data-show-count="false">Follow @J2P_</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - J2P -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'j2poctopressblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

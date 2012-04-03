@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: language | J2P Blog]]></title>
+  <link href="http://J2P.github.com/blog/categories/language/atom.xml" rel="self"/>
+  <link href="http://J2P.github.com/"/>
+  <updated>2012-04-03T11:52:40+09:00</updated>
+  <id>http://J2P.github.com/</id>
+  <author>
+    <name><![CDATA[J2P]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[go[for]it 세미나 후기]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/28/go-lang/"/>
+    <updated>2011-10-28T19:11:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/28/go-lang</id>
+    <content type="html"><![CDATA[<p><img class="center" src="/images/golang.png" title="&#34;golang&#34;" alt="&#34;golang&#34;"></p>
+
+<p>먼저 신제용, 김종민 두 분께 발표하느라 고생하셨다는 말과 좋은 자리 마련해주신 권순선님께 감사의 말씀을 전해 드리고 싶다.</p>
+
+<p>업무나 관심에 있어서 주언어는 Javascript이지만 나는 왠지 다른 언어에도 관심이 간다. 다른 언어들의 문법은 어떤지 또 Javascript랑은 어떤 부분에서 어떤 차이가 있는지 등 요런 부분에 관심을 가지고 있어서 Go Lang 세미나에 참석하게 되었다.</p>
+
+<p>Hellow Wolrd라도 돌려보고 참석하려고 했으나 PATH설정 문제로 컴파일이 잘 되지 않아서 예제 하나 돌려보지 못하고 참석하게 되었다.</p>
+
+<p>세미나는 구글 코리아에서 이루어 졌다. 처음 가봤는데 음료수를 마음껏 먹을 수 있다는 점에서 아주 만족스러웠다 ㅋ;</p>
+
+<p>첫 강사님의 발표는 Go언어에 대한 역사와 어디에 사용되는지등 Go언어에 대한 소개 시간이 였다. Go언어는 마치 예전에 NBA팀 시카고 불스의 전성기 때 처럼 Go언어는 최고의 드림팀이 만들었다고 한다. 소개를 보니 5명의 어마어마한 사람들이 모여서 만든듯 하다. 그 외에도 쓸수 있는곳 정식서버스, 역사 등 Go언어에 대해서 소개를 해주셨다. (자세한 내용은 밑에 대충;;)</p>
+
+<p>두번째 강사님은 실질적인 문법과 예제를 통해서 Go언어에 대해서 알려주셨다. 처음에는 이해 할 수 있었지만 Java, C, C++를 제대로 해보지 않은 터라 후반 부로 갈 수록 이해 못하는 용어들, 개념들이 나와서 좀 어려웠지만 얼추 어떤 내용인지는 감은 잡을 수 있었다.<br />
+무엇 보다 예제로 보여주신 url단축 서비스는 간단한 소스로 그런 서비스를 만들 수 있다는 것 만으로도 관심을 가지게 만들었다. 또 써보지는 않았지만 Google App Engine 에서 Go언어를 사용 할 수 있다는 점에서 웹 개발을 할 때도 유용하게 쓸수 있지 않을까 하는 생각이 들었다. 그리고 Go언어는 소스가 직관적이고 문법들이 쉬운거 같아서 배우기 쉬운 언어 인 같다.</p>
+
+<p>새로운 사람들 여러가지 언어를 접하고 관심있는 사람들 정말 재밌었던 분위기와 모임이였다. 앞으로 계속 적으로 이 모임에 참석하고 싶어 졌다.</p>
+
+<p>아래는 참고 사이트와 Go 언어 소개에서 나왔던 부분들이다.<br />설명듣느라 전부를 받아 적지는 못했지만
+한국어로 번역된 곳에 가면 거의 모든게 번역 되어 있는거 같다. 공부할때는 이곳을 참고 하면 좋을꺼 같다.</p>
+
+<h3>Go Lang 관련 한국 사이트</h3>
+
+<ul>
+<li><a href="http://goloang.org" title="golang공식사이트">golang 공식사이트</a></li>
+<li><a href="http://groups.google.com/group/golang-korea" title="golang-korea">golang-korea 구룹스</a></li>
+<li><a href="http://code.google.com/p/golang-korea/" title="go언어 관련 자료를 한국어로 번역">go언어 관련 자료를 한국어로 번역</a></li>
+</ul>
+
+
+<h3>이런 곳에 써바</h3>
+
+<ul>
+<li>Web Server</li>
+<li>Web browsers</li>
+<li>Web crawlers</li>
+<li>Search indexers</li>
+<li>Compilers</li>
+<li>Programeing tools</li>
+<li>IDEs</li>
+<li>OS</li>
+</ul>
+
+
+<h3>정식서비스</h3>
+
+<ul>
+<li>Google App Engine</li>
+<li>Gcc 4.6.0 포함</li>
+<li>내년 초 Go version 1</li>
+<li>Android (?)</li>
+<li>Chrome (?)</li>
+</ul>
+
+
+<h3>Go 시작</h3>
+
+<ul>
+<li>2007년 9월</li>
+<li>Robert Griesemer, Ken Thompson and Rob Pike</li>
+</ul>
+
+
+<h3>형태 구성</h3>
+
+<ul>
+<li>2008년 중반</li>
+<li>설계가 대략 되었고 이제 구현(컴파일러, 런타임)</li>
+</ul>
+
+
+<h3>인력보강</h3>
+
+<ul>
+<li>Ian Lance Taylor and Russ Cox</li>
+</ul>
+
+
+<h3>도구</h3>
+
+<ul>
+<li>gomake</li>
+<li>goinstall - 패키지 시스템</li>
+<li>godoc - 로컬에서 go 문서를 볼 수 있는 도구</li>
+<li>gofix - 버전 바뀌었을 때를 위해 프로그래머를 보조하는 도구.</li>
+<li>gofmt - 코딩 컨벤션을 맞춰주는 시스템</li>
+<li>gotest - 단위 테스트.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New Language Dart]]></title>
+    <link href="http://J2P.github.com/blog/2011/10/12/new-language-dart/"/>
+    <updated>2011-10-12T06:15:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2011/10/12/new-language-dart</id>
+    <content type="html"><![CDATA[<p><img src="/images/dart.jpg" width="960" height="300" title="&#34;dart&#34;" alt="&#34;dart&#34;"></p>
+
+<p>Google 에서 새로운 언어 Dart를 10일 발표했나보다.
+써있는거 보면 구조화된 웹 애플리케이션 구축에 적합한 개발언어라고 한다.
+여기 저기 한국에 올라온 기사를 보면 대충 모 이런 내용이다.</p>
+
+<blockquote><p>작고 비구조적인 프로젝트나 크고 구조적인 프로젝트 모두 활용할 수 있는 개발언어로 모바일 단말기나 서버에서도 고성능을 발휘하는 웹 애플리케이션을 만들기에 적합하다.</p>
+
+<p>클래스 기반으로 돼 있으며, 좀 더 단순하고 효과적이다.</p>
+
+<p>브라우저에 내장된 가상머신(VM)에서 실행되거나 컴파일러에서 자바스크립트로 변환해 실행된다.
+구글은 자사의 크롬 브라우저에 다트 VM을 내장할 계획이다.</p></blockquote>
+
+<h2>Dart Link</h2>
+
+<h3>Site</h3>
+
+<ul>
+<li><a href="http://dartinside.com" title="http://dartinside.com">Dart inside</a></li>
+<li><a href="http://dartlang.org" title="http://dartlang.org">Dart home page</a></li>
+<li><a href="http://dart.googlecode.com" title="http://dart.googlecode.com">Dart on google code</a></li>
+<li><a href="https://groups.google.com/a/dartlang.org/group/misc/topics" title="https://groups.google.com/a/dartlang.org/group/misc/topics">Dart groups</a></li>
+</ul>
+
+
+<h3>Twitter</h3>
+
+<ul>
+<li><a href="https://twitter.com/#!/dart_lang" title="@dart_lang">@dart_lang</a></li>
+<li><a href="https://twitter.com/#!/DartInside" title="@DartInside">@DartInside</a></li>
+</ul>
+
+
+<h3>Post</h3>
+
+<ul>
+<li><a href="http://blogs.perl.org/users/rafael_garcia-suarez/2011/10/why-dart-is-not-the-language-of-the-future.html" title="Why Dart is not the language of the future">Why Dart is not the language of the future</a></li>
+<li><a href="http://gototoday.dk/2011/10/10/lars-bak-on-dart/" title="Lars Bak on Dart">Lars Bak on Dart</a></li>
+</ul>
+
+
+<h3>News</h3>
+
+<ul>
+<li><a href="http://www.zdnet.co.kr/news/news_view.asp?artice_id=20111011094220&amp;type=xml" title="구글 웹앱 언어 '다트'…자바스크립트 대체?">구글 웹앱 언어 '다트'…자바스크립트 대체?</a></li>
+<li><a href="http://news.inews24.com/php/news_view.php?g_serial=609412&amp;g_menu=020600&amp;rrf=nv" title="구글, 新프로그래밍언어 '다트' 발표">구글, 新프로그래밍언어 '다트' 발표</a></li>
+<li><a href="http://www.ddaily.co.kr/news/news_view.php?uid=83234" title="구글, 새로운 개발 언어 ‘다트’…웹 개발 전용">구글, 새로운 개발 언어 ‘다트’…웹 개발 전용</a></li>
+</ul>
+
+
+<h3>Video</h3>
+
+<iframe width="600" height="480" src="http://www.youtube.com/embed/M0lfNw8Tyhc" frameborder="0" allowfullscreen></iframe>
+
+
+<iframe width="600" height="480" src="http://www.youtube.com/embed/24LIzl7cM2c" frameborder="0" allowfullscreen></iframe>
+
+
+<iframe width="600" height="480" src="http://www.youtube.com/embed/nqb-k9upqZ4" frameborder="0" allowfullscreen></iframe>
+
+
+<h2>나의 생각</h2>
+
+<p>Dart가 나오기전 Javascript 를 대체 할 것이라는 얘기가 돌아서 나는 새로 나올 언어가 궁금했었다.
+근데 막상 Dart 를 보고 나서 들었던 생각은 모랄까... 이게 모지? 다른 언어들 몇개 합쳐 논건가?? 이런 생각이 들었다.</p>
+
+<p>내가 다른 언어를 직접 써보질 않아서 인지 거리감도 생기고 현재로서는 브라우저에서 모두 지원하기 까지는 오랜 시간이 걸리지 않을까 싶다.</p>
+
+<p>vm을 브라우저에 내장해서 돌린다고 해도... 무겁지 않을까 하는 생각이 든다.</p>
+
+<p>지금까지 본것 만으로 생각해보면 Javascript보다 좀 빠르다는거?(이것도 직접 보지는 않았음) 빼고는 좋은 점을 모르겠다.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -9,7 +9,9 @@
   <meta name="author" content="J2P">
 
   
-  <meta name="description" content="Javascript를 개발할때 사용하거나 공부를 할때 해깔리고 어려운 부분중에 하나인 this에 대해서 내가 아는 부분을 정리해 볼까 한다. 나 또한 this에 대해서 많은 부분 해깔려 하던중 FRENDS의 AJ(@andrwj)의 강의를 듣고 확실한 개념을 잡을 수 &hellip;">
+  <meta name="description" content="예전에 FRENDS에서 Cappuccino 스터디 진행할때 참여해서 졸업작품으로 만들었던 숫자 이미지 찾기 게임이다.
+집에 애기가 있어서 인지 아기를 위한 게임을 만들어보고 싶어서 만들었던 것이다.
+만들고 난 후에 손도 안대고 어딘가에 숨어있던 것을 한번 꺼내봤다 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,176 +78,6 @@
     <div id="content">
       <div class="blog-index">
   
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/24/what-is-this/">Javascript에서 This란 무엇인가?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-24T10:30:00+09:00" pubdate data-updated="true">Oct 24<span>th</span>, 2011</time>
-        
-         | <a href="/blog/2011/10/24/what-is-this/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Javascript를 개발할때 사용하거나 공부를 할때 해깔리고 어려운 부분중에 하나인 <strong>this</strong>에 대해서 내가 아는 부분을 정리해 볼까 한다.</p>
-
-<p>나 또한 <strong>this</strong>에 대해서 많은 부분 해깔려 하던중 FRENDS의 AJ(<a href="https://twitter.com/#!/andrwj" title="andrwj">@andrwj</a>)의 강의를 듣고 확실한 개념을 잡을 수 있었다.</p>
-
-<p>AJ(<a href="https://twitter.com/#!/andrwj" title="andrwj">@andrwj</a>)가 말하는 <strong>this</strong>는 아주 간단했다.
-한마디로 정의 하면 다음과 같다.</p>
-
-<ul>
-<li>Method를 호출한 녀석</li>
-<li>쩜(.) 앞에 녀석</li>
-</ul>
-
-
-<p>그래도 몬지 잘 모를 수도 있고 오!! 라고 하며 감탄사를 내 뱉을 수도 있다. 지금 부터 예제를 통해서 <strong>this</strong> 에 대해서 알아보자.</p>
-
-<p>먼저 함수 몸체에서 사용되는 <strong>this</strong> 를 알아보자.
-내가 처음 <strong>this</strong> 에 대해서 알게 되었을때 제대로 알지 못하고 함수 안에서 사용하게 되면 그 함수의 property가 되는줄 알고 사용 했던 적이 있다. 하지만 확인을 해보면 함수 몸체에서 사용한 <strong>this</strong>는 window 를 갈이 키는 것이다.</p>
-
-<p>다음 소스코드를 확인해보자.</p>
-
-<figure class='code'><figcaption><span>Function in this  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">J2PFn</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">J2PName</span> <span class="o">=</span> <span class="s2">&quot;J2P&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">J2PFn</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nb">window</span><span class="p">);</span> <span class="c1">//콘솔창에서 확인</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><img class="center" src="/images/this.png"></p>
-
-<p>window method 에 window.J2PFn 이 있는것을 확인 할 수 있다. 어라? 근데 window.J2PName 도 같이 있다. 보통 생각했던 결과는 J2PFn 함수 안에서 this가 갈이키는 것은 당연히 함수자신(J2PFn)라고 생각을 한다.</p>
-
-<p>함수를 실행 할때 J2PFn(); 이렇게 실행을 한다. 하지만 결국 이것은 window.J2PFn() 하는것과 마찬가지 인 것이다.
-그렇다면 처음에 정의했던데로 생각해보자.</p>
-
-<p>&#8220;Method를 호출한 녀석&#8221; 즉 J2PFn() 을 호출한 window 가 되는것이고 또 &#8220;쩜 앞에 녀석&#8221; .J2PFn() 앞에 있는 window가 되는것이다.</p>
-
-<p>이제 두번째 예제를 보자. 함수의 몸체에 사용하는것은 위에 예제와 똑같다. 하지만 new 연산자로 객체를 생성하였다.
-객체를 생성하게 되면 함수 몸체에 있던 <strong>this</strong> 는 인스턴스된 객체에 property 가 된다.
-그래서 처음에 우리가 생각했던 J2PObj.J2PName 으로 접근이 가능하게 된다.</p>
-
-<p>다음 소스코드를 확인해보자.</p>
-
-<figure class='code'><figcaption><span>Function in this  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">J2PFn</span><span class="p">(){</span>
-</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">J2PName</span> <span class="o">=</span> <span class="s2">&quot;J2P&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">var</span> <span class="nx">J2PObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">J2PFn</span><span class="p">();</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">J2PObj</span><span class="p">);</span> <span class="c1">//콘솔창에서 확인</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><img class="center" src="/images/this2.png"></p>
-
-<p>처음 우리가 생각했던 <strong>this</strong>가 바로 요런것이 였을것이다.</p>
-
-<p>위 2개의 예제에서 볼 수 있듯이 함수 안에서 사용되는 <strong>this</strong>는 인스턴스가 되지 않으면 우리가 생각했던 this가 되지 않는 것이다.</p>
-
-<p>이제 세번째 예제를 보자. 세번째 예제는 Element 에서 이벤트를 발생할때 사용되는 <strong>this</strong> 이다.
-어쩌면 이것이 가장 많이 사용되는지도 모르겠다.</p>
-
-<p>다음 소스코드를 확인해보자.</p>
-
-<figure class='code'><figcaption><span>Element in this  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;img.gif&quot;</span> <span class="na">alt=</span><span class="s">&quot;photo&quot;</span> <span class="na">onclick=</span><span class="s">&quot;J2PFn(this);&quot;</span> <span class="na">onmouseover=</span><span class="s">&quot;J2PFn2(this.src)&quot;</span> <span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>click 이벤트가 발생한 경우 함수를 호출 할때 <strong>this</strong>를 인자 값으로 넘겨주는 경우가 있을것이다.
-또 mouseover 이벤트가 발생할 경우에도 image의 src를 변경해서 이미지를 변경시키는 경우에도 this.src라는 값일 인자로 넘겨주기도 할 것이다.</p>
-
-<p>그렇다면 여기서 <strong>this</strong>는 무엇인가? 요부분을 해깔려 하는 경우가 있을 것이다.
-자세히 보면 정말 간단하다. click 이벤트나 mouseover 이벤트는 img가 호출을 시킨것이다. 그리고 이벤트를 element에 써주지 않고 따로 스크립트에서 처리는 한다면 더 명확하게 알 수 있다. 다음 소스를 보자.</p>
-
-<figure class='code'><figcaption><span>Element in this  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;a</span> <span class="na">id=</span><span class="s">&quot;blog-link&quot;</span> <span class="na">href=</span><span class="s">&quot;http://j2p.kr&quot;</span><span class="nt">&gt;</span>J2P<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
-</span><span class='line'>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;blog-link&quot;</span><span class="p">).</span><span class="nx">onclick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;blog-link&quot;</span><span class="p">).</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;mouseover&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
-</span><span class='line'>  <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
-</span><span class='line'><span class="nt">&lt;/script&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>이제 처음에 말했다 <strong>this</strong>의 정의 대로 해석해 보자.</p>
-
-<p>&#8220;Method를 호출한 녀석&#8221; onclick를 호출한 녀석이 누구인가? 바로 blog-link 아이디 값을 가지고 있는 Element a 태그이다.</p>
-
-<p>쩜(.) 앞에 녀석 .onclick 앞에 있는 녀석은 누구인가? document.getElementById(&#8220;blog-link&#8221;) 이다.</p>
-
-<p>소스코드에서 두번쨰 addEventListener 땜에 해깔릴수도 있을거 같은데 결국 저것도 mouseover 이벤트를 걸어주는것이기 때문에 mouseover 이벤트가 실행될때를 생각해보면 <strong>this</strong> 정의한 것으로 생각해보면 똑같은 결과가 나온다.</p>
-
-<p>이렇게 <strong>this</strong>에 대한 설명이 끝났다 사실 경우가 더 있지만 위에 3가지 정도만 알고 있다면 다른 <strong>this</strong>를 의해는데는 그렇게 크게 어렵지 않을꺼라 생각한다. 무엇보다 가장 쉬운 방법은 console.log 찍어보는 눈으로 확인하는것이라고 생각한다.</p>
-</div>
-  
-  
-
-
-    </article>
   
   
     <article>
@@ -1380,6 +1212,73 @@ console에 나와 있는 화살표를 눌러서 자세하게 확인 할 수도 �
 
     </article>
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/07/javascript-global-object/">Javascript Global Object</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-07T06:44:00+09:00" pubdate data-updated="true">Oct 7<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/07/javascript-global-object/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Global Object</h2>
+
+<p>Javascript에는 Global Object가 있다.<br />
+쉽게 말하면 Javascript에서 기본적으로 제공되는 전역객체 이다.<br />
+어떤것들이 있는지 알아보자.<br /></p>
+
+<ul>
+<li>Array</li>
+<li>Boolean</li>
+<li>Date</li>
+<li>Function</li>
+<li>Number</li>
+<li>Object</li>
+<li>RegExp</li>
+<li>String</li>
+</ul>
+
+
+<p>Javascript Core 부분을 공부할때 나오는 것들이지만 자세히 보지 않고 지나처 버려 잘 알지 못하는 것들이다.</p>
+
+<p>보통 Javascript를 공부한다고 하면 DOM 부터 공부를 많이 하게 된다.
+이유를 생각해보면 간단하다 당장 웹페이지 개발을 할때 써야 할 것 들은 DOM을 조작하는 일이 많기 때문에 DOM을 먼저 공부하게 되고 Core 부분은 그냥 넘어가 버리게 되고 만다.<br />
+이렇게 되면서 어느덧 DOM이 Javascript인것 처럼 여겨 지게 된거 같다. 실질적으로 DOM은 Javascript 가 아니다 단지 Javascript 로 DOM 을 접근할 수 있는 DOM API가 있을 뿐이다.
+<a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf" title="ECMAScript">ECMAScript</a>에서도 확인해보면 DOM 은 나와 있지 않다.</p>
+
+<p>내가 생각하는 Javascript 를 공부할때 우선 순위는 Global Object(Core)를 알고 그것들의 Property, Method를 아는게 Javascript의 기초라고 생각한다.
+Global Object 의 Method를 알고 나면 내가 숫자, 문자, 배열을 만들었을때 자신이 만들지도 않은 Method를 왜 쓸수 있는지 또 prototype은 무엇인지 궁금하게 되고 자연스럽게 공부 할 수 있다고 생각한다.</p>
+
+<p>나도 그동안 소홀했던 부분을 이제 부터 차근차근 Core 부분의 Global Object의 Method 를 정리 해볼까 한다.<br />
+항상 블로그를 만들고 마음을 먹고 정리하다 보면 Array Method만 하다가 끝났었는데 이번에는 꼭 끝까지 다 정리 하는 것을 목표로 하고 실천해 볼려고 한다.</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1397,10 +1296,6 @@ console에 나와 있는 화살표를 눌러서 자세하게 확인 할 수도 �
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2012/04/03/event-capturing-bubbling/">Event Capturing Bubbling</a>
-      </li>
-    
-      <li class="post">
         <a href="/blog/2011/12/02/wysiwyg-editor/">간단한 WYSIWYG Editor 만들기</a>
       </li>
     
@@ -1414,6 +1309,10 @@ console에 나와 있는 화살표를 눌러서 자세하게 확인 할 수도 �
     
       <li class="post">
         <a href="/blog/2011/11/21/seminar-postscript/">OctoverSky.js & JScamp 후기</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/14/node-chat/">Node.js 이용해서 chat을 만들어보자[1]</a>
       </li>
     
   </ul>

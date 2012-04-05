@@ -9,7 +9,7 @@
   <meta name="author" content="J2P">
 
   
-  <meta name="description" content="스터디를 진행하면서 다시 한번 알게 된것이 있어서 정리를 해볼까 한다. 보통 javascript 에서 click, over 등등&#8230; 이벤트가 발생하게 되면 target(예를들어 click한 element) 에서만 이벤트가 실행 된다고 생각하고 있을것이다. &hellip;">
+  <meta name="description" content="현재 개발 하고 있는 사이트에서는 Tinymce Editor 를 사용하고 있는데 plugin 으로 Editor 을 사용중에 back space를 누르거나 다른 페이지로 이동으로 하려고 할때 다음과 같은 modal 창이 뜬다. 실수로 인해서 작성했던 내용을 잊어버리지 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,120 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/05/beforeunload-event/">Web Editor Beforeunload Event 적용하기</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-05T09:40:00+09:00" pubdate data-updated="true">Apr 5<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/04/05/beforeunload-event/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>현재 개발 하고 있는 사이트에서는 Tinymce Editor 를 사용하고 있는데 plugin 으로 Editor 을 사용중에 back space를 누르거나 다른 페이지로 이동으로 하려고 할때 다음과 같은 modal 창이 뜬다.</p>
+
+<p><img class="center" src="/images/beforeunload_modal.png" title="&#34;modal&#34;" alt="&#34;modal&#34;"></p>
+
+<p>실수로 인해서 작성했던 내용을 잊어버리지 않기 위한 방한이다. 물론 자동저장 같은 기능을 지원하면 문제가 되지는 않겠지만 현재는 자동저장을 지원하고 있지 않기 때문에 문제가 됐던것이다.
+facebook 등 다른 웹사이트에서도 저런 창을 띄워서 확인 하는걸 알수 있다.</p>
+
+<p>이번 문제는 Tinymce Editor 을 사용하지 않는 곳에서 발생했다. 사용자는 실수로 인해서 back space를 눌렀고 작성했던 장문의 글을 날렸던것이다.</p>
+
+<p>처음에는 unload event 로 하면 될꺼라 생각했지만 아니 였다. 검색을 해봤더니 beforeunload 라는 event가 있는것을 알게 되었다.</p>
+
+<p>아래 예제소스를 보면서 사용방법을 알아보자.</p>
+
+<figure class='code'><figcaption><span>beforeunload event  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>          <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>              <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;beforeunload&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="k">return</span> <span class="s2">&quot;다른 페이지로 이동하면 편집한 내용이 취소됩니다.&quot;</span><span class="p">;</span>
+</span><span class='line'>              <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'>          <span class="c1">// IE</span>
+</span><span class='line'>          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>              <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onbeforeunload&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                      <span class="nx">event</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="s2">&quot;다른 페이지로 이동하면 편집한 내용이 취소됩니다.&quot;</span><span class="p">;</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>              <span class="p">});</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;textarea</span> <span class="na">id=</span><span class="s">&quot;editor&quot;</span><span class="nt">&gt;&lt;/textarea&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 onbeforeunload 를 써서 return 값에 moal 창에 보여주고자 하는 문구를 입력하면 된다.</p>
+
+<ul>
+<li>IE9 이하 버전에서는 event 객체를 받아서 returnValue 에 문구를 넣어주면 된다.</li>
+</ul>
+
+
+<p>경우에 따라서 editor 에 값이 있을경우에만 보여주고 싶다면 다음과 같이 수정하면 된다.
+값을 확인해서 value가 있을경우에만 return 을 해주면 된다.
+그리고 한가지 문제가 더 있었던건 저장을 할려고 할때 submit 을 하게 되면 저 이벤트가 발생을 하게 된다. 그래서 나는 submit 을 하기전에 event 를 삭제해서 해결했다.</p>
+
+<h3>참고</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en/DOM/window.onbeforeunload" title="MDN window.onbeforeunload">MDN window.onbeforeunload</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/ms536907.aspx" title="MSDN onbeforeunload event">MSDN onbeforeunload event</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1529,131 +1643,6 @@ windows  386     작업중</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2011/10/28/go-lang/">Go[for]it 세미나 후기</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-28T19:11:00+09:00" pubdate data-updated="true">Oct 28<span>th</span>, 2011</time>
-        
-         | <a href="/blog/2011/10/28/go-lang/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img class="center" src="/images/golang.png" title="&#34;golang&#34;" alt="&#34;golang&#34;"></p>
-
-<p>먼저 신제용, 김종민 두 분께 발표하느라 고생하셨다는 말과 좋은 자리 마련해주신 권순선님께 감사의 말씀을 전해 드리고 싶다.</p>
-
-<p>업무나 관심에 있어서 주언어는 Javascript이지만 나는 왠지 다른 언어에도 관심이 간다. 다른 언어들의 문법은 어떤지 또 Javascript랑은 어떤 부분에서 어떤 차이가 있는지 등 요런 부분에 관심을 가지고 있어서 Go Lang 세미나에 참석하게 되었다.</p>
-
-<p>Hellow Wolrd라도 돌려보고 참석하려고 했으나 PATH설정 문제로 컴파일이 잘 되지 않아서 예제 하나 돌려보지 못하고 참석하게 되었다.</p>
-
-<p>세미나는 구글 코리아에서 이루어 졌다. 처음 가봤는데 음료수를 마음껏 먹을 수 있다는 점에서 아주 만족스러웠다 ㅋ;</p>
-
-<p>첫 강사님의 발표는 Go언어에 대한 역사와 어디에 사용되는지등 Go언어에 대한 소개 시간이 였다. Go언어는 마치 예전에 NBA팀 시카고 불스의 전성기 때 처럼 Go언어는 최고의 드림팀이 만들었다고 한다. 소개를 보니 5명의 어마어마한 사람들이 모여서 만든듯 하다. 그 외에도 쓸수 있는곳 정식서버스, 역사 등 Go언어에 대해서 소개를 해주셨다. (자세한 내용은 밑에 대충;;)</p>
-
-<p>두번째 강사님은 실질적인 문법과 예제를 통해서 Go언어에 대해서 알려주셨다. 처음에는 이해 할 수 있었지만 Java, C, C++를 제대로 해보지 않은 터라 후반 부로 갈 수록 이해 못하는 용어들, 개념들이 나와서 좀 어려웠지만 얼추 어떤 내용인지는 감은 잡을 수 있었다.<br />
-무엇 보다 예제로 보여주신 url단축 서비스는 간단한 소스로 그런 서비스를 만들 수 있다는 것 만으로도 관심을 가지게 만들었다. 또 써보지는 않았지만 Google App Engine 에서 Go언어를 사용 할 수 있다는 점에서 웹 개발을 할 때도 유용하게 쓸수 있지 않을까 하는 생각이 들었다. 그리고 Go언어는 소스가 직관적이고 문법들이 쉬운거 같아서 배우기 쉬운 언어 인 같다.</p>
-
-<p>새로운 사람들 여러가지 언어를 접하고 관심있는 사람들 정말 재밌었던 분위기와 모임이였다. 앞으로 계속 적으로 이 모임에 참석하고 싶어 졌다.</p>
-
-<p>아래는 참고 사이트와 Go 언어 소개에서 나왔던 부분들이다.<br />설명듣느라 전부를 받아 적지는 못했지만
-한국어로 번역된 곳에 가면 거의 모든게 번역 되어 있는거 같다. 공부할때는 이곳을 참고 하면 좋을꺼 같다.</p>
-
-<h3>Go Lang 관련 한국 사이트</h3>
-
-<ul>
-<li><a href="http://goloang.org" title="golang공식사이트">golang 공식사이트</a></li>
-<li><a href="http://groups.google.com/group/golang-korea" title="golang-korea">golang-korea 구룹스</a></li>
-<li><a href="http://code.google.com/p/golang-korea/" title="go언어 관련 자료를 한국어로 번역">go언어 관련 자료를 한국어로 번역</a></li>
-</ul>
-
-
-<h3>이런 곳에 써바</h3>
-
-<ul>
-<li>Web Server</li>
-<li>Web browsers</li>
-<li>Web crawlers</li>
-<li>Search indexers</li>
-<li>Compilers</li>
-<li>Programeing tools</li>
-<li>IDEs</li>
-<li>OS</li>
-</ul>
-
-
-<h3>정식서비스</h3>
-
-<ul>
-<li>Google App Engine</li>
-<li>Gcc 4.6.0 포함</li>
-<li>내년 초 Go version 1</li>
-<li>Android (?)</li>
-<li>Chrome (?)</li>
-</ul>
-
-
-<h3>Go 시작</h3>
-
-<ul>
-<li>2007년 9월</li>
-<li>Robert Griesemer, Ken Thompson and Rob Pike</li>
-</ul>
-
-
-<h3>형태 구성</h3>
-
-<ul>
-<li>2008년 중반</li>
-<li>설계가 대략 되었고 이제 구현(컴파일러, 런타임)</li>
-</ul>
-
-
-<h3>인력보강</h3>
-
-<ul>
-<li>Ian Lance Taylor and Russ Cox</li>
-</ul>
-
-
-<h3>도구</h3>
-
-<ul>
-<li>gomake</li>
-<li>goinstall - 패키지 시스템</li>
-<li>godoc - 로컬에서 go 문서를 볼 수 있는 도구</li>
-<li>gofix - 버전 바뀌었을 때를 위해 프로그래머를 보조하는 도구.</li>
-<li>gofmt - 코딩 컨벤션을 맞춰주는 시스템</li>
-<li>gotest - 단위 테스트.</li>
-</ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1669,6 +1658,10 @@ windows  386     작업중</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/04/05/beforeunload-event/">Web Editor beforeunload event 적용하기</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/04/03/event-capturing-bubbling/">Event Capturing Bubbling</a>
       </li>
     
@@ -1682,10 +1675,6 @@ windows  386     작업중</p>
     
       <li class="post">
         <a href="/blog/2011/11/21/node-chat2/">Node.js 이용해서 chat을 만들어보자[2]</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2011/11/21/seminar-postscript/">OctoverSky.js & JScamp 후기</a>
       </li>
     
   </ul>

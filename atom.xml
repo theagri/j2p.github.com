@@ -4,7 +4,7 @@
   <title><![CDATA[J2P Blog]]></title>
   <link href="http://J2P.github.com/atom.xml" rel="self"/>
   <link href="http://J2P.github.com/"/>
-  <updated>2012-04-03T17:59:39+09:00</updated>
+  <updated>2012-04-05T10:47:27+09:00</updated>
   <id>http://J2P.github.com/</id>
   <author>
     <name><![CDATA[J2P]]></name>
@@ -12,6 +12,91 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Web Editor beforeunload event 적용하기]]></title>
+    <link href="http://J2P.github.com/blog/2012/04/05/beforeunload-event/"/>
+    <updated>2012-04-05T09:40:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2012/04/05/beforeunload-event</id>
+    <content type="html"><![CDATA[<p>현재 개발 하고 있는 사이트에서는 Tinymce Editor 를 사용하고 있는데 plugin 으로 Editor 을 사용중에 back space를 누르거나 다른 페이지로 이동으로 하려고 할때 다음과 같은 modal 창이 뜬다.</p>
+
+<p><img class="center" src="http://J2P.github.com/images/beforeunload_modal.png" title="&#34;modal&#34;" alt="&#34;modal&#34;"></p>
+
+<p>실수로 인해서 작성했던 내용을 잊어버리지 않기 위한 방한이다. 물론 자동저장 같은 기능을 지원하면 문제가 되지는 않겠지만 현재는 자동저장을 지원하고 있지 않기 때문에 문제가 됐던것이다.
+facebook 등 다른 웹사이트에서도 저런 창을 띄워서 확인 하는걸 알수 있다.</p>
+
+<p>이번 문제는 Tinymce Editor 을 사용하지 않는 곳에서 발생했다. 사용자는 실수로 인해서 back space를 눌렀고 작성했던 장문의 글을 날렸던것이다.</p>
+
+<p>처음에는 unload event 로 하면 될꺼라 생각했지만 아니 였다. 검색을 해봤더니 beforeunload 라는 event가 있는것을 알게 되었다.</p>
+
+<p>아래 예제소스를 보면서 사용방법을 알아보자.</p>
+
+<figure class='code'><figcaption><span>beforeunload event  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>          <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>              <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;beforeunload&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="k">return</span> <span class="s2">&quot;다른 페이지로 이동하면 편집한 내용이 취소됩니다.&quot;</span><span class="p">;</span>
+</span><span class='line'>              <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'>          <span class="c1">// IE</span>
+</span><span class='line'>          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>              <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onbeforeunload&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                      <span class="nx">event</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="s2">&quot;다른 페이지로 이동하면 편집한 내용이 취소됩니다.&quot;</span><span class="p">;</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>              <span class="p">});</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;textarea</span> <span class="na">id=</span><span class="s">&quot;editor&quot;</span><span class="nt">&gt;&lt;/textarea&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위와 같이 onbeforeunload 를 써서 return 값에 moal 창에 보여주고자 하는 문구를 입력하면 된다.</p>
+
+<ul>
+<li>IE9 이하 버전에서는 event 객체를 받아서 returnValue 에 문구를 넣어주면 된다.</li>
+</ul>
+
+
+<p>경우에 따라서 editor 에 값이 있을경우에만 보여주고 싶다면 다음과 같이 수정하면 된다.
+값을 확인해서 value가 있을경우에만 return 을 해주면 된다.
+그리고 한가지 문제가 더 있었던건 저장을 할려고 할때 submit 을 하게 되면 저 이벤트가 발생을 하게 된다. 그래서 나는 submit 을 하기전에 event 를 삭제해서 해결했다.</p>
+
+<h3>참고</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en/DOM/window.onbeforeunload" title="MDN window.onbeforeunload">MDN window.onbeforeunload</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/ms536907.aspx" title="MSDN onbeforeunload event">MSDN onbeforeunload event</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Event Capturing Bubbling]]></title>
@@ -2010,306 +2095,6 @@ nvm use <name> 하면 alias 한 이름으로 간단하게 원하는 버전을 �
 
 
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Become a Javascript Console Power User]]></title>
-    <link href="http://J2P.github.com/blog/2011/10/07/become-a-javascript-console-power-user/"/>
-    <updated>2011-10-07T06:45:00+09:00</updated>
-    <id>http://J2P.github.com/blog/2011/10/07/become-a-javascript-console-power-user</id>
-    <content type="html"><![CDATA[<iframe width="960" height="720" src="http://www.youtube.com/embed/4mf_yNLlgic?hd=1" frameborder="0" allowfullscreen></iframe>
-
-
-<p>Chrome, Firefox 에서 Javascript 개발을 하더라도 console 창에서 log(), dir() 만 사용했었다.<br />
-위 동영상을 보고 console에서 또 다른 기능 들에 대해서 알게되어 활용 할 수 있다면 javascript 개발을 좀더 손쉽게 할 수 있지 않을까 하는 생각이 들었다.<br />
-그래서 정리를 하고 확실히 알아 두기 위해서 Posting을 해볼까 한다.</p>
-
-<p>위 동영상에서 소개 되고 있는 기능들은 목록은 다음과 같다.</p>
-
-<ul>
-<li>XHR</li>
-<li>console.time / timeEnd</li>
-<li>console.dir() / dir()</li>
-<li>$o / inspect()</li>
-<li>$$</li>
-<li>monitorEvents()</li>
-<li>keys() / values()</li>
-<li>copy()</li>
-<li>super-cool Opera and Firebug</li>
-<li>more devtools</li>
-</ul>
-
-
-<p>위 동영상에서 사용되고 있는 소스는 다음과 같다.</p>
-
-<figure class='code'><figcaption><span>HTML </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&#39;http://fonts.googleapis.com/css?family=Merriweather|Droid+Sans+Mono&amp;v1&#39;</span> <span class="na">rel=</span><span class="s">&#39;stylesheet&#39;</span> <span class="na">type=</span><span class="s">&#39;text/css&#39;</span><span class="nt">&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;h1&gt;</span>be a console power-user<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">&lt;ul&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>XHR
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>console.time() / timeEnd()
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>console.dir() / dir()
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>$0 / inspect()
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>$$
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>monitorEvents()
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>keys()/values()
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>copy()
-</span><span class='line'>  <span class="nt">&lt;li&gt;</span>super-cool Opera and Firebug features
-</span><span class='line'>  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">&quot;//code.google.com/chrome/devtools&quot;</span> <span class="na">rel=</span><span class="s">&quot;prerender&quot;</span><span class="nt">&gt;</span>more devtools<span class="nt">&lt;/a&gt;</span>
-</span><span class='line'><span class="nt">&lt;/ul&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>CSS </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="nt">body</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">font-family</span><span class="o">:</span> <span class="n">Merriweather</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">font-size</span><span class="o">:</span> <span class="m">18px</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nt">textarea</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">width</span><span class="o">:</span> <span class="m">100</span><span class="o">%</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">height</span><span class="o">:</span> <span class="m">80px</span><span class="p">;</span>
-</span><span class='line'>  <span class="k">font-family</span><span class="o">:</span> <span class="n">Droid</span> <span class="n">Sans</span> <span class="n">Mono</span><span class="p">;</span>
-</span><span class='line'><span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>Javascript </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">ajax</span><span class="p">(){</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;/?&quot;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">(),</span> <span class="kc">true</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
-</span><span class='line'>        <span class="nx">txt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">);</span>
-</span><span class='line'>        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
-</span><span class='line'>        <span class="nx">txt</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="p">};</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">ajax</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>XHR</h2>
-
-<p><img class="center" src="http://J2P.github.com/images/console_xhr.png" title="&#34;XHR&#34;" alt="&#34;XHR&#34;"></p>
-
-<p>console 창에서 위와 같이 메뉴창을 열어서 Log XMLHttpRequests 를 선택해 두면 XMLHttpRequests가 발생할때 마다 콘솔에 XHLHttpRequest 로그를 표시해준다.</p>
-
-<p>Ajax를 이용해서 개발을 할때 기존에는 Network탭에서 확인하였지만 이렇게 직접 Console에서 바로바로 Ajax 호출을 확인할 수 있어서 개발할때 좋을꺼 같다.</p>
-
-<p>또 다른 사이트 분석을 할때도 어느 시점에 Ajax를 사용하는지 쉽게 볼 수 있다.</p>
-
-<h2>console.time() / console.timeEnd()</h2>
-
-<figure class='code'><figcaption><span>Javascript </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">ajax</span><span class="p">(){</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">(</span><span class="s1">&#39;ajax&#39;</span><span class="p">);</span> <span class="c1">//시작 지점</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;/?&quot;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">(),</span> <span class="kc">true</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
-</span><span class='line'>        <span class="nx">txt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">);</span>
-</span><span class='line'>        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
-</span><span class='line'>        <span class="nx">txt</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">(</span><span class="s1">&#39;ajax&#39;</span><span class="p">);</span> <span class="c1">// 끝나는 지</span>
-</span><span class='line'>    <span class="p">};</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">ajax</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Javascript 소스만 위와 같이 변경을 한다.</p>
-
-<p>실행을 해보면 다음과 같은 결과를 console에서 확인 할 수 있다.</p>
-
-<p><img class="center" src="http://J2P.github.com/images/console_time.png" title="&#34;time, timeEnd&#34;" alt="&#34;time, timeEnd&#34;"></p>
-
-<p>console.time console.timeEnd 는 결과와 같이 시작된 지점을 time() Method 와 끝나는 지점에 timeEnd() method를 써주고 인자 값으로 검사하고자 하는 함수 이름을 넘겨주면 소스코드가 실행된 시간을 화면에 출력해 준다.</p>
-
-<p>최근에 프로젝트를 진행하면서 for 문으로 하는것이 빠를지 jQuery 의 $.each 문으로 하는것이 빠른지 궁금했던적이 있다. 이런 경우 직접 눈으로 확인 할 수 있는 좋은 방법이라고 생각 한다.</p>
-
-<h2>console.dir() / dir()</h2>
-
-<figure class='code'><figcaption><span>Javascript </span><a href='http://jsfiddle.net/z2a7t/12/'>jsFiddle </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">function</span> <span class="nx">ajax</span><span class="p">(){</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="s2">&quot;/?&quot;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">(),</span> <span class="kc">true</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
-</span><span class='line'>        <span class="nx">txt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;textarea&#39;</span><span class="p">);</span>
-</span><span class='line'>        <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span>
-</span><span class='line'>        <span class="nx">txt</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">response</span><span class="p">;</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span> <span class="c1">//log</span>
-</span><span class='line'>        <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">txt</span><span class="p">);</span> <span class="c1">//dir</span>
-</span><span class='line'>    <span class="p">};</span>
-</span><span class='line'>    <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'>
-</span><span class='line'><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="nx">ajax</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Javascript 소스만 위와 같이 변경을 한다.</p>
-
-<p>실행을 해보면 다음과 같은 결과를 console에서 확인 할 수 있다.</p>
-
-<p><img class="center" src="http://J2P.github.com/images/console_dir.png" title="&#34;dir&#34;" alt="&#34;dir&#34;"></p>
-
-<p>위와 같이 log 는 단순하게 인자값으로 넘겨준것을 console 에 반환해서 찍어주고 dir은 인자값으로 넘겨준 값을 자세하게 그 안에 어떤것들이 들어있는지 method, property등 을 보여준다.</p>
-
-<p>HTMLTextAreaElement 앞에 화살표를 눌러보면 아래로 펼쳐 지면서 목록을 쭉 볼수 있다.
-나같은 경우는 dir을 지정한 객체가 method를 가지고 있는지 혹은 prototype을 공부할때 prototype 을 만들어서 상속했을때 어떻게 상속이 되는지 이런것을 확인 할때 주로 사용 했었다.</p>
-
-<p>동영상 예제에서 보면 dir()을 사용하는데 이건 소스에 그대로 사용해서 쓰면 오류가 발생한다.
-다음과 같은 오류가 발생한다.</p>
-
-<p><span style="color:red">Uncaught ReferenceError: txt is not defined</span></p>
-
-<h2>$0 / inspect()</h2>
-
-<p>먼저 inspect() method는 console 창에서 inspect() Method를 호출하면 인자값으로 넘겨주 Element를 Elements탭에서 선택된 상태로 표시해준다.
-페이지 에서 마우스 오른쪽 버튼을 누르고 &#8220;요소 검사&#8221; 검사를 통해서 선택하는거와 같은 기능이다.</p>
-
-<p>$0는 inspect() 를 통해서 선택된 기준으로 $0 는 현재 선택된 Element를 나타내고 숫자가 증가하면 이전에 선택했던 Element를 기억하고 있다가 차례대로 반환한다.</p>
-
-<h2>$$</h2>
-
-<p>동영상에 보면 bling bling function 이라고 부른다. 달러 표시를 그쪽에서는 그렇게 부르는듯 하다.
-console 창에서 $$ 를 입력해보면 다음과 같은 function 몸체를 볼수 있다.
-대략 봤을때 인자 값을 받아서 querySelectorAll Method를 통해서 Element 를 반환해주는 함수 인거 같다.
-<img class="center" src="http://J2P.github.com/images/console_$$.png" title="&#34;$$&#34;" alt="&#34;$$&#34;"></p>
-
-<p>예제로 확인해 보자. $$ 함수에 textarea 를 찾아보면 다음과 같이 textarea를 반환해 주는것을 확인 할 수 있다.</p>
-
-<p><img class="center" src="http://J2P.github.com/images/console_$$1.png" title="&#34;$$&#34;" alt="&#34;$$&#34;"></p>
-
-<p>document 상에 있는 textarea를 배열로 반환해 준다. 현재 페이지에 textarea가 하나밖에 없어서 하나만 나온것이고 li element를 확인해보면 배열로 여러개의 li element를 반환해 주는것을 볼 수 있다.</p>
-
-<h2>monitorEvents()</h2>
-
-<p>monitorEvents 함수는 인자값으로 받은 Element 에서 발행하는 Event를 모니터링 해주는 함수이다.</p>
-
-<p>예제를 확인해 보자.</p>
-
-<p><img class="center" src="http://J2P.github.com/images/console_monitor.png" title="&#34;monitorEvents&#34;" alt="&#34;monitorEvents&#34;"></p>
-
-<p>위와  같이 monitorEvents() 함수에 인자값으로 $$ 함수를 사용해서 textarea를 넘겨주면 textarea 위에서 발생하는 마우스 이벤트, 키보드 이벤트를 확인 할 수있다.
-console에 나와 있는 화살표를 눌러서 자세하게 확인 할 수도 있다.</p>
-
-<h2>keys() / values()</h2>
-
-<p>keys() , values() 함수는 다음 예제와 같이 인자값으로 넘겨준 값이 가지고 있는 모든 key 값과, value값을 console창에 반환해서 보여주는 함수이다.</p>
-
-<p><img class="center" src="http://J2P.github.com/images/console_keys.png" title="&#34;keys&#34;" alt="&#34;keys&#34;"></p>
-
-<p><img class="center" src="http://J2P.github.com/images/console_values.png" title="&#34;values&#34;" alt="&#34;values&#34;"></p>
-
-<h2>copy()</h2>
-
-<p>동영상에서 보면 알겠지만 copy() 함수는 console에 보여질 내용을 보기 힘들때 반환값을 copy 해서 다른 에디터라던지 등등 옴겨서 볼때 사용하는 함수이다.</p>
-
-<p>예제를 확인해 보면 copy함수를 통해서 keys 값을 복사 하는 것을 확인 할 수있다.</p>
-
-<p><img class="center" src="http://J2P.github.com/images/console_copy.png" title="&#34;copy&#34;" alt="&#34;copy&#34;"></p>
-
-<h2>super-cool Opera and Firebug</h2>
-
-<p>Opera의 <a href="http://www.opera.com/dragonfly" title="Dragonfly">Dragonfly</a></p>
-
-<p>FireFox의 <a href="http://getfirebug.com/" title="Firebug">Firebug</a></p>
-
-<p>이 두가지는 따로 얘기 하지 않고 링크만 걸어두겠다.</p>
-
-<h2>more devtools</h2>
-
-<p>more devtools 는 <a href="http://code.google.com/intl/ko-KR/chrome/devtools/docs/console.html" title="Chrome Developer Tools: Console">Chrome Developer Tools: Console</a> 에서 console에 대한 자세한 내용을 볼 수 있다는 설명입니다.</p>
-
-<p>설명에 보면 Console은 Firebug 의 <a href="http://getfirebug.com/wiki/index.php/Command_Line_API" title="Command Line API">Command Line API</a> 를 지원한다고 써 있습니다. 이곳에 가면 console에서 사용 할 수있는 API 를 자세하게 확인 할 수 있습니다.</p>
 ]]></content>
   </entry>
   

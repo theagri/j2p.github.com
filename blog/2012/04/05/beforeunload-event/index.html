@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>CSS Webkit Hack - J2P Blog</title>
+  <title>Web Editor beforeunload event 적용하기 - J2P Blog</title>
   <meta name="author" content="J2P">
 
   
-  <meta name="description" content="마크업 작업을 하다 보면 드물지만 webkit(chrome, safari)만 다르게 보일때가 있다. 이런 경우 css 에서 처리 해줄수 있는 방법이 이 없을까 하다가 검색해서 나온것이 media query를 이용한 것이였다. 사용 방법은 다음과 같다. 직접 CSS &hellip;">
+  <meta name="description" content="현재 개발 하고 있는 사이트에서는 Tinymce Editor 를 사용하고 있는데 plugin 으로 Editor 을 사용중에 back space를 누르거나 다른 페이지로 이동으로 하려고 할때 다음과 같은 modal 창이 뜬다. 실수로 인해서 작성했던 내용을 잊어버리지 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://J2P.github.com/blog/2011/10/17/css-webkit-hack">
+  <link rel="canonical" href="http://J2P.github.com/blog/2012/04/05/beforeunload-event">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -79,7 +79,7 @@
   
   <header>
     
-      <h1 class="entry-title">CSS Webkit Hack</h1>
+      <h1 class="entry-title">Web Editor Beforeunload Event 적용하기</h1>
     
     
       <p class="meta">
@@ -95,7 +95,7 @@
   
 
 
-<time datetime="2011-10-17T23:38:00+09:00" pubdate data-updated="true">Oct 17<span>th</span>, 2011</time>
+<time datetime="2012-04-05T09:40:00+09:00" pubdate data-updated="true">Apr 5<span>th</span>, 2012</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -104,38 +104,82 @@
   </header>
 
 
-<div class="entry-content"><p>마크업 작업을 하다 보면 드물지만 webkit(chrome, safari)만 다르게 보일때가 있다.</p>
+<div class="entry-content"><p>현재 개발 하고 있는 사이트에서는 Tinymce Editor 를 사용하고 있는데 plugin 으로 Editor 을 사용중에 back space를 누르거나 다른 페이지로 이동으로 하려고 할때 다음과 같은 modal 창이 뜬다.</p>
 
-<p>이런 경우 css 에서 처리 해줄수 있는 방법이 이 없을까 하다가</p>
+<p><img class="center" src="/images/beforeunload_modal.png" title="&#34;modal&#34;" alt="&#34;modal&#34;"></p>
 
-<p>검색해서 나온것이 media query를 이용한 것이였다.</p>
+<p>실수로 인해서 작성했던 내용을 잊어버리지 않기 위한 방한이다. 물론 자동저장 같은 기능을 지원하면 문제가 되지는 않겠지만 현재는 자동저장을 지원하고 있지 않기 때문에 문제가 됐던것이다.
+facebook 등 다른 웹사이트에서도 저런 창을 띄워서 확인 하는걸 알수 있다.</p>
 
-<p>사용 방법은 다음과 같다.</p>
+<p>이번 문제는 Tinymce Editor 을 사용하지 않는 곳에서 발생했다. 사용자는 실수로 인해서 back space를 눌렀고 작성했던 장문의 글을 날렸던것이다.</p>
 
-<h4>직접 CSS 파일에 입력할 경우</h4>
+<p>처음에는 unload event 로 하면 될꺼라 생각했지만 아니 였다. 검색을 해봤더니 beforeunload 라는 event가 있는것을 알게 되었다.</p>
 
-<figure class='code'><figcaption><span>webkit hack  </span></figcaption>
+<p>아래 예제소스를 보면서 사용방법을 알아보자.</p>
+
+<figure class='code'><figcaption><span>beforeunload event  </span></figcaption>
  <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='css'><span class='line'><span class="k">@media</span> <span class="nt">screen</span> <span class="nt">and</span><span class="o">(</span><span class="nt">-webkit-min-device-pixel-ratio</span><span class="nd">:0</span><span class="o">)</span><span class="p">{</span>
-</span><span class='line'>
-</span><span class='line'><span class="c">/* 이곳에 webkit용 CSS 를 작성하면 됩니다. */</span>
-</span><span class='line'>
-</span><span class='line'><span class="p">}</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;head&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;script&gt;</span>
+</span><span class='line'>          <span class="k">if</span> <span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>              <span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;beforeunload&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="k">return</span> <span class="s2">&quot;다른 페이지로 이동하면 편집한 내용이 취소됩니다.&quot;</span><span class="p">;</span>
+</span><span class='line'>              <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+</span><span class='line'>          <span class="c1">// IE</span>
+</span><span class='line'>          <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>              <span class="nb">window</span><span class="p">.</span><span class="nx">attachEvent</span><span class="p">(</span><span class="s1">&#39;onbeforeunload&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                  <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                      <span class="nx">event</span><span class="p">.</span><span class="nx">returnValue</span> <span class="o">=</span> <span class="s2">&quot;다른 페이지로 이동하면 편집한 내용이 취소됩니다.&quot;</span><span class="p">;</span>
+</span><span class='line'>                  <span class="p">}</span>
+</span><span class='line'>              <span class="p">});</span>
+</span><span class='line'>          <span class="p">}</span>
+</span><span class='line'>      <span class="nt">&lt;/script&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;body&gt;</span>
+</span><span class='line'>      <span class="nt">&lt;textarea</span> <span class="na">id=</span><span class="s">&quot;editor&quot;</span><span class="nt">&gt;&lt;/textarea&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h4>Webkit용 CSS 파일을 따로 만들어서 include 시킬 경우</h4>
+<p>위와 같이 onbeforeunload 를 써서 return 값에 moal 창에 보여주고자 하는 문구를 입력하면 된다.</p>
 
-<figure class='code'><figcaption><span>include css  </span></figcaption>
- <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">stylesheet</span> <span class="na">media=</span><span class="s">&quot;screen and min-device-pixel-ratio:0&quot;</span> <span class="na">href=</span><span class="s">&quot;webkit.css&quot;</span> <span class="nt">/&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li>IE9 이하 버전에서는 event 객체를 받아서 returnValue 에 문구를 넣어주면 된다.</li>
+</ul>
 
 
+<p>경우에 따라서 editor 에 값이 있을경우에만 보여주고 싶다면 다음과 같이 수정하면 된다.
+값을 확인해서 value가 있을경우에만 return 을 해주면 된다.
+그리고 한가지 문제가 더 있었던건 저장을 할려고 할때 submit 을 하게 되면 저 이벤트가 발생을 하게 된다. 그래서 나는 submit 을 하기전에 event 를 삭제해서 해결했다.</p>
+
+<h3>참고</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en/DOM/window.onbeforeunload" title="MDN window.onbeforeunload">MDN window.onbeforeunload</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/ms536907.aspx" title="MSDN onbeforeunload event">MSDN onbeforeunload event</a></li>
+</ul>
 
 </div>
 
@@ -159,12 +203,12 @@
   
 
 
-<time datetime="2011-10-17T23:38:00+09:00" pubdate data-updated="true">Oct 17<span>th</span>, 2011</time>
+<time datetime="2012-04-05T09:40:00+09:00" pubdate data-updated="true">Apr 5<span>th</span>, 2012</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/css/'>css</a>, <a class='category' href='/blog/categories/webkit/'>webkit</a>
+    <a class='category' href='/blog/categories/beforeunload/'>beforeunload</a>, <a class='category' href='/blog/categories/editor/'>editor</a>, <a class='category' href='/blog/categories/event/'>event</a>
   
 </span>
 
@@ -173,7 +217,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://J2P.github.com/blog/2011/10/17/css-webkit-hack/" data-via="J2P_" data-counturl="http://J2P.github.com/blog/2011/10/17/css-webkit-hack/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://J2P.github.com/blog/2012/04/05/beforeunload-event/" data-via="J2P_" data-counturl="http://J2P.github.com/blog/2012/04/05/beforeunload-event/" >Tweet</a>
   
   
   
@@ -184,10 +228,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2011/10/12/new-language-dart/" title="Previous Post: New Language Dart">&laquo; New Language Dart</a>
+        <a class="basic-alignment left" href="/blog/2012/04/03/event-capturing-bubbling/" title="Previous Post: Event Capturing Bubbling">&laquo; Event Capturing Bubbling</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2011/10/17/nvm-use-nodejs/" title="Next Post: NVM Use Node.JS">NVM Use Node.JS &raquo;</a>
       
     </p>
   </footer>
@@ -299,8 +341,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://J2P.github.com/blog/2011/10/17/css-webkit-hack/';
-        var disqus_url = 'http://J2P.github.com/blog/2011/10/17/css-webkit-hack/';
+        var disqus_identifier = 'http://J2P.github.com/blog/2012/04/05/beforeunload-event/';
+        var disqus_url = 'http://J2P.github.com/blog/2012/04/05/beforeunload-event/';
         var disqus_script = 'embed.js';
       
     (function () {

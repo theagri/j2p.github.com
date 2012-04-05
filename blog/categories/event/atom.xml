@@ -4,7 +4,7 @@
   <title><![CDATA[Category: event | J2P Blog]]></title>
   <link href="http://J2P.github.com/blog/categories/event/atom.xml" rel="self"/>
   <link href="http://J2P.github.com/"/>
-  <updated>2012-04-03T17:59:39+09:00</updated>
+  <updated>2012-04-05T10:47:27+09:00</updated>
   <id>http://J2P.github.com/</id>
   <author>
     <name><![CDATA[J2P]]></name>
@@ -12,6 +12,96 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Web Editor beforeunload event 적용하기]]></title>
+    <link href="http://J2P.github.com/blog/2012/04/05/beforeunload-event/"/>
+    <updated>2012-04-05T09:40:00+09:00</updated>
+    <id>http://J2P.github.com/blog/2012/04/05/beforeunload-event</id>
+    <content type="html"><![CDATA[<p>현재 개발 하고 있는 사이트에서는 Tinymce Editor 를 사용하고 있는데 plugin 으로 Editor 을 사용중에 back space를 누르거나 다른 페이지로 이동으로 하려고 할때 다음과 같은 modal 창이 뜬다.</p>
+
+<p><img class="center" src="/images/beforeunload_modal.png" title="&#34;modal&#34;" alt="&#34;modal&#34;"></p>
+
+<p>실수로 인해서 작성했던 내용을 잊어버리지 않기 위한 방한이다. 물론 자동저장 같은 기능을 지원하면 문제가 되지는 않겠지만 현재는 자동저장을 지원하고 있지 않기 때문에 문제가 됐던것이다.
+facebook 등 다른 웹사이트에서도 저런 창을 띄워서 확인 하는걸 알수 있다.</p>
+
+<p>이번 문제는 Tinymce Editor 을 사용하지 않는 곳에서 발생했다. 사용자는 실수로 인해서 back space를 눌렀고 작성했던 장문의 글을 날렸던것이다.</p>
+
+<p>처음에는 unload event 로 하면 될꺼라 생각했지만 아니 였다. 검색을 해봤더니 beforeunload 라는 event가 있는것을 알게 되었다.</p>
+
+<p>아래 예제소스를 보면서 사용방법을 알아보자.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>beforeunload event  </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;html&gt;&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;pre&gt;&lt;code&gt;</span><span class="ni">&amp;lt;</span>head<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>script<span class="ni">&amp;gt;</span>
+</span><span class='line'>        if (document.addEventListener) {
+</span><span class='line'>            window.addEventListener(&#39;beforeunload&#39;, function() {
+</span><span class='line'>                return &quot;다른 페이지로 이동하면 편집한 내용이 취소됩니다.&quot;;
+</span><span class='line'>            }, false);
+</span><span class='line'>        // IE
+</span><span class='line'>        } else {
+</span><span class='line'>            window.attachEvent(&#39;onbeforeunload&#39;, function(event) {
+</span><span class='line'>                if (event) {
+</span><span class='line'>                    event.returnValue = &quot;다른 페이지로 이동하면 편집한 내용이 취소됩니다.&quot;;
+</span><span class='line'>                }
+</span><span class='line'>            });
+</span><span class='line'>        }
+</span><span class='line'>    <span class="ni">&amp;lt;</span>/script<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/head<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>body<span class="ni">&amp;gt;</span>
+</span><span class='line'>    <span class="ni">&amp;lt;</span>textarea id=&quot;editor&quot;<span class="ni">&amp;gt;&amp;lt;</span>/textarea<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="ni">&amp;lt;</span>/body<span class="ni">&amp;gt;</span>
+</span><span class='line'><span class="nt">&lt;/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;p&gt;&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>위와 같이 onbeforeunload 를 써서 return 값에 moal 창에 보여주고자 하는 문구를 입력하면 된다.</p>
+
+<ul>
+<li>IE9 이하 버전에서는 event 객체를 받아서 returnValue 에 문구를 넣어주면 된다.</li>
+</ul>
+
+
+<p>경우에 따라서 editor 에 값이 있을경우에만 보여주고 싶다면 다음과 같이 수정하면 된다.
+값을 확인해서 value가 있을경우에만 return 을 해주면 된다.
+그리고 한가지 문제가 더 있었던건 저장을 할려고 할때 submit 을 하게 되면 저 이벤트가 발생을 하게 된다. 그래서 나는 submit 을 하기전에 event 를 삭제해서 해결했다.</p>
+
+<h3>참고</h3>
+
+<ul>
+<li><a href="https://developer.mozilla.org/en/DOM/window.onbeforeunload" title="MDN window.onbeforeunload">MDN window.onbeforeunload</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/ms536907.aspx" title="MSDN onbeforeunload event">MSDN onbeforeunload event</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Event Capturing Bubbling]]></title>
